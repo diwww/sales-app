@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">gcSales</string>
+    <string name="login_username_hint">Username</string>
+    <string name="login_password_hint">Password</string>
+    <string name="action_login">Login</string>
+    <string name="action_register">Register</string>
 </resources>
