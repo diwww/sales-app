@@ -4,4 +4,5 @@
     <string name="login_password_hint">Password</string>
     <string name="action_login">Login</string>
     <string name="action_register">Register</string>
+    <string name="undefined_text">undefined</string>
 </resources>
