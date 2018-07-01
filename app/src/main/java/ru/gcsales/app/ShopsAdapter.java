@@ -34,6 +34,12 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ShopViewHold
         Shop shop = mShops.get(position);
         holder.getShopNameTextView().setText(shop.getName());
         // TODO: download image from url
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: open new activity
+            }
+        });
     }
 
     @Override
