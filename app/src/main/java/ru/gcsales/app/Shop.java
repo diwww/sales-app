@@ -1,7 +1,8 @@
 package ru.gcsales.app;
 
 /**
- * Модель для магазина
+ * Shop model
+ *
  */
 class Shop {
 

@@ -1,7 +1,8 @@
 package ru.gcsales.app;
 
 /**
- * Модель для товара
+ * Product model
+ *
  */
 public class Product {
 
