@@ -1,8 +1,10 @@
 package ru.gcsales.app;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
- * Shop model
- *
+ * Class for storing shop model
  */
 class Shop {
 
@@ -48,5 +50,21 @@ class Shop {
 
     public void setImageUrl(String imageUrl) {
         mImageUrl = imageUrl;
+    }
+
+    /**
+     * Gets a {@link Shop} object from JSON
+     *
+     * @param object JSON object to be parsed
+     * @return new {@link Shop} instance
+     * @throws JSONException if an object cannot be parsed
+     */
+    public static Shop fromJSON(JSONObject object) throws JSONException {
+        int id = object.getInt("id");
+        String alias = object.getString("alias");
+        String name = object.getString("name");
+        String imageUrl = object.getString("imageUrl");
+
+        return new Shop(id, alias, name, imageUrl);
     }
 }

@@ -1,8 +1,10 @@
 package ru.gcsales.app;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
- * Product model
- *
+ * Class for storing product model
  */
 public class Product {
 
@@ -131,5 +133,32 @@ public class Product {
 
     public void setShop(Shop shop) {
         mShop = shop;
+    }
+
+    /**
+     * Gets a {@link Product} object from JSON
+     *
+     * @param object JSON object to be parsed
+     * @return new {@link Product} instance
+     * @throws JSONException if an object cannot be parsed
+     */
+    public static Product fromJSON(JSONObject object) throws JSONException {
+        int id = object.getInt("id");
+        String name = object.getString("name");
+        String category = object.getString("category");
+        double oldPrice = object.getDouble("oldPrice");
+        double newPrice = object.getDouble("newPrice");
+        String dateIn = object.getString("dateIn");
+        String dateOut = object.getString("dateOut");
+        String crawlDate = object.getString("crawlDate");
+        String condition = object.getString("condition");
+        String imageUrl = object.getString("imageUrl");
+        String discount = object.getString("discount");
+        Shop shop = Shop.fromJSON(object.getJSONObject("shop"));
+
+        return new Product(id, name, category,
+                oldPrice, newPrice, dateIn,
+                dateOut, crawlDate, condition,
+                imageUrl, discount, shop);
     }
 }
