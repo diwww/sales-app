@@ -11,12 +11,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdapter.ShoppingListViewHolder> {
+public class ShoppingListPreviewsAdapter extends RecyclerView.Adapter<ShoppingListPreviewsAdapter.ShoppingListViewHolder> {
 
     private List<ShoppingListPreview> mShoppingListPreviews = new ArrayList<>();
     private Context mContext;
 
-    public ShoppingListsAdapter(Context context) {
+    public ShoppingListPreviewsAdapter(Context context) {
         mContext = context;
     }
 
@@ -24,7 +24,7 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
     @Override
     public ShoppingListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_shopping_list, parent, false);
+                .inflate(R.layout.item_shopping_list_preview, parent, false);
         return new ShoppingListViewHolder(view);
     }
 

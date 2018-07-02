@@ -10,29 +10,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class ShoppingListsFragment extends Fragment {
+public class ShoppingListPreviewsFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
-    private ShoppingListsAdapter mShoppingListsAdapter;
+    private ShoppingListPreviewsAdapter mShoppingListPreviewsAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     private DividerItemDecoration mDividerItemDecoration;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_shopping_lists, container, false);
+        View root = inflater.inflate(R.layout.fragment_shopping_list_previews, container, false);
 
         mRecyclerView = root.findViewById(R.id.recycler_view_shopping_lists);
 
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        mShoppingListsAdapter = new ShoppingListsAdapter(getActivity());
-        mRecyclerView.setAdapter(mShoppingListsAdapter);
+        mShoppingListPreviewsAdapter = new ShoppingListPreviewsAdapter(getActivity());
+        mRecyclerView.setAdapter(mShoppingListPreviewsAdapter);
 
         mDividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
                 mLinearLayoutManager.getOrientation());
@@ -49,7 +48,7 @@ public class ShoppingListsFragment extends Fragment {
                                 "Мясо 3кг, Мираторг",
                                 "Мясо 3кг, Мираторг"),
                         Arrays.asList("Хлеб", "Молоко", "Вода", "Чай"));
-        mShoppingListsAdapter.setData(Arrays.asList(preview, preview, preview, preview));
+        mShoppingListPreviewsAdapter.setData(Arrays.asList(preview, preview, preview, preview));
 
         return root;
     }
@@ -60,9 +59,9 @@ public class ShoppingListsFragment extends Fragment {
      * @param bundle args to pass to a fragment
      * @return new fragment instance
      */
-    public static ShoppingListsFragment newInstance(Bundle bundle) {
-        ShoppingListsFragment shoppingListsFragment = new ShoppingListsFragment();
-        shoppingListsFragment.setArguments(bundle);
-        return shoppingListsFragment;
+    public static ShoppingListPreviewsFragment newInstance(Bundle bundle) {
+        ShoppingListPreviewsFragment shoppingListPreviewsFragment = new ShoppingListPreviewsFragment();
+        shoppingListPreviewsFragment.setArguments(bundle);
+        return shoppingListPreviewsFragment;
     }
 }
