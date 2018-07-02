@@ -1,5 +1,7 @@
 package ru.gcsales.app;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -50,5 +52,9 @@ public class LoginActivity extends AppCompatActivity {
                 // TODO: start RegisterActivity
             }
         });
+    }
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, LoginActivity.class);
     }
 }
