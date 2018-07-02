@@ -3,6 +3,7 @@ package ru.gcsales.app;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,8 +23,6 @@ public class ShopsFragment extends Fragment {
     private ShopsAdapter mShopsAdapter;
     private GridLayoutManager mGridLayoutManager;
 
-    private RecyclerView.LayoutManager mLayoutManager;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -31,8 +30,8 @@ public class ShopsFragment extends Fragment {
 
         mRecyclerView = root.findViewById(R.id.recycler_view_shops);
 
-        mLayoutManager = new GridLayoutManager(getActivity(), SPAN_COUNT);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        mGridLayoutManager = new GridLayoutManager(getActivity(), SPAN_COUNT);
+        mRecyclerView.setLayoutManager(mGridLayoutManager);
 
         mShopsAdapter = new ShopsAdapter(getActivity());
         mRecyclerView.setAdapter(mShopsAdapter);

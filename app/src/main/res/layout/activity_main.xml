@@ -11,9 +11,14 @@
         android:id="@+id/toolbar"
         style="@style/Toolbar" />
 
-    <fragment
-        android:id="@+id/fragment_shops"
-        android:name="ru.gcsales.app.ShopsFragment"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabMode="fixed" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
