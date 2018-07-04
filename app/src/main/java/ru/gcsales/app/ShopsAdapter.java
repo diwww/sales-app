@@ -38,6 +38,7 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ShopViewHold
             @Override
             public void onClick(View v) {
                 // TODO: open new activity
+                mContext.startActivity(ShopActivity.newIntent(mContext, 0));
             }
         });
     }

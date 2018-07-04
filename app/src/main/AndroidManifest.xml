@@ -20,7 +20,8 @@
             android:name=".LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".ShopActivity"></activity>
+        <activity android:name=".ShopActivity" />
+        <activity android:name=".ShoppingListActivity"></activity>
     </application>
 
 </manifest>

@@ -52,6 +52,7 @@ public class ShoppingListPreviewsAdapter extends RecyclerView.Adapter<ShoppingLi
             @Override
             public void onClick(View v) {
                 // TODO: open shopping list activity
+                mContext.startActivity(ShoppingListActivity.newIntent(mContext, 0));
             }
         });
     }

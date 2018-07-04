@@ -18,14 +18,13 @@ public class ShoppingListPreviewsFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private ShoppingListPreviewsAdapter mShoppingListPreviewsAdapter;
     private LinearLayoutManager mLinearLayoutManager;
-    private DividerItemDecoration mDividerItemDecoration;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_shopping_list_previews, container, false);
 
-        mRecyclerView = root.findViewById(R.id.recycler_view_shopping_lists);
+        mRecyclerView = root.findViewById(R.id.recycler_view_shopping_list_previews);
 
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
@@ -33,14 +32,10 @@ public class ShoppingListPreviewsFragment extends Fragment {
         mShoppingListPreviewsAdapter = new ShoppingListPreviewsAdapter(getActivity());
         mRecyclerView.setAdapter(mShoppingListPreviewsAdapter);
 
-        mDividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
-                mLinearLayoutManager.getOrientation());
-        mRecyclerView.addItemDecoration(mDividerItemDecoration);
-
         // FIXME: remove
         ShoppingListPreview preview =
                 new ShoppingListPreview(1, "Завтрак",
-                        Arrays.asList("Мясо 3кг, Мираторг",
+                        Arrays.asList("Зубная паста Рaradontax ультраочищение; без фтора, 75 мл",
                                 "Яйца 10 шт.", "Мясо 3кг, Мираторг",
                                 "Яйца 10 шт.", "Мясо 3кг, Мираторг",
                                 "Яйца 10 шт.", "Мясо 3кг, Мираторг",
