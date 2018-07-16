@@ -1,5 +1,7 @@
 package ru.gcsales.app;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -8,17 +10,29 @@ import org.json.JSONObject;
  */
 public class Product {
 
+    @SerializedName("id")
     private int mId;
+    @SerializedName("name")
     private String mName;
+    @SerializedName("category")
     private String mCategory;
+    @SerializedName("oldPrice")
     private double mOldPrice;
+    @SerializedName("newPrice")
     private double mNewPrice;
+    @SerializedName("dateIn")
     private String mDateIn;
+    @SerializedName("dateOut")
     private String mDateOut;
+    @SerializedName("crawlDate")
     private String mCrawlDate;
+    @SerializedName("condition")
     private String mCondition;
+    @SerializedName("imageUrl")
     private String mImageUrl;
+    @SerializedName("discount")
     private String mDiscount;
+    @SerializedName("shop")
     private Shop mShop;
 
     public Product(int id, String name, String category,

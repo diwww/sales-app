@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +35,9 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ShopViewHold
     public void onBindViewHolder(@NonNull ShopViewHolder holder, int position) {
         Shop shop = mShops.get(position);
         holder.getShopNameTextView().setText(shop.getName());
-        // TODO: download image from url
+        // Download image from url into image view
+        Glide.with(mContext).load(shop.getImageUrl())
+                .into(holder.getShopLogoImageView());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
