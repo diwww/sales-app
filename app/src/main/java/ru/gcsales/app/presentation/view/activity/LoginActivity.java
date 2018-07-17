@@ -1,4 +1,4 @@
-package ru.gcsales.app;
+package ru.gcsales.app.presentation.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,14 +7,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-public class LoginActivity extends AppCompatActivity {
+import ru.gcsales.app.R;
+import ru.gcsales.app.presentation.presenter.LoginPresenter;
+import ru.gcsales.app.presentation.view.LoginMvpView;
+
+public class LoginActivity extends AppCompatActivity implements LoginMvpView {
 
     private Button mLoginButton;
     private Button mRegisterButton;
     private EditText mUsernameEditText;
     private EditText mPasswordEditText;
+    private LoginPresenter mLoginPresenter;
 
 
     @Override
@@ -23,6 +27,29 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         initViews();
         setListeners();
+        mLoginPresenter = new LoginPresenter();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mLoginPresenter.attachView(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mLoginPresenter.detachView();
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
     }
 
     private void initViews() {
@@ -38,12 +65,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String username = mUsernameEditText.getText().toString();
                 String password = mPasswordEditText.getText().toString();
-
-                Toast.makeText(LoginActivity.this,
-                        String.format("username=%s;password=%s", username, password),
-                        Toast.LENGTH_LONG).show();
-
-                // TODO: other logic
+                mLoginPresenter.login(username, password);
             }
         });
         mRegisterButton.setOnClickListener(new View.OnClickListener() {

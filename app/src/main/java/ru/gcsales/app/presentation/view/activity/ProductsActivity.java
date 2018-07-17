@@ -1,4 +1,4 @@
-package ru.gcsales.app;
+package ru.gcsales.app.presentation.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,30 +8,47 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
-import com.google.gson.Gson;
+import ru.gcsales.app.R;
+import ru.gcsales.app.presentation.presenter.ProductsPresenter;
+import ru.gcsales.app.presentation.view.ProductsMvpView;
+import ru.gcsales.app.presentation.view.adapter.ProductsAdapter;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Arrays;
-import java.util.List;
-
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-public class ShopActivity extends AppCompatActivity {
+public class ProductsActivity extends AppCompatActivity implements ProductsMvpView {
 
     private RecyclerView mRecyclerView;
     private Toolbar mToolbar;
     private ProductsAdapter mProductsAdapter;
     private LinearLayoutManager mLinearLayoutManager;
+    private ProductsPresenter mProductsPresenter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shop);
+        setContentView(R.layout.activity_products);
         init();
+        mProductsPresenter = new ProductsPresenter();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mProductsPresenter.attachView(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mProductsPresenter.detachView();
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
 
     }
 
@@ -49,7 +66,7 @@ public class ShopActivity extends AppCompatActivity {
     }
 
     public static Intent newIntent(Context context, int id) {
-        Intent intent = new Intent(context, ShopActivity.class);
+        Intent intent = new Intent(context, ProductsActivity.class);
         // TODO: put extra id and etc...
         return intent;
     }

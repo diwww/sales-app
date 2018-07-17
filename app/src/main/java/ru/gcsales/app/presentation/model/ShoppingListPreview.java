@@ -1,4 +1,4 @@
-package ru.gcsales.app;
+package ru.gcsales.app.presentation.model;
 
 import java.util.List;
 

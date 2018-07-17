@@ -1,10 +1,14 @@
-package ru.gcsales.app;
+package ru.gcsales.app.presentation.view.adapter;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import ru.gcsales.app.R;
+import ru.gcsales.app.presentation.view.fragment.ShoppingListPreviewsFragment;
+import ru.gcsales.app.presentation.view.fragment.ShopsFragment;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 

@@ -1,4 +1,4 @@
-package ru.gcsales.app;
+package ru.gcsales.app.presentation.view.adapter;
 
 import android.content.Context;
 import android.graphics.Paint;
@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,6 +15,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import ru.gcsales.app.R;
+import ru.gcsales.app.presentation.model.Product;
 
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHolder> {
 

@@ -1,4 +1,4 @@
-package ru.gcsales.app;
+package ru.gcsales.app.presentation.view.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -13,6 +13,10 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ru.gcsales.app.R;
+import ru.gcsales.app.presentation.view.activity.ProductsActivity;
+import ru.gcsales.app.presentation.model.Shop;
 
 public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ShopViewHolder> {
 
@@ -42,7 +46,7 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ShopViewHold
             @Override
             public void onClick(View v) {
                 // TODO: open new activity
-                mContext.startActivity(ShopActivity.newIntent(mContext, 0));
+                mContext.startActivity(ProductsActivity.newIntent(mContext, 0));
             }
         });
     }

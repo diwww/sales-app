@@ -1,4 +1,4 @@
-package ru.gcsales.app;
+package ru.gcsales.app.presentation.view.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,6 +10,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ru.gcsales.app.R;
+import ru.gcsales.app.presentation.view.activity.ShoppingListActivity;
+import ru.gcsales.app.presentation.model.ShoppingListPreview;
 
 public class ShoppingListPreviewsAdapter extends RecyclerView.Adapter<ShoppingListPreviewsAdapter.ShoppingListViewHolder> {
 
