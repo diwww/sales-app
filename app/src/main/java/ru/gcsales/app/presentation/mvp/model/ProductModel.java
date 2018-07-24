@@ -1,5 +1,11 @@
 package ru.gcsales.app.presentation.mvp.model;
 
+/**
+ * Product presentation model.
+ *
+ * @author Maxim Surovtsev
+ * Created on 7/24/18
+ */
 public class ProductModel {
 
     private int mId;
@@ -14,10 +20,6 @@ public class ProductModel {
     private String mImageUrl;
     private String mDiscount;
     private ShopModel mShopModel;
-
-    public ProductModel(int id) {
-        mId = id;
-    }
 
     public int getId() {
         return mId;

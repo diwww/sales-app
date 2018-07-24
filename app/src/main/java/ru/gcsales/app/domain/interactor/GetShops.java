@@ -9,6 +9,9 @@ import ru.gcsales.app.domain.repository.ShopRepository;
 
 /**
  * Use case for shops retrieval.
+ *
+ * @author Maxim Surovtsev
+ * Created on 7/24/18
  */
 public class GetShops extends UseCase<List<Shop>> {
 

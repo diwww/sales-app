@@ -2,19 +2,18 @@ package ru.gcsales.app.presentation.mvp.model;
 
 import java.util.List;
 
+/**
+ * Shopping list preview presentation model.
+ *
+ * @author Maxim Surovtsev
+ * Created on 7/24/18
+ */
 public class ShoppingListPreviewModel {
 
     private int mId;
     private String mName;
     private List<String> mItems;
     private List<String> mCustomItems;
-
-    public ShoppingListPreviewModel(int id, String name, List<String> items, List<String> customItems) {
-        mId = id;
-        mName = name;
-        mItems = items;
-        mCustomItems = customItems;
-    }
 
     public int getId() {
         return mId;

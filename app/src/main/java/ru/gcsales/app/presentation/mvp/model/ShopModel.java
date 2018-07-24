@@ -1,8 +1,14 @@
 package ru.gcsales.app.presentation.mvp.model;
 
+/**
+ * Shop presentation model.
+ *
+ * @author Maxim Surovtsev
+ * Created on 7/24/18
+ */
 public class ShopModel {
 
-    private int mId;
+    private long mId;
     private String mAlias;
     private String mName;
     private String mImageUrl;
@@ -10,11 +16,11 @@ public class ShopModel {
     public ShopModel() {
     }
 
-    public int getId() {
+    public long getId() {
         return mId;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         mId = id;
     }
 

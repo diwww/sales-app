@@ -19,6 +19,12 @@ import ru.gcsales.app.presentation.mvp.mapper.ShopModelDataMapper;
 import ru.gcsales.app.presentation.mvp.model.ShopModel;
 import ru.gcsales.app.presentation.mvp.view.ShopsView;
 
+/**
+ * Shops presenter.
+ *
+ * @author Maxim Surovtsev
+ * Created on 7/24/18
+ */
 @InjectViewState
 public class ShopsPresenter extends MvpPresenter<ShopsView> {
 
@@ -31,6 +37,9 @@ public class ShopsPresenter extends MvpPresenter<ShopsView> {
         AppApplication.getApplicationComponent().inject(this);
     }
 
+    /**
+     * Downloads shops from repository.
+     */
     public void loadShops() {
         getViewState().showProgress();
 

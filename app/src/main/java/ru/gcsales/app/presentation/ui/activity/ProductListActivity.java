@@ -48,7 +48,7 @@ public class ProductListActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mProductsAdapter);
     }
 
-    public static Intent newIntent(Context context, int id) {
+    public static Intent newIntent(Context context, long id) {
         Intent intent = new Intent(context, ProductListActivity.class);
         // TODO: put extra id and etc...
         return intent;

@@ -1,21 +1,23 @@
 package ru.gcsales.app.domain.model;
 
+/**
+ * Domain model to represent a shop.
+ *
+ * @author Maxim Surovtsev
+ * Created on 7/24/18
+ */
 public class Shop {
 
-    private int mId;
+    private long mId;
     private String mAlias;
     private String mName;
     private String mImageUrl;
 
-    public Shop(int id) {
-        mId = id;
-    }
-
-    public int getId() {
+    public long getId() {
         return mId;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         mId = id;
     }
 
