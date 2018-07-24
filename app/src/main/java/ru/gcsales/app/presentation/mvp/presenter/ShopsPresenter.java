@@ -6,26 +6,60 @@ import com.arellomobile.mvp.MvpPresenter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import io.reactivex.Observer;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import ru.gcsales.app.AppApplication;
+import ru.gcsales.app.domain.interactor.GetShops;
+import ru.gcsales.app.presentation.mvp.mapper.ShopModelDataMapper;
 import ru.gcsales.app.presentation.mvp.model.ShopModel;
 import ru.gcsales.app.presentation.mvp.view.ShopsView;
 
 @InjectViewState
 public class ShopsPresenter extends MvpPresenter<ShopsView> {
 
+    @Inject
+    GetShops mGetShops;
+    @Inject
+    ShopModelDataMapper mShopModelDataMapper;
+
+    public ShopsPresenter() {
+        AppApplication.getApplicationComponent().inject(this);
+    }
+
     public void loadShops() {
         getViewState().showProgress();
 
-        ShopModel shopModel = new ShopModel(1);
-        shopModel.setImageUrl("http://gcsales.ru/static/dixy.png");
-        shopModel.setName("Дикси");
+        mGetShops.execute()
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(data -> mShopModelDataMapper.transform(data))
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<List<ShopModel>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-        List<ShopModel> shopModels = new ArrayList<>();
-        shopModels.add(shopModel);
-        shopModels.add(shopModel);
-        shopModels.add(shopModel);
-        shopModels.add(shopModel);
-        shopModels.add(shopModel);
+                    }
 
-        getViewState().setShops(shopModels);
+                    @Override
+                    public void onNext(List<ShopModel> shopModels) {
+                        getViewState().setShops(shopModels);
+                        getViewState().hideProgress();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
     }
 }

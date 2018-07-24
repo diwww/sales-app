@@ -1,13 +1,14 @@
-package ru.gcsales.app.presentation.mvp.model;
+package ru.gcsales.app.domain.model;
 
-public class ShopModel {
+public class Shop {
 
     private int mId;
     private String mAlias;
     private String mName;
     private String mImageUrl;
 
-    public ShopModel() {
+    public Shop(int id) {
+        mId = id;
     }
 
     public int getId() {

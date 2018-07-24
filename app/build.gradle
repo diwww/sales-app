@@ -16,6 +16,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -27,8 +31,11 @@ dependencies {
     final GLIDE_VERSION = '4.7.1'
     final MOXY_VERSION = '1.5.5'
     final BUTTERKNIFE_VERSION = '8.8.1'
-
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    final RX_VERSION = '2.1.17'
+    final RX_ANDROID_VERSION = '2.0.2'
+    final RX_ADAPTER_VERSION = '2.4.0'
+    final DAGGER_VERSION = '2.16'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:${SUPPORT_LIB_VERSION}"
     implementation "com.android.support.constraint:constraint-layout:${CONSTRAINT_LAYOUT_VERSION}"
     implementation "com.android.support:support-v4:${SUPPORT_LIB_VERSION}"
@@ -47,4 +54,11 @@ dependencies {
     implementation "com.arello-mobile:moxy-app-compat:${MOXY_VERSION}"
     implementation "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
+    implementation "io.reactivex.rxjava2:rxjava:${RX_VERSION}"
+    implementation "io.reactivex.rxjava2:rxandroid:${RX_ANDROID_VERSION}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${RX_ADAPTER_VERSION}"
+    implementation "com.google.dagger:dagger-android:${DAGGER_VERSION}"
+    implementation "com.google.dagger:dagger-android-support:${DAGGER_VERSION}"
+    annotationProcessor "com.google.dagger:dagger-android-processor:${DAGGER_VERSION}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
 }

@@ -1,12 +1,8 @@
 package ru.gcsales.app.domain.interactor;
 
-/**
- * Base class for all use cases.
- */
-public abstract class UseCase {
+import io.reactivex.Observable;
 
-    /**
-     * Executes a use case.
-     */
-    public abstract void execute();
+public abstract class UseCase<T> {
+
+    public abstract Observable<T> execute();
 }

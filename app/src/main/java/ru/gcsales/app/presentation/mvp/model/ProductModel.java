@@ -1,8 +1,5 @@
 package ru.gcsales.app.presentation.mvp.model;
 
-/**
- * Class for storing product model
- */
 public class ProductModel {
 
     private int mId;
