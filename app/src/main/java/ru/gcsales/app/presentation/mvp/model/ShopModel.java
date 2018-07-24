@@ -1,16 +1,16 @@
-package ru.gcsales.app.presentation.model;
+package ru.gcsales.app.presentation.mvp.model;
 
 /**
  * Class for storing shop model
  */
-public class Shop {
+public class ShopModel {
 
     private int mId;
     private String mAlias;
     private String mName;
     private String mImageUrl;
 
-    public Shop(int id) {
+    public ShopModel(int id) {
         mId = id;
     }
 

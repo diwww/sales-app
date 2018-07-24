@@ -1,4 +1,4 @@
-package ru.gcsales.app.presentation.view.fragment;
+package ru.gcsales.app.presentation.ui.fragment;
 
 
 import android.content.Context;
@@ -11,26 +11,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import java.util.List;
-
 import ru.gcsales.app.R;
-import ru.gcsales.app.presentation.model.ShoppingListPreview;
-import ru.gcsales.app.presentation.presenter.ShoppingListPreviewsPresenter;
-import ru.gcsales.app.presentation.view.ShoppingListPreviewsMvpView;
-import ru.gcsales.app.presentation.view.adapter.ShoppingListPreviewsAdapter;
+import ru.gcsales.app.presentation.ui.adapter.ShoppingListPreviewsAdapter;
 
 
-public class ShoppingListPreviewsFragment extends Fragment implements ShoppingListPreviewsMvpView {
+public class ShoppingListPreviewsFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private ShoppingListPreviewsAdapter mShoppingListPreviewsAdapter;
     private ProgressBar mProgressBar;
-    private ShoppingListPreviewsPresenter mShoppingListPreviewsPresenter;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mShoppingListPreviewsPresenter = new ShoppingListPreviewsPresenter();
     }
 
     @Override
@@ -50,29 +43,11 @@ public class ShoppingListPreviewsFragment extends Fragment implements ShoppingLi
     @Override
     public void onResume() {
         super.onResume();
-        mShoppingListPreviewsPresenter.attachView(this);
-        mShoppingListPreviewsPresenter.loadShoppingListPreviews();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mShoppingListPreviewsPresenter.detachView();
-    }
-
-    @Override
-    public void showData(List<ShoppingListPreview> data) {
-        mShoppingListPreviewsAdapter.setData(data);
-    }
-
-    @Override
-    public void showProgress() {
-        mProgressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgress() {
-        mProgressBar.setVisibility(View.GONE);
     }
 
     /**

@@ -1,4 +1,4 @@
-package ru.gcsales.app.presentation.view.adapter;
+package ru.gcsales.app.presentation.ui.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -15,12 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.gcsales.app.R;
-import ru.gcsales.app.presentation.view.activity.ProductsActivity;
-import ru.gcsales.app.presentation.model.Shop;
+import ru.gcsales.app.presentation.mvp.model.ShopModel;
+import ru.gcsales.app.presentation.ui.activity.ProductListActivity;
 
 public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ShopViewHolder> {
 
-    private List<Shop> mShops = new ArrayList<>();
+    private List<ShopModel> mShopModels = new ArrayList<>();
     private Context mContext;
 
     public ShopsAdapter(Context context) {
@@ -37,28 +37,29 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ShopViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ShopViewHolder holder, int position) {
-        Shop shop = mShops.get(position);
-        holder.getShopNameTextView().setText(shop.getName());
+        ShopModel shopModel = mShopModels.get(position);
+        holder.getShopNameTextView().setText(shopModel.getName());
         // Download image from url into image view
-        Glide.with(mContext).load(shop.getImageUrl())
+        Glide.with(mContext)
+                .load(shopModel.getImageUrl())
                 .into(holder.getShopLogoImageView());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO: open new activity
-                mContext.startActivity(ProductsActivity.newIntent(mContext, 0));
+                mContext.startActivity(ProductListActivity.newIntent(mContext, 0));
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return mShops.size();
+        return mShopModels.size();
     }
 
-    public void setData(List<Shop> data) {
-        mShops.clear();
-        mShops.addAll(data);
+    public void setData(List<ShopModel> data) {
+        mShopModels.clear();
+        mShopModels.addAll(data);
         notifyDataSetChanged();
     }
 

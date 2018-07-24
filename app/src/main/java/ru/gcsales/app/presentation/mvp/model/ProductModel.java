@@ -1,9 +1,9 @@
-package ru.gcsales.app.presentation.model;
+package ru.gcsales.app.presentation.mvp.model;
 
 /**
  * Class for storing product model
  */
-public class Product {
+public class ProductModel {
 
     private int mId;
     private String mName;
@@ -16,9 +16,9 @@ public class Product {
     private String mCondition;
     private String mImageUrl;
     private String mDiscount;
-    private Shop mShop;
+    private ShopModel mShopModel;
 
-    public Product(int id) {
+    public ProductModel(int id) {
         mId = id;
     }
 
@@ -110,11 +110,11 @@ public class Product {
         mDiscount = discount;
     }
 
-    public Shop getShop() {
-        return mShop;
+    public ShopModel getShopModel() {
+        return mShopModel;
     }
 
-    public void setShop(Shop shop) {
-        mShop = shop;
+    public void setShopModel(ShopModel shopModel) {
+        mShopModel = shopModel;
     }
 }

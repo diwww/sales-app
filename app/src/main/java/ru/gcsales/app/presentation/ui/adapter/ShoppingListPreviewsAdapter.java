@@ -1,4 +1,4 @@
-package ru.gcsales.app.presentation.view.adapter;
+package ru.gcsales.app.presentation.ui.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.gcsales.app.R;
-import ru.gcsales.app.presentation.view.activity.ShoppingListActivity;
-import ru.gcsales.app.presentation.model.ShoppingListPreview;
+import ru.gcsales.app.presentation.mvp.model.ShoppingListPreviewModel;
+import ru.gcsales.app.presentation.ui.activity.ShoppingListActivity;
 
 public class ShoppingListPreviewsAdapter extends RecyclerView.Adapter<ShoppingListPreviewsAdapter.ShoppingListViewHolder> {
 
-    private List<ShoppingListPreview> mShoppingListPreviews = new ArrayList<>();
+    private List<ShoppingListPreviewModel> mShoppingListPreviewModels = new ArrayList<>();
     private Context mContext;
 
     public ShoppingListPreviewsAdapter(Context context) {
@@ -34,18 +34,18 @@ public class ShoppingListPreviewsAdapter extends RecyclerView.Adapter<ShoppingLi
 
     @Override
     public void onBindViewHolder(@NonNull ShoppingListViewHolder holder, int position) {
-        ShoppingListPreview shoppingListPreview = mShoppingListPreviews.get(position);
-        holder.getNameTextView().setText(shoppingListPreview.getName());
+        ShoppingListPreviewModel shoppingListPreviewModel = mShoppingListPreviewModels.get(position);
+        holder.getNameTextView().setText(shoppingListPreviewModel.getName());
 
         // TODO: improve
 
         StringBuilder itemsString = new StringBuilder();
-        for (String item : shoppingListPreview.getItems()) {
+        for (String item : shoppingListPreviewModel.getItems()) {
             itemsString.append(item).append("\n");
         }
 
         StringBuilder customItemsString = new StringBuilder();
-        for (String customItem : shoppingListPreview.getCustomItems()) {
+        for (String customItem : shoppingListPreviewModel.getCustomItems()) {
             customItemsString.append(customItem).append("\n");
         }
 
@@ -63,12 +63,12 @@ public class ShoppingListPreviewsAdapter extends RecyclerView.Adapter<ShoppingLi
 
     @Override
     public int getItemCount() {
-        return mShoppingListPreviews.size();
+        return mShoppingListPreviewModels.size();
     }
 
-    public void setData(List<ShoppingListPreview> data) {
-        mShoppingListPreviews.clear();
-        mShoppingListPreviews.addAll(data);
+    public void setData(List<ShoppingListPreviewModel> data) {
+        mShoppingListPreviewModels.clear();
+        mShoppingListPreviewModels.addAll(data);
         notifyDataSetChanged();
     }
 

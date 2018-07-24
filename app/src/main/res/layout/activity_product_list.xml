@@ -5,21 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".presentation.view.activity.MainActivity">
+    tools:context=".presentation.ui.activity.ProductListActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         style="@style/Toolbar" />
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab_layout"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_products"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabMode="fixed" />
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
+        android:scrollbars="vertical"
         android:layout_height="match_parent" />
 
 </LinearLayout>

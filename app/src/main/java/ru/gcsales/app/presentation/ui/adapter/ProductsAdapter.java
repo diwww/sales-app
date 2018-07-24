@@ -1,4 +1,4 @@
-package ru.gcsales.app.presentation.view.adapter;
+package ru.gcsales.app.presentation.ui.adapter;
 
 import android.content.Context;
 import android.graphics.Paint;
@@ -17,11 +17,11 @@ import java.util.List;
 import java.util.Locale;
 
 import ru.gcsales.app.R;
-import ru.gcsales.app.presentation.model.Product;
+import ru.gcsales.app.presentation.mvp.model.ProductModel;
 
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHolder> {
 
-    private List<Product> mProducts = new ArrayList<>();
+    private List<ProductModel> mProductModels = new ArrayList<>();
     private Context mContext;
 
     public ProductsAdapter(Context context) {
@@ -38,37 +38,37 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        final Product product = mProducts.get(position);
-        holder.getNameTextView().setText(product.getName());
-        holder.getCategoryTextView().setText(product.getCategory());
+        final ProductModel productModel = mProductModels.get(position);
+        holder.getNameTextView().setText(productModel.getName());
+        holder.getCategoryTextView().setText(productModel.getCategory());
         holder.getOldPriceTextView()
-                .setText(String.format(Locale.getDefault(), "%.2f", product.getOldPrice()));
+                .setText(String.format(Locale.getDefault(), "%.2f", productModel.getOldPrice()));
         holder.getNewPriceTextView()
-                .setText(String.format(Locale.getDefault(), "%.2f", product.getNewPrice()));
-//        holder.getDiscountTextView().setText(product.getDiscount());
-//        holder.getDateTextView().setText(product.getDateIn() + "\u2014" + product.getDateOut());
+                .setText(String.format(Locale.getDefault(), "%.2f", productModel.getNewPrice()));
+//        holder.getDiscountTextView().setText(productModel.getDiscount());
+//        holder.getDateTextView().setText(productModel.getDateIn() + "\u2014" + productModel.getDateOut());
         // Crossed out text
         holder.getOldPriceTextView().setPaintFlags(holder.getOldPriceTextView().getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         holder.getAddButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO
-                Toast.makeText(mContext, product.getId() + "", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, productModel.getId() + "", Toast.LENGTH_LONG).show();
             }
         });
 
         // TODO: download image from url
     }
 
-    public void setData(List<Product> data) {
-        mProducts.clear();
-        mProducts.addAll(data);
+    public void setData(List<ProductModel> data) {
+        mProductModels.clear();
+        mProductModels.addAll(data);
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return mProducts.size();
+        return mProductModels.size();
     }
 
     public static class ProductViewHolder extends RecyclerView.ViewHolder {

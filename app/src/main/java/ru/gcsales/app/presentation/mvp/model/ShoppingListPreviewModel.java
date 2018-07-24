@@ -1,15 +1,15 @@
-package ru.gcsales.app.presentation.model;
+package ru.gcsales.app.presentation.mvp.model;
 
 import java.util.List;
 
-public class ShoppingListPreview {
+public class ShoppingListPreviewModel {
 
     private int mId;
     private String mName;
     private List<String> mItems;
     private List<String> mCustomItems;
 
-    public ShoppingListPreview(int id, String name, List<String> items, List<String> customItems) {
+    public ShoppingListPreviewModel(int id, String name, List<String> items, List<String> customItems) {
         mId = id;
         mName = name;
         mItems = items;
