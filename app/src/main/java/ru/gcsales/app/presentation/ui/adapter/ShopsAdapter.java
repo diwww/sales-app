@@ -14,6 +14,8 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ru.gcsales.app.R;
 import ru.gcsales.app.presentation.mvp.model.ShopModel;
 import ru.gcsales.app.presentation.ui.activity.ProductListActivity;
@@ -21,10 +23,8 @@ import ru.gcsales.app.presentation.ui.activity.ProductListActivity;
 public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ShopViewHolder> {
 
     private List<ShopModel> mShopModels = new ArrayList<>();
-    private Context mContext;
 
-    public ShopsAdapter(Context context) {
-        mContext = context;
+    public ShopsAdapter() {
     }
 
     @NonNull
@@ -38,18 +38,7 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ShopViewHold
     @Override
     public void onBindViewHolder(@NonNull ShopViewHolder holder, int position) {
         ShopModel shopModel = mShopModels.get(position);
-        holder.getShopNameTextView().setText(shopModel.getName());
-        // Download image from url into image view
-        Glide.with(mContext)
-                .load(shopModel.getImageUrl())
-                .into(holder.getShopLogoImageView());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: open new activity
-                mContext.startActivity(ProductListActivity.newIntent(mContext, 0));
-            }
-        });
+        holder.bind(shopModel);
     }
 
     @Override
@@ -58,8 +47,7 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ShopViewHold
     }
 
     public void setData(List<ShopModel> data) {
-        mShopModels.clear();
-        mShopModels.addAll(data);
+        mShopModels = data;
         notifyDataSetChanged();
     }
 
@@ -68,21 +56,29 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ShopViewHold
 
     public static class ShopViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView mShopLogoImageView;
-        private TextView mShopNameTextView;
+        @BindView(R.id.image_shop_logo) ImageView mShopLogoImageView;
+        @BindView(R.id.text_shop_name) TextView mShopNameTextView;
 
         public ShopViewHolder(View itemView) {
             super(itemView);
-            mShopLogoImageView = itemView.findViewById(R.id.image_shop_logo);
-            mShopNameTextView = itemView.findViewById(R.id.text_shop_name);
+            ButterKnife.bind(this, itemView);
         }
 
-        public ImageView getShopLogoImageView() {
-            return mShopLogoImageView;
-        }
-
-        public TextView getShopNameTextView() {
-            return mShopNameTextView;
+        public void bind(final ShopModel shopModel) {
+            final Context context = itemView.getContext();
+            mShopNameTextView.setText(shopModel.getName());
+            // Download image from url into image view
+            // TODO: image placeholder
+            Glide.with(context)
+                    .load(shopModel.getImageUrl())
+                    .into(mShopLogoImageView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Start a new activity
+                    context.startActivity(ProductListActivity.newIntent(context, shopModel.getId()));
+                }
+            });
         }
     }
 }
