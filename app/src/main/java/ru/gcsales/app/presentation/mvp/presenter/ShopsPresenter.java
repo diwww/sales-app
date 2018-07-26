@@ -1,22 +1,18 @@
 package ru.gcsales.app.presentation.mvp.presenter;
 
+
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observer;
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.observers.DisposableObserver;
 import ru.gcsales.app.AppApplication;
 import ru.gcsales.app.domain.interactor.GetShops;
+import ru.gcsales.app.domain.model.Shop;
 import ru.gcsales.app.presentation.mvp.mapper.ShopModelDataMapper;
-import ru.gcsales.app.presentation.mvp.model.ShopModel;
 import ru.gcsales.app.presentation.mvp.view.ShopsView;
 
 /**
@@ -42,33 +38,29 @@ public class ShopsPresenter extends MvpPresenter<ShopsView> {
      */
     public void loadShops() {
         getViewState().showProgress();
+        mGetShops.execute(new ShopsObserver(), null);
+    }
 
-        mGetShops.execute()
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(data -> mShopModelDataMapper.transform(data))
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<List<ShopModel>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+    @Override
+    public void onDestroy() {
+        mGetShops.dispose();
+    }
 
-                    }
+    private final class ShopsObserver extends DisposableObserver<List<Shop>> {
 
-                    @Override
-                    public void onNext(List<ShopModel> shopModels) {
-                        getViewState().setShops(shopModels);
-                        getViewState().hideProgress();
-                    }
+        @Override
+        public void onNext(List<Shop> shops) {
+            getViewState().setShops(mShopModelDataMapper.transform(shops));
+        }
 
-                    @Override
-                    public void onError(Throwable e) {
+        @Override
+        public void onError(Throwable e) {
+            // TODO
+        }
 
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
+        @Override
+        public void onComplete() {
+            getViewState().hideProgress();
+        }
     }
 }

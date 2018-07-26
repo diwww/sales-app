@@ -27,7 +27,6 @@ public class ShopRepositoryImpl implements ShopRepository {
 
     @Override
     public Observable<List<Shop>> getShops() {
-        return mShopService.getShops()
-                .map(data -> mShopEntityDataMapper.transform(data));
+        return mShopService.getShops().map(mShopEntityDataMapper::transform);
     }
 }

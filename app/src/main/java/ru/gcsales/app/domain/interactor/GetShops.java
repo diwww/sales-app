@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import io.reactivex.Observable;
+import io.reactivex.observers.DisposableObserver;
 import ru.gcsales.app.domain.model.Shop;
 import ru.gcsales.app.domain.repository.ShopRepository;
 
@@ -13,7 +14,7 @@ import ru.gcsales.app.domain.repository.ShopRepository;
  * @author Maxim Surovtsev
  * Created on 7/24/18
  */
-public class GetShops extends UseCase<List<Shop>> {
+public class GetShops extends UseCase<List<Shop>, Void> {
 
     private ShopRepository mShopRepository;
 
@@ -22,7 +23,7 @@ public class GetShops extends UseCase<List<Shop>> {
     }
 
     @Override
-    public Observable<List<Shop>> execute() {
+    public Observable<List<Shop>> buildObservable(Void params) {
         return mShopRepository.getShops();
     }
 }
