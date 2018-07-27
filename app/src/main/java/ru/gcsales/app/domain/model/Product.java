@@ -1,12 +1,12 @@
-package ru.gcsales.app.presentation.mvp.model;
+package ru.gcsales.app.domain.model;
 
 /**
- * Product presentation model.
+ * Domain model to represent a product.
  *
  * @author Maxim Surovtsev
- * Created on 7/24/18
+ * Created on 7/27/18
  */
-public class ProductModel {
+public class Product {
 
     private long mId;
     private String mName;
@@ -19,7 +19,7 @@ public class ProductModel {
     private String mCondition;
     private String mImageUrl;
     private String mDiscount;
-    private ShopModel mShopModel;
+    private Shop mShop;
 
     public long getId() {
         return mId;
@@ -109,11 +109,11 @@ public class ProductModel {
         mDiscount = discount;
     }
 
-    public ShopModel getShopModel() {
-        return mShopModel;
+    public Shop getShop() {
+        return mShop;
     }
 
-    public void setShopModel(ShopModel shopModel) {
-        mShopModel = shopModel;
+    public void setShop(Shop shop) {
+        mShop = shop;
     }
 }

@@ -10,23 +10,21 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ru.gcsales.app.R;
 import ru.gcsales.app.presentation.mvp.model.ProductModel;
 
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHolder> {
 
     private List<ProductModel> mProductModels = new ArrayList<>();
-    private Context mContext;
-
-    public ProductsAdapter(Context context) {
-        mContext = context;
-    }
 
     @NonNull
     @Override
@@ -39,25 +37,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         final ProductModel productModel = mProductModels.get(position);
-        holder.getNameTextView().setText(productModel.getName());
-        holder.getCategoryTextView().setText(productModel.getCategory());
-        holder.getOldPriceTextView()
-                .setText(String.format(Locale.getDefault(), "%.2f", productModel.getOldPrice()));
-        holder.getNewPriceTextView()
-                .setText(String.format(Locale.getDefault(), "%.2f", productModel.getNewPrice()));
-//        holder.getDiscountTextView().setText(productModel.getDiscount());
-//        holder.getDateTextView().setText(productModel.getDateIn() + "\u2014" + productModel.getDateOut());
-        // Crossed out text
-        holder.getOldPriceTextView().setPaintFlags(holder.getOldPriceTextView().getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        holder.getAddButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO
-                Toast.makeText(mContext, productModel.getId() + "", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        // TODO: download image from url
+        holder.bind(productModel);
     }
 
     public void setData(List<ProductModel> data) {
@@ -73,55 +53,35 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
 
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView mImageView;
-        private TextView mNameTextView;
-        private TextView mCategoryTextView;
-        private TextView mOldPriceTextView;
-        private TextView mNewPriceTextView;
-        //        private TextView mDiscountTextView;
-//        private TextView mDateTextView;
-        private ImageButton mAddButton;
+        @BindView(R.id.image) ImageView mImageView;
+        @BindView(R.id.text_name) TextView mNameTextView;
+        @BindView(R.id.text_category) TextView mCategoryTextView;
+        @BindView(R.id.text_old_price) TextView mOldPriceTextView;
+        @BindView(R.id.text_new_price) TextView mNewPriceTextView;
+        @BindView(R.id.button_add) ImageButton mAddButton;
 
         public ProductViewHolder(View itemView) {
             super(itemView);
-            mImageView = itemView.findViewById(R.id.image);
-            mNameTextView = itemView.findViewById(R.id.text_name);
-            mCategoryTextView = itemView.findViewById(R.id.text_category);
-            mOldPriceTextView = itemView.findViewById(R.id.text_old_price);
-            mNewPriceTextView = itemView.findViewById(R.id.text_new_price);
-            mAddButton = itemView.findViewById(R.id.button_add);
+            ButterKnife.bind(this, itemView);
+            // Crossed out text
+            mOldPriceTextView.setPaintFlags(mOldPriceTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
-        public ImageView getImageView() {
-            return mImageView;
-        }
-
-        public TextView getNameTextView() {
-            return mNameTextView;
-        }
-
-        public TextView getCategoryTextView() {
-            return mCategoryTextView;
-        }
-
-        public TextView getOldPriceTextView() {
-            return mOldPriceTextView;
-        }
-
-        public TextView getNewPriceTextView() {
-            return mNewPriceTextView;
-        }
-
-//        public TextView getDiscountTextView() {
-//            return mDiscountTextView;
-//        }
-//
-//        public TextView getDateTextView() {
-//            return mDateTextView;
-//        }
-
-        public ImageButton getAddButton() {
-            return mAddButton;
+        public void bind(ProductModel productModel) {
+            final Context context = itemView.getContext();
+            mNameTextView.setText(productModel.getName());
+            mCategoryTextView.setText(productModel.getCategory());
+            mOldPriceTextView.setText(String.format(Locale.getDefault(), "%.2f", productModel.getOldPrice()));
+            mNewPriceTextView.setText(String.format(Locale.getDefault(), "%.2f", productModel.getNewPrice()));
+            Glide.with(context)
+                    .load(productModel.getImageUrl())
+                    .into(mImageView);
+            mAddButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO
+                }
+            });
         }
     }
 }

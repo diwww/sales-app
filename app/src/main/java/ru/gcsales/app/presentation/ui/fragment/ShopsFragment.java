@@ -32,8 +32,7 @@ public class ShopsFragment extends MvpAppCompatFragment implements ShopsView {
     @InjectPresenter
     ShopsPresenter mShopsPresenter;
 
-    @BindView(R.id.recycler_view_shops)
-    RecyclerView mRecyclerView;
+    @BindView(R.id.recycler_view_shops) RecyclerView mRecyclerView;
     @BindView(R.id.progress_bar) ProgressBar mProgressBar;
     ShopsAdapter mShopsAdapter;
 

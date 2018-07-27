@@ -4,6 +4,10 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
+import ru.gcsales.app.data.entity.ProductEntity;
+import ru.gcsales.app.data.entity.ProductsResponse;
 import ru.gcsales.app.data.entity.ShopEntity;
 
 /**
@@ -22,5 +26,13 @@ public interface ShopService {
     @GET("shops")
     Observable<List<ShopEntity>> getShops();
 
-    // TODO: get concrete shop
+    /**
+     * Gets products for a given shop.
+     *
+     * @param id   id of a shop
+     * @param page page number in pagination
+     * @return {@link Observable} list of {@link ProductEntity} objects
+     */
+    @GET("shops/{id}")
+    Observable<ProductsResponse> getShopProducts(@Path("id") long id, @Query("page") int page);
 }
