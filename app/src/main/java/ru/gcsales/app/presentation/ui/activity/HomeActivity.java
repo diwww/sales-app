@@ -31,8 +31,10 @@ public class HomeActivity extends MvpAppCompatActivity implements HomeView {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
-        mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), this);
+        mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mViewPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
+        mTabLayout.getTabAt(0).setIcon(R.drawable.ic_home_black_24dp);
+        mTabLayout.getTabAt(1).setIcon(R.drawable.ic_shopping_basket_black_24dp);
     }
 }
