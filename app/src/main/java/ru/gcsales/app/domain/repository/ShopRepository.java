@@ -21,6 +21,4 @@ public interface ShopRepository {
      * @return {@link Observable} list of shops
      */
     Observable<List<Shop>> getShops();
-
-    Observable<List<Product>> getShop(long id);
 }

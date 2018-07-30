@@ -7,6 +7,7 @@ import dagger.Module;
 import dagger.Provides;
 import ru.gcsales.app.domain.interactor.GetProducts;
 import ru.gcsales.app.domain.interactor.GetShops;
+import ru.gcsales.app.domain.repository.ProductRepository;
 import ru.gcsales.app.domain.repository.ShopRepository;
 
 @Module
@@ -19,7 +20,7 @@ public class UseCaseModule {
 
     @Provides
     @Singleton
-    public GetProducts provideGetProducts(ShopRepository shopRepository) {
-        return new GetProducts(shopRepository);
+    public GetProducts provideGetProducts(ProductRepository productRepository) {
+        return new GetProducts(productRepository);
     }
 }

@@ -47,6 +47,6 @@ public class ProductListPresenter extends MvpPresenter<ProductListView> {
             public void onComplete() {
                 getViewState().hideProgress();
             }
-        }, GetProducts.Params.forShop(shopId));
+        }, GetProducts.Params.forShop(shopId, 1));
     }
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import ru.gcsales.app.domain.model.Product;
+import ru.gcsales.app.domain.repository.ProductRepository;
 import ru.gcsales.app.domain.repository.ShopRepository;
 
 /**
@@ -12,27 +13,29 @@ import ru.gcsales.app.domain.repository.ShopRepository;
  */
 public class GetProducts extends UseCase<List<Product>, GetProducts.Params> {
 
-    private ShopRepository mShopRepository;
+    private ProductRepository mProductRepository;
 
-    public GetProducts(ShopRepository shopRepository) {
-        mShopRepository = shopRepository;
+    public GetProducts(ProductRepository productRepository) {
+        mProductRepository = productRepository;
     }
 
     @Override
     Observable<List<Product>> buildObservable(Params params) {
-        return mShopRepository.getShop(params.shopId);
+        return mProductRepository.getProducts(params.mShopId, params.mPage);
     }
 
     public static class Params {
 
-        private long shopId;
+        private long mShopId;
+        private int mPage;
 
-        public Params(long shopId) {
-            this.shopId = shopId;
+        public Params(long shopId, int page) {
+            mShopId = shopId;
+            mPage = page;
         }
 
-        public static Params forShop(long shopId) {
-            return new Params(shopId);
+        public static Params forShop(long shopId, int page) {
+            return new Params(shopId, page);
         }
     }
 }

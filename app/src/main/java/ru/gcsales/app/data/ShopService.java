@@ -11,7 +11,7 @@ import ru.gcsales.app.data.entity.ProductsResponse;
 import ru.gcsales.app.data.entity.ShopEntity;
 
 /**
- * API requests to get shop data.
+ * API requests to get shops.
  *
  * @author Maxim Surovtsev
  * Created on 7/24/18
@@ -26,13 +26,4 @@ public interface ShopService {
     @GET("shops")
     Observable<List<ShopEntity>> getShops();
 
-    /**
-     * Gets products for a given shop.
-     *
-     * @param id   id of a shop
-     * @param page page number in pagination
-     * @return {@link Observable} list of {@link ProductEntity} objects
-     */
-    @GET("shops/{id}")
-    Observable<ProductsResponse> getShopProducts(@Path("id") long id, @Query("page") int page);
 }

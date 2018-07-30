@@ -22,24 +22,14 @@ public class ShopRepositoryImpl implements ShopRepository {
 
     private ShopService mShopService;
     private ShopEntityDataMapper mShopEntityDataMapper;
-    private ProductEntityDataMapper mProductEntityDataMapper;
 
-    public ShopRepositoryImpl(ShopService shopService, ShopEntityDataMapper shopEntityDataMapper,
-                              ProductEntityDataMapper productEntityDataMapper) {
+    public ShopRepositoryImpl(ShopService shopService, ShopEntityDataMapper shopEntityDataMapper) {
         mShopService = shopService;
         mShopEntityDataMapper = shopEntityDataMapper;
-        mProductEntityDataMapper = productEntityDataMapper;
     }
 
     @Override
     public Observable<List<Shop>> getShops() {
         return mShopService.getShops().map(mShopEntityDataMapper::transform);
-    }
-
-    @Override
-    public Observable<List<Product>> getShop(long id) {
-        return mShopService.getShopProducts(id, 1)
-                .map(ProductsResponse::getProductEntities)
-                .map(mProductEntityDataMapper::transform);
     }
 }
