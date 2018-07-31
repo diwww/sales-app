@@ -46,6 +46,11 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
         notifyDataSetChanged();
     }
 
+    public void addData(List<ProductModel> data) {
+        mProductModels.addAll(data);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return mProductModels.size();

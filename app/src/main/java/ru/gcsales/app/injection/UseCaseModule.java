@@ -10,6 +10,8 @@ import ru.gcsales.app.domain.interactor.GetShops;
 import ru.gcsales.app.domain.repository.ProductRepository;
 import ru.gcsales.app.domain.repository.ShopRepository;
 
+// TODO: make Activity scope
+// (баг с переключением магазинов)
 @Module
 public class UseCaseModule {
     @Provides

@@ -25,6 +25,17 @@ public interface ProductListView extends MvpView {
      */
     void hideProgress();
 
-    // FIXME: temporary
-    void setProducts(List<ProductModel> products);
+    /**
+     * Adds products to a list.
+     *
+     * @param products products to add
+     */
+    void addProducts(List<ProductModel> products);
+
+    /**
+     * Shows an error message.
+     *
+     * @param error error message
+     */
+    void showError(String error);
 }
