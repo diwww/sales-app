@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -74,6 +75,11 @@ public class ShopsFragment extends MvpAppCompatFragment implements ShopsView {
     @Override
     public void setShops(List<ShopModel> shops) {
         mShopsAdapter.setData(shops);
+    }
+
+    @Override
+    public void showError(String error) {
+        Toast.makeText(this.getContext(), error, Toast.LENGTH_SHORT).show();
     }
 
     /**

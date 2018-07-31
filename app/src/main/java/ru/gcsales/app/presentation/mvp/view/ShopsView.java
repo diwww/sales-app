@@ -26,7 +26,14 @@ public interface ShopsView extends MvpView {
 
     /**
      * Displays downloaded shops.
+     *
      * @param shops list of {@link ShopModel} models
      */
     void setShops(List<ShopModel> shops);
+
+    /**
+     * Shows an error message.
+     * @param error error message
+     */
+    void showError(String error);
 }

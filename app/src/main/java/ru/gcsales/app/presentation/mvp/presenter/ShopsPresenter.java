@@ -55,7 +55,8 @@ public class ShopsPresenter extends MvpPresenter<ShopsView> {
 
         @Override
         public void onError(Throwable e) {
-            // TODO
+            getViewState().hideProgress();
+            getViewState().showError("Network error.");
         }
 
         @Override
