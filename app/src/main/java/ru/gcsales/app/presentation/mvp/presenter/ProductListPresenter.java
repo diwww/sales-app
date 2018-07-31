@@ -12,10 +12,8 @@ import javax.inject.Inject;
 
 import io.reactivex.observers.DisposableObserver;
 import ru.gcsales.app.AppApplication;
-import ru.gcsales.app.data.repository.ProductRepositoryImpl;
 import ru.gcsales.app.domain.interactor.GetProducts;
 import ru.gcsales.app.domain.model.Product;
-import ru.gcsales.app.domain.repository.ProductRepository;
 import ru.gcsales.app.presentation.mvp.mapper.ProductModelDataMapper;
 import ru.gcsales.app.presentation.mvp.view.ProductListView;
 

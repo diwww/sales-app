@@ -15,13 +15,13 @@ import ru.gcsales.app.domain.repository.ShopRepository;
 @Module
 public class UseCaseModule {
     @Provides
-    @Singleton
+//    @Singleton
     public GetShops provideGetShops(ShopRepository shopRepository) {
         return new GetShops(shopRepository);
     }
 
     @Provides
-    @Singleton
+//    @Singleton
     public GetProducts provideGetProducts(ProductRepository productRepository) {
         return new GetProducts(productRepository);
     }
