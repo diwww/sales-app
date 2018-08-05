@@ -26,6 +26,13 @@ public interface ProductListView extends MvpView {
     void hideProgress();
 
     /**
+     * Shows an error message.
+     *
+     * @param error error message
+     */
+    void showError(String error);
+
+    /**
      * Adds products to a list.
      *
      * @param products products to add
@@ -33,9 +40,14 @@ public interface ProductListView extends MvpView {
     void addProducts(List<ProductModel> products);
 
     /**
-     * Shows an error message.
+     * Sets the product list (replaces the old data).
      *
-     * @param error error message
+     * @param products products to set
      */
-    void showError(String error);
+    void setProducts(List<ProductModel> products);
+
+    /**
+     * Clears the product list.
+     */
+    void clearProducts();
 }

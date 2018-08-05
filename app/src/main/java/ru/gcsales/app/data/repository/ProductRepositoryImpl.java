@@ -23,8 +23,8 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public Observable<List<Product>> getProducts(long shopId, int page) {
-        return mProductService.getProducts(shopId, page)
+    public Observable<List<Product>> getProducts(long shopId, String category, int page) {
+        return mProductService.getProducts(shopId, category, page)
                 .map(data -> mProductEntityDataMapper.transform(data.getProductEntities()));
     }
 }

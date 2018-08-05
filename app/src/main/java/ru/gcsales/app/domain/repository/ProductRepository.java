@@ -11,5 +11,5 @@ import ru.gcsales.app.domain.model.Product;
  */
 public interface ProductRepository {
 
-    Observable<List<Product>> getProducts(long shopId, int page);
+    Observable<List<Product>> getProducts(long shopId, String category, int page);
 }

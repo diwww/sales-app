@@ -28,14 +28,16 @@ public class ProductListPresenter extends MvpPresenter<ProductListView> {
 
     private static final String TAG = "ProductListPresenter";
 
-    public static final int VISIBLE_TRESHOLD = 2;
+    public static final int VISIBLE_THRESHOLD = 2;
+    public static final int FIRST_PAGE = 1;
     @Inject
     GetProducts mGetProducts;
     @Inject
     ProductModelDataMapper mProductModelDataMapper;
 
     private long mShopId;
-    private int mPage = 1;
+    private String mCategory;
+    private int mPage;
     // If loading is in progress
     private boolean mLoading = false;
     // If the last page is loaded
@@ -46,13 +48,31 @@ public class ProductListPresenter extends MvpPresenter<ProductListView> {
         mShopId = shopId;
     }
 
+    @Override
+    public void onDestroy() {
+        mGetProducts.dispose();
+    }
+
     /**
-     * Downloads the next page of products.
+     * Load initial items (unfiltered).
      */
-    public void loadNextPageProducts() {
-        getViewState().showProgress();
-        mLoading = true;
-        mGetProducts.execute(new ProductsObserver(), GetProducts.Params.forShop(mShopId, mPage));
+    public void loadUnfiltered() {
+        mCategory = null;
+        mPage = FIRST_PAGE;
+        getViewState().clearProducts();
+        loadNextPageProducts();
+    }
+
+    /**
+     * Load items filtered by category.
+     *
+     * @param category category to filter by
+     */
+    public void loadCategory(String category) {
+        mCategory = category;
+        mPage = FIRST_PAGE;
+        getViewState().clearProducts();
+        loadNextPageProducts();
     }
 
     /**
@@ -62,21 +82,24 @@ public class ProductListPresenter extends MvpPresenter<ProductListView> {
      * @param lastVisibleItemIndex last visible item index in RecyclerView
      */
     public void onScrolled(int totalItems, int lastVisibleItemIndex) {
-        Log.d(TAG, "onScrolled");
-        if (!mEnd && !mLoading && totalItems <= (lastVisibleItemIndex + VISIBLE_TRESHOLD)) {
+        if (!mEnd && !mLoading && totalItems <= (lastVisibleItemIndex + VISIBLE_THRESHOLD)) {
             loadNextPageProducts();
         }
     }
 
-    @Override
-    public void onDestroy() {
-        Log.d(TAG, "onDestroy");
-        mGetProducts.dispose();
+    /**
+     * Downloads the next page of products.
+     */
+    private void loadNextPageProducts() {
+        getViewState().showProgress();
+        mLoading = true;
+        mGetProducts.execute(new ProductsObserver(), GetProducts.Params.forShop(mShopId, mCategory, mPage));
     }
 
     private final class ProductsObserver extends DisposableObserver<List<Product>> {
         @Override
         public void onNext(List<Product> products) {
+            // End signal to prevent further loading
             if (products.isEmpty()) {
                 mEnd = true;
             }

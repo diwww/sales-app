@@ -76,7 +76,7 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ShopViewHold
                 @Override
                 public void onClick(View v) {
                     // Start a new activity
-                    context.startActivity(ProductListActivity.newIntent(context, shopModel.getId()));
+                    context.startActivity(ProductListActivity.newIntent(context, shopModel.getId(), shopModel.getName()));
                 }
             });
         }

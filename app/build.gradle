@@ -68,4 +68,5 @@ dependencies {
     testImplementation "android.arch.paging:common:$PAGING_VERSION"
     // optional - RxJava support, currently in release candidate
     implementation "android.arch.paging:rxjava2:1.0.0-rc1"
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
 }

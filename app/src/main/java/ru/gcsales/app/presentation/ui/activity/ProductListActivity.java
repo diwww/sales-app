@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -27,6 +29,7 @@ import ru.gcsales.app.presentation.ui.adapter.ProductsAdapter;
 public class ProductListActivity extends MvpAppCompatActivity implements ProductListView {
 
     public static final String EXTRA_SHOP_ID = "EXTRA_SHOP_ID";
+    public static final String EXTRA_SHOP_NAME = "EXTRA_SHOP_NAME";
 
     @InjectPresenter
     ProductListPresenter mProductListPresenter;
@@ -43,7 +46,6 @@ public class ProductListActivity extends MvpAppCompatActivity implements Product
         return new ProductListPresenter(shopId);
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,13 +53,30 @@ public class ProductListActivity extends MvpAppCompatActivity implements Product
         ButterKnife.bind(this);
 
         setSupportActionBar(mToolbar);
+        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        mToolbar.setNavigationOnClickListener(v -> onBackPressed());
+        setTitle(getIntent().getStringExtra(EXTRA_SHOP_NAME));
         mLinearLayoutManager = new LinearLayoutManager(mRecyclerView.getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mProductsAdapter = new ProductsAdapter();
         mRecyclerView.setAdapter(mProductsAdapter);
         setOnScrollListener();
 
-        mProductListPresenter.loadNextPageProducts();
+        mProductListPresenter.loadUnfiltered();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_product_list, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_select_category) {
+            mProductListPresenter.loadCategory("Детское питание");
+        }
+        return true;
     }
 
     @Override
@@ -81,14 +100,24 @@ public class ProductListActivity extends MvpAppCompatActivity implements Product
     }
 
     @Override
+    public void showError(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void addProducts(List<ProductModel> products) {
         mProductsAdapter.addData(products);
         Toast.makeText(this, "Count: " + mProductsAdapter.getItemCount(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void showError(String error) {
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    public void setProducts(List<ProductModel> products) {
+        mProductsAdapter.setData(products);
+    }
+
+    @Override
+    public void clearProducts() {
+        mProductsAdapter.clear();
     }
 
     private void setOnScrollListener() {
@@ -102,9 +131,10 @@ public class ProductListActivity extends MvpAppCompatActivity implements Product
         });
     }
 
-    public static Intent newIntent(Context context, long id) {
+    public static Intent newIntent(Context context, long id, String name) {
         Intent intent = new Intent(context, ProductListActivity.class);
         intent.putExtra(EXTRA_SHOP_ID, id);
+        intent.putExtra(EXTRA_SHOP_NAME, name);
         return intent;
     }
 }

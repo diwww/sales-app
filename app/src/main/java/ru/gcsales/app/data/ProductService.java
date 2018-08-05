@@ -17,12 +17,11 @@ public interface ProductService {
     /**
      * Gets products for a given shop.
      *
-     * @param id   id of a shop
-     * @param page page number in pagination
+     * @param id       id of a shop
+     * @param page     page number in pagination
+     * @param category category to filter products (optional)
      * @return {@link Observable} of {@link ProductsResponse} object
      */
     @GET("shops/{id}")
-    Observable<ProductsResponse> getProducts(@Path("id") long id, @Query("page") int page);
-
-    // TODO: category
+    Observable<ProductsResponse> getProducts(@Path("id") long id, @Query("category") String category, @Query("page") int page);
 }
