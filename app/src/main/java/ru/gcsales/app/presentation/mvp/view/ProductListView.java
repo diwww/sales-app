@@ -5,6 +5,7 @@ import com.arellomobile.mvp.MvpView;
 import java.util.List;
 
 import ru.gcsales.app.presentation.mvp.model.ProductModel;
+import ru.gcsales.app.presentation.mvp.model.ShopInfoModel;
 
 /**
  * Product list view.
@@ -50,4 +51,7 @@ public interface ProductListView extends MvpView {
      * Clears the product list.
      */
     void clearProducts();
+
+
+    void setShopInfo(ShopInfoModel shopInfo);
 }

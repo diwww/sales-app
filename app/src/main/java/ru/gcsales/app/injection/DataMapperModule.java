@@ -4,10 +4,12 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import ru.gcsales.app.data.mapper.ProductEntityDataMapper;
-import ru.gcsales.app.data.mapper.ShopEntityDataMapper;
-import ru.gcsales.app.presentation.mvp.mapper.ProductModelDataMapper;
-import ru.gcsales.app.presentation.mvp.mapper.ShopModelDataMapper;
+import ru.gcsales.app.mapper.entity.ProductEntityDataMapper;
+import ru.gcsales.app.mapper.entity.ShopEntityDataMapper;
+import ru.gcsales.app.mapper.entity.ShopInfoEntityDataMapper;
+import ru.gcsales.app.mapper.model.ProductModelDataMapper;
+import ru.gcsales.app.mapper.model.ShopInfoModelDataMapper;
+import ru.gcsales.app.mapper.model.ShopModelDataMapper;
 
 @Module
 public class DataMapperModule {
@@ -35,4 +37,18 @@ public class DataMapperModule {
     public ProductEntityDataMapper provideProductEntityDataMapper() {
         return new ProductEntityDataMapper();
     }
+
+
+    @Provides
+    @Singleton
+    public ShopInfoModelDataMapper provideShopInfoModelDataMapper(ShopModelDataMapper mapper) {
+        return new ShopInfoModelDataMapper(mapper);
+    }
+
+    @Provides
+    @Singleton
+    public ShopInfoEntityDataMapper provideShopInfoEntityDataMapper(ShopEntityDataMapper mapper) {
+        return new ShopInfoEntityDataMapper(mapper);
+    }
+
 }

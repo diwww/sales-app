@@ -12,7 +12,7 @@ import io.reactivex.observers.DisposableObserver;
 import ru.gcsales.app.AppApplication;
 import ru.gcsales.app.domain.interactor.GetShops;
 import ru.gcsales.app.domain.model.Shop;
-import ru.gcsales.app.presentation.mvp.mapper.ShopModelDataMapper;
+import ru.gcsales.app.mapper.model.ShopModelDataMapper;
 import ru.gcsales.app.presentation.mvp.view.ShopsView;
 
 /**

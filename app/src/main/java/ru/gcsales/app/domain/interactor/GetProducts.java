@@ -7,6 +7,8 @@ import ru.gcsales.app.domain.model.Product;
 import ru.gcsales.app.domain.repository.ProductRepository;
 
 /**
+ * Use case for getting products for given shop and category.
+ *
  * @author Maxim Surovtsev
  * Created on 7/27/18
  */

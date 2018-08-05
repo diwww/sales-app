@@ -1,10 +1,11 @@
-package ru.gcsales.app.presentation.mvp.mapper;
+package ru.gcsales.app.mapper.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import ru.gcsales.app.domain.model.Shop;
+import ru.gcsales.app.mapper.DataMapper;
 import ru.gcsales.app.presentation.mvp.model.ShopModel;
 
 /**
@@ -14,7 +15,7 @@ import ru.gcsales.app.presentation.mvp.model.ShopModel;
  * @author Maxim Surovtsev
  * Created on 7/24/18
  */
-public class ShopModelDataMapper {
+public class ShopModelDataMapper extends DataMapper<Shop, ShopModel> {
 
     /**
      * Transforms a single model.
@@ -22,6 +23,7 @@ public class ShopModelDataMapper {
      * @param shop model to transform
      * @return {@link ShopModel} presentation model
      */
+    @Override
     public ShopModel transform(Shop shop) {
         ShopModel shopModel = null;
         if (shop != null) {
@@ -32,26 +34,5 @@ public class ShopModelDataMapper {
             shopModel.setImageUrl(shop.getImageUrl());
         }
         return shopModel;
-    }
-
-    /**
-     * Transforms a list of models.
-     *
-     * @param shops list of models to transform
-     * @return list of {@link ShopModel} presentation models
-     */
-    public List<ShopModel> transform(List<Shop> shops) {
-        List<ShopModel> shopModels;
-
-        if (shops != null && !shops.isEmpty()) {
-            shopModels = new ArrayList<>();
-            for (Shop shop : shops) {
-                shopModels.add(transform(shop));
-            }
-        } else {
-            shopModels = Collections.emptyList();
-        }
-
-        return shopModels;
     }
 }

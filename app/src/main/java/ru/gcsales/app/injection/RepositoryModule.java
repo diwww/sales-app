@@ -5,8 +5,9 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import ru.gcsales.app.data.ProductService;
-import ru.gcsales.app.data.mapper.ProductEntityDataMapper;
-import ru.gcsales.app.data.mapper.ShopEntityDataMapper;
+import ru.gcsales.app.mapper.entity.ProductEntityDataMapper;
+import ru.gcsales.app.mapper.entity.ShopEntityDataMapper;
+import ru.gcsales.app.mapper.entity.ShopInfoEntityDataMapper;
 import ru.gcsales.app.data.repository.ProductRepositoryImpl;
 import ru.gcsales.app.data.repository.ShopRepositoryImpl;
 import ru.gcsales.app.data.ShopService;
@@ -19,8 +20,9 @@ public class RepositoryModule {
     @Provides
     @Singleton
     public ShopRepository provideShopRepository(ShopService service,
-                                                ShopEntityDataMapper mapper) {
-        return new ShopRepositoryImpl(service, mapper);
+                                                ShopEntityDataMapper shopEntityDataMapper,
+                                                ShopInfoEntityDataMapper shopInfoEntityDataMapper) {
+        return new ShopRepositoryImpl(service, shopEntityDataMapper, shopInfoEntityDataMapper);
     }
 
     @Provides

@@ -1,8 +1,6 @@
 package ru.gcsales.app.presentation.mvp.presenter;
 
 
-import android.util.Log;
-
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
@@ -13,8 +11,13 @@ import javax.inject.Inject;
 import io.reactivex.observers.DisposableObserver;
 import ru.gcsales.app.AppApplication;
 import ru.gcsales.app.domain.interactor.GetProducts;
+import ru.gcsales.app.domain.interactor.GetShopInfo;
 import ru.gcsales.app.domain.model.Product;
-import ru.gcsales.app.presentation.mvp.mapper.ProductModelDataMapper;
+import ru.gcsales.app.domain.model.ShopInfo;
+import ru.gcsales.app.mapper.model.ProductModelDataMapper;
+import ru.gcsales.app.mapper.model.ShopInfoModelDataMapper;
+import ru.gcsales.app.presentation.mvp.model.ShopInfoModel;
+import ru.gcsales.app.presentation.mvp.model.ShopModel;
 import ru.gcsales.app.presentation.mvp.view.ProductListView;
 
 /**
@@ -26,14 +29,18 @@ import ru.gcsales.app.presentation.mvp.view.ProductListView;
 @InjectViewState
 public class ProductListPresenter extends MvpPresenter<ProductListView> {
 
-    private static final String TAG = "ProductListPresenter";
-
     public static final int VISIBLE_THRESHOLD = 2;
     public static final int FIRST_PAGE = 1;
+
     @Inject
     GetProducts mGetProducts;
     @Inject
     ProductModelDataMapper mProductModelDataMapper;
+
+    @Inject
+    GetShopInfo mGetShopInfo;
+    @Inject
+    ShopInfoModelDataMapper mShopInfoModelDataMapper;
 
     private long mShopId;
     private String mCategory;
@@ -54,7 +61,7 @@ public class ProductListPresenter extends MvpPresenter<ProductListView> {
     }
 
     /**
-     * Load initial items (unfiltered).
+     * Loads initial items (unfiltered).
      */
     public void loadUnfiltered() {
         mCategory = null;
@@ -64,7 +71,7 @@ public class ProductListPresenter extends MvpPresenter<ProductListView> {
     }
 
     /**
-     * Load items filtered by category.
+     * Loads items filtered by category.
      *
      * @param category category to filter by
      */
@@ -73,6 +80,22 @@ public class ProductListPresenter extends MvpPresenter<ProductListView> {
         mPage = FIRST_PAGE;
         getViewState().clearProducts();
         loadNextPageProducts();
+    }
+
+    /**
+     * Downloads the next page of products.
+     */
+    private void loadNextPageProducts() {
+        getViewState().showProgress();
+        mLoading = true;
+        mGetProducts.execute(new ProductsObserver(), GetProducts.Params.forShop(mShopId, mCategory, mPage));
+    }
+
+    /**
+     * Loads shop info (num items, categories, shop name, shop logo).
+     */
+    public void loadShopInfo() {
+        mGetShopInfo.execute(new ShopInfoObserver(), GetShopInfo.Params.forShop(mShopId));
     }
 
     /**
@@ -87,16 +110,8 @@ public class ProductListPresenter extends MvpPresenter<ProductListView> {
         }
     }
 
-    /**
-     * Downloads the next page of products.
-     */
-    private void loadNextPageProducts() {
-        getViewState().showProgress();
-        mLoading = true;
-        mGetProducts.execute(new ProductsObserver(), GetProducts.Params.forShop(mShopId, mCategory, mPage));
-    }
-
     private final class ProductsObserver extends DisposableObserver<List<Product>> {
+
         @Override
         public void onNext(List<Product> products) {
             // End signal to prevent further loading
@@ -118,6 +133,24 @@ public class ProductListPresenter extends MvpPresenter<ProductListView> {
             getViewState().hideProgress();
             mLoading = false;
             mPage++;
+        }
+    }
+
+    private final class ShopInfoObserver extends DisposableObserver<ShopInfo> {
+
+        @Override
+        public void onNext(ShopInfo shopInfo) {
+            getViewState().setShopInfo(mShopInfoModelDataMapper.transform(shopInfo));
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            // TODO
+        }
+
+        @Override
+        public void onComplete() {
+            // TODO
         }
     }
 }
