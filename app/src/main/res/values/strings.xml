@@ -11,4 +11,5 @@
     <string name="category_text">Category</string>
     <string name="num_items_text">%d items</string>
     <string name="current_category_text">Current category: %s</string>
+    <string name="select_category_text">Select the category</string>
 </resources>

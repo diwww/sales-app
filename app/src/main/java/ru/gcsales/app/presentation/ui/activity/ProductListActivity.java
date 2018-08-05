@@ -1,8 +1,10 @@
 package ru.gcsales.app.presentation.ui.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -52,6 +54,8 @@ public class ProductListActivity extends MvpAppCompatActivity implements Product
     ProductsAdapter mProductsAdapter;
     LinearLayoutManager mLinearLayoutManager;
 
+    private AlertDialog mAlertDialog;
+
     @ProvidePresenter
     ProductListPresenter provideProductListPresenter() {
         long shopId = getIntent().getLongExtra(EXTRA_SHOP_ID, 0);
@@ -88,7 +92,7 @@ public class ProductListActivity extends MvpAppCompatActivity implements Product
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_select_category) {
-            mProductListPresenter.loadCategory("Детское питание");
+            mAlertDialog.show();
         }
         return true;
     }
@@ -141,8 +145,25 @@ public class ProductListActivity extends MvpAppCompatActivity implements Product
         Glide.with(this)
                 .load(shopInfo.getShop().getImageUrl())
                 .into(mShopLogoImageView);
-//        mCurrentCategoryTextView.setText(getString(R.string.current_category_text, "Овощи и фрукты"));
-        Toast.makeText(this, "Categories: " + shopInfo.getCategories(), Toast.LENGTH_SHORT).show();
+        List<String> categoriesList = shopInfo.getCategories();
+        categoriesList.add(0, "Все категории");
+        String[] categories = new String[shopInfo.getCategories().size()];
+        categories = shopInfo.getCategories().toArray(categories);
+        initAlertDialog(categories);
+        mToolbar.getMenu().getItem(0).setEnabled(true);
+    }
+
+    private void initAlertDialog(String[] items) {
+        mAlertDialog = new AlertDialog.Builder(this)
+                .setTitle(R.string.select_category_text)
+                .setItems(items, (dialog, which) -> {
+                    if (which == 0) {
+                        mProductListPresenter.loadCategory(null);
+                    } else {
+                        mProductListPresenter.loadCategory(items[which]);
+                    }
+                })
+                .create();
     }
 
     private void setOnScrollListener() {
