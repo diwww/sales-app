@@ -23,7 +23,6 @@ public class ShopInfoModelDataMapper extends DataMapper<ShopInfo, ShopInfoModel>
         if (input != null) {
             shopInfoModel = new ShopInfoModel();
             shopInfoModel.setCategories(input.getCategories());
-            shopInfoModel.setNumItems(input.getNumItems());
             shopInfoModel.setShop(mShopModelDataMapper.transform(input.getShop()));
         }
 

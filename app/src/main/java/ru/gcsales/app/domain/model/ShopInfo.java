@@ -12,7 +12,6 @@ public class ShopInfo {
 
     private Shop mShop;
     private List<String> mCategories;
-    private int mNumItems;
 
     public Shop getShop() {
         return mShop;
@@ -28,13 +27,5 @@ public class ShopInfo {
 
     public void setCategories(List<String> categories) {
         mCategories = categories;
-    }
-
-    public int getNumItems() {
-        return mNumItems;
-    }
-
-    public void setNumItems(int numItems) {
-        mNumItems = numItems;
     }
 }

@@ -13,6 +13,7 @@ import ru.gcsales.app.AppApplication;
 import ru.gcsales.app.domain.interactor.GetProducts;
 import ru.gcsales.app.domain.interactor.GetShopInfo;
 import ru.gcsales.app.domain.model.Product;
+import ru.gcsales.app.domain.model.ProductsInfo;
 import ru.gcsales.app.domain.model.ShopInfo;
 import ru.gcsales.app.mapper.model.ProductModelDataMapper;
 import ru.gcsales.app.mapper.model.ShopInfoModelDataMapper;
@@ -67,6 +68,7 @@ public class ProductListPresenter extends MvpPresenter<ProductListView> {
         mCategory = null;
         mPage = FIRST_PAGE;
         getViewState().clearProducts();
+        getViewState().setCategoryName(null);
         loadNextPageProducts();
     }
 
@@ -79,6 +81,7 @@ public class ProductListPresenter extends MvpPresenter<ProductListView> {
         mCategory = category;
         mPage = FIRST_PAGE;
         getViewState().clearProducts();
+        getViewState().setCategoryName(category);
         loadNextPageProducts();
     }
 
@@ -110,15 +113,16 @@ public class ProductListPresenter extends MvpPresenter<ProductListView> {
         }
     }
 
-    private final class ProductsObserver extends DisposableObserver<List<Product>> {
+    private final class ProductsObserver extends DisposableObserver<ProductsInfo> {
 
         @Override
-        public void onNext(List<Product> products) {
+        public void onNext(ProductsInfo productsInfo) {
             // End signal to prevent further loading
-            if (products.isEmpty()) {
+            if (productsInfo.getProducts().isEmpty()) {
                 mEnd = true;
             }
-            getViewState().addProducts(mProductModelDataMapper.transform(products));
+            getViewState().addProducts(mProductModelDataMapper.transform(productsInfo.getProducts()));
+            getViewState().setNumItems(productsInfo.getCount());
         }
 
         @Override

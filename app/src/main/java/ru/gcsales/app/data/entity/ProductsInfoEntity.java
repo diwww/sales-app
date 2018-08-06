@@ -12,38 +12,38 @@ import java.util.List;
  * @author Maxim Surovtsev
  * Created on 7/27/18
  */
-public class ProductsResponse {
+public class ProductsInfoEntity {
     @SerializedName("count")
     @Expose
-    private long count;
+    private long mCount;
     @SerializedName("rows")
     @Expose
-    private List<ProductEntity> productEntities = null;
+    private List<ProductEntity> mProductEntities = null;
     @SerializedName("numPages")
     @Expose
-    private long numPages;
+    private long mNumPages;
 
     public long getCount() {
-        return count;
+        return mCount;
     }
 
     public void setCount(long count) {
-        this.count = count;
+        this.mCount = count;
     }
 
     public List<ProductEntity> getProductEntities() {
-        return productEntities;
+        return mProductEntities;
     }
 
     public void setProductEntities(List<ProductEntity> productEntities) {
-        this.productEntities = productEntities;
+        this.mProductEntities = productEntities;
     }
 
     public long getNumPages() {
-        return numPages;
+        return mNumPages;
     }
 
     public void setNumPages(long numPages) {
-        this.numPages = numPages;
+        this.mNumPages = numPages;
     }
 }

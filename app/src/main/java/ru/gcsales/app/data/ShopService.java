@@ -5,9 +5,6 @@ import java.util.List;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
-import ru.gcsales.app.data.entity.ProductEntity;
-import ru.gcsales.app.data.entity.ProductsResponse;
 import ru.gcsales.app.data.entity.ShopEntity;
 import ru.gcsales.app.data.entity.ShopInfoEntity;
 

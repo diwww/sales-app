@@ -48,7 +48,7 @@ public class ProductListActivity extends MvpAppCompatActivity implements Product
 
     // Shop info views
     @BindView(R.id.text_num_items) TextView mNumItemsTextView;
-    //    @BindView(R.id.text_current_category) TextView mCurrentCategoryTextView;
+    @BindView(R.id.text_current_category) TextView mCurrentCategoryTextView;
     @BindView(R.id.image_shop_logo) CircleImageView mShopLogoImageView;
 
     ProductsAdapter mProductsAdapter;
@@ -141,16 +141,30 @@ public class ProductListActivity extends MvpAppCompatActivity implements Product
     @Override
     public void setShopInfo(ShopInfoModel shopInfo) {
         // TODO: LinearLayout плавно появляется с анимацией
-        mNumItemsTextView.setText(getString(R.string.num_items_text, shopInfo.getNumItems()));
         Glide.with(this)
                 .load(shopInfo.getShop().getImageUrl())
                 .into(mShopLogoImageView);
+
         List<String> categoriesList = shopInfo.getCategories();
         categoriesList.add(0, "Все категории");
         String[] categories = new String[shopInfo.getCategories().size()];
         categories = shopInfo.getCategories().toArray(categories);
         initAlertDialog(categories);
         mToolbar.getMenu().getItem(0).setEnabled(true);
+    }
+
+    @Override
+    public void setCategoryName(String category) {
+        if (category == null) {
+            mCurrentCategoryTextView.setText(R.string.default_category);
+        } else {
+            mCurrentCategoryTextView.setText(category);
+        }
+    }
+
+    @Override
+    public void setNumItems(long numItems) {
+        mNumItemsTextView.setText(getString(R.string.num_items_text, numItems));
     }
 
     private void initAlertDialog(String[] items) {

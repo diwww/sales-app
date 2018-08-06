@@ -9,7 +9,7 @@
     <string name="shopping_lists_tab_title">Shopping lists</string>
     <string name="hundred_text">100</string>
     <string name="category_text">Category</string>
-    <string name="num_items_text">%d items</string>
-    <string name="current_category_text">Current category: %s</string>
+    <string name="num_items_text">%d item(s)</string>
+    <string name="default_category">All categories</string>
     <string name="select_category_text">Select the category</string>
 </resources>

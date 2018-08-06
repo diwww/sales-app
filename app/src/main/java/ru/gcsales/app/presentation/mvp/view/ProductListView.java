@@ -52,6 +52,9 @@ public interface ProductListView extends MvpView {
      */
     void clearProducts();
 
-
     void setShopInfo(ShopInfoModel shopInfo);
+
+    void setCategoryName(String category);
+
+    void setNumItems(long numItems);
 }

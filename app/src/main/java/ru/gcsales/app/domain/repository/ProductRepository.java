@@ -4,6 +4,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import ru.gcsales.app.domain.model.Product;
+import ru.gcsales.app.domain.model.ProductsInfo;
 
 /**
  * @author Maxim Surovtsev
@@ -11,5 +12,5 @@ import ru.gcsales.app.domain.model.Product;
  */
 public interface ProductRepository {
 
-    Observable<List<Product>> getProducts(long shopId, String category, int page);
+    Observable<ProductsInfo> getProducts(long shopId, String category, int page);
 }

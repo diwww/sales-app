@@ -6,6 +6,7 @@ import dagger.Module;
 import dagger.Provides;
 import ru.gcsales.app.data.ProductService;
 import ru.gcsales.app.mapper.entity.ProductEntityDataMapper;
+import ru.gcsales.app.mapper.entity.ProductsInfoEntityDataMapper;
 import ru.gcsales.app.mapper.entity.ShopEntityDataMapper;
 import ru.gcsales.app.mapper.entity.ShopInfoEntityDataMapper;
 import ru.gcsales.app.data.repository.ProductRepositoryImpl;
@@ -28,7 +29,7 @@ public class RepositoryModule {
     @Provides
     @Singleton
     public ProductRepository provideProductRepository(ProductService service,
-                                                      ProductEntityDataMapper mapper) {
+                                                      ProductsInfoEntityDataMapper mapper) {
         return new ProductRepositoryImpl(service, mapper);
     }
 }

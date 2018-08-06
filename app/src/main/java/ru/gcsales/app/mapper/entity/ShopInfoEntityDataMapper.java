@@ -23,7 +23,6 @@ public class ShopInfoEntityDataMapper extends DataMapper<ShopInfoEntity, ShopInf
         if (input != null) {
             shopInfo = new ShopInfo();
             shopInfo.setCategories(input.getCategories());
-            shopInfo.setNumItems(input.getNumItems());
             shopInfo.setShop(mShopEntityDataMapper.transform(input.getShopEntity()));
         }
 

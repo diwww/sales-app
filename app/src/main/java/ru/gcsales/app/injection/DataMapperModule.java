@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import ru.gcsales.app.mapper.entity.ProductEntityDataMapper;
+import ru.gcsales.app.mapper.entity.ProductsInfoEntityDataMapper;
 import ru.gcsales.app.mapper.entity.ShopEntityDataMapper;
 import ru.gcsales.app.mapper.entity.ShopInfoEntityDataMapper;
 import ru.gcsales.app.mapper.model.ProductModelDataMapper;
@@ -38,6 +39,11 @@ public class DataMapperModule {
         return new ProductEntityDataMapper();
     }
 
+    @Provides
+    @Singleton
+    public ProductsInfoEntityDataMapper provideProductsInfoEntityDataMapper(ProductEntityDataMapper mapper) {
+        return new ProductsInfoEntityDataMapper(mapper);
+    }
 
     @Provides
     @Singleton
@@ -50,5 +56,4 @@ public class DataMapperModule {
     public ShopInfoEntityDataMapper provideShopInfoEntityDataMapper(ShopEntityDataMapper mapper) {
         return new ShopInfoEntityDataMapper(mapper);
     }
-
 }

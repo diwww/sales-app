@@ -15,10 +15,6 @@ public class ShopInfoEntity {
     @Expose
     private ShopEntity mShopEntity;
 
-    @SerializedName("numItems")
-    @Expose
-    private int mNumItems;
-
     @SerializedName("categories")
     @Expose
     private List<String> mCategories;
@@ -29,14 +25,6 @@ public class ShopInfoEntity {
 
     public void setShopEntity(ShopEntity shopEntity) {
         mShopEntity = shopEntity;
-    }
-
-    public int getNumItems() {
-        return mNumItems;
-    }
-
-    public void setNumItems(int numItems) {
-        mNumItems = numItems;
     }
 
     public List<String> getCategories() {
