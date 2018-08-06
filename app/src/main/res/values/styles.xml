@@ -13,4 +13,31 @@
         <item name="android:background">?attr/colorPrimary</item>
     </style>
 
+    <style name="CardProduct">
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">144dp</item>
+        <item name="cardCornerRadius">4dp</item>
+        <item name="contentPadding">8dp</item>
+    </style>
+
+    <!--TODO: разобраться с цветами текста и где их объявлять-->
+    <!--Font size styles-->
+    <style name="NameText_Body1" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textSize">16sp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:text">@string/undefined_text</item>
+    </style>
+
+    <style name="CategoryText_Body2" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textSize">14sp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:text">@string/undefined_text</item>
+    </style>
+
 </resources>
