@@ -4,7 +4,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import ru.gcsales.app.mapper.entity.ShopEntityDataMapper;
-import ru.gcsales.app.data.ShopService;
+import ru.gcsales.app.data.service.ShopService;
 import ru.gcsales.app.mapper.entity.ShopInfoEntityDataMapper;
 import ru.gcsales.app.domain.model.Shop;
 import ru.gcsales.app.domain.model.ShopInfo;

@@ -1,12 +1,8 @@
 package ru.gcsales.app.data.repository;
 
-import java.util.List;
-
 import io.reactivex.Observable;
-import ru.gcsales.app.data.ProductService;
+import ru.gcsales.app.data.service.ProductService;
 import ru.gcsales.app.domain.model.ProductsInfo;
-import ru.gcsales.app.mapper.entity.ProductEntityDataMapper;
-import ru.gcsales.app.domain.model.Product;
 import ru.gcsales.app.domain.repository.ProductRepository;
 import ru.gcsales.app.mapper.entity.ProductsInfoEntityDataMapper;
 

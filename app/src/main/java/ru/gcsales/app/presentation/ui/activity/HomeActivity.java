@@ -36,5 +36,7 @@ public class HomeActivity extends MvpAppCompatActivity implements HomeView {
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.getTabAt(0).setIcon(R.drawable.ic_home_black_24dp);
         mTabLayout.getTabAt(1).setIcon(R.drawable.ic_shopping_basket_black_24dp);
+
+        startActivity(LoginActivity.newIntent(this));
     }
 }

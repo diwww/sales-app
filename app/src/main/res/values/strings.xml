@@ -12,4 +12,5 @@
     <string name="num_items_text">%d item(s)</string>
     <string name="default_category">All categories</string>
     <string name="select_category_text">Select the category</string>
+    <string name="login_progress_text">Logging in</string>
 </resources>

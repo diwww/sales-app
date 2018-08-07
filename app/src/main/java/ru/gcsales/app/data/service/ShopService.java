@@ -1,4 +1,4 @@
-package ru.gcsales.app.data;
+package ru.gcsales.app.data.service;
 
 import java.util.List;
 

@@ -13,7 +13,7 @@
         <item name="android:background">?attr/colorPrimary</item>
     </style>
 
-    <style name="CardProduct">
+    <style name="CardProduct" parent="CardView">
         <item name="android:layout_marginStart">8dp</item>
         <item name="android:layout_marginTop">4dp</item>
         <item name="android:layout_marginBottom">4dp</item>

@@ -3,6 +3,7 @@ package ru.gcsales.app;
 import android.app.Application;
 
 import ru.gcsales.app.injection.ApplicationComponent;
+import ru.gcsales.app.injection.ApplicationModule;
 import ru.gcsales.app.injection.DaggerApplicationComponent;
 
 public class AppApplication extends Application {
@@ -12,7 +13,9 @@ public class AppApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        sApplicationComponent = DaggerApplicationComponent.create();
+        sApplicationComponent = DaggerApplicationComponent.builder()
+                .applicationModule(new ApplicationModule(this))
+                .build();
     }
 
     public static ApplicationComponent getApplicationComponent() {

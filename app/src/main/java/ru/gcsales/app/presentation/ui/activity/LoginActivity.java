@@ -1,29 +1,54 @@
 package ru.gcsales.app.presentation.ui.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.arellomobile.mvp.MvpAppCompatActivity;
+import com.arellomobile.mvp.presenter.InjectPresenter;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ru.gcsales.app.R;
+import ru.gcsales.app.presentation.mvp.presenter.LoginPresenter;
+import ru.gcsales.app.presentation.mvp.view.LoginView;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends MvpAppCompatActivity implements LoginView {
 
-    private Button mLoginButton;
-    private Button mRegisterButton;
-    private EditText mUsernameEditText;
-    private EditText mPasswordEditText;
+    @InjectPresenter
+    LoginPresenter mLoginPresenter;
 
+    // FIXME: temporary
+    private ProgressDialog mProgressDialog;
+
+    @BindView(R.id.button_login) Button mLoginButton;
+    @BindView(R.id.button_register) Button mRegisterButton;
+    @BindView(R.id.edit_text_username) EditText mUsernameEditText;
+    @BindView(R.id.edit_text_password) EditText mPasswordEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        initViews();
-        setListeners();
+        ButterKnife.bind(this);
+
+        mLoginButton.setOnClickListener(v -> {
+            String username = mUsernameEditText.getText().toString();
+            String password = mPasswordEditText.getText().toString();
+
+            mLoginPresenter.login(username, password);
+        });
+        mRegisterButton.setOnClickListener(v -> {
+            // TODO: start RegisterActivity
+        });
+
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setTitle(getString(R.string.login_progress_text));
     }
 
     @Override
@@ -36,27 +61,29 @@ public class LoginActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    private void initViews() {
-        mLoginButton = findViewById(R.id.button_login);
-        mRegisterButton = findViewById(R.id.button_register);
-        mUsernameEditText = findViewById(R.id.edit_text_username);
-        mPasswordEditText = findViewById(R.id.edit_text_password);
+    @Override
+    public void showError(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 
-    private void setListeners() {
-        mLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String username = mUsernameEditText.getText().toString();
-                String password = mPasswordEditText.getText().toString();
-            }
-        });
-        mRegisterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: start RegisterActivity
-            }
-        });
+    @Override
+    public void showProgress() {
+        mProgressDialog.show();
+    }
+
+    @Override
+    public void hideProgress() {
+        mProgressDialog.hide();
+    }
+
+    @Override
+    public void showToken(String token) {
+        Toast.makeText(this, token, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSuccessLogin() {
+        finish();
     }
 
     public static Intent newIntent(Context context) {
