@@ -1,7 +1,6 @@
 package ru.gcsales.app.presentation.ui.activity;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -11,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,8 +25,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import ru.gcsales.app.R;
-import ru.gcsales.app.presentation.mvp.model.ProductModel;
-import ru.gcsales.app.presentation.mvp.model.ShopInfoModel;
+import ru.gcsales.app.domain.model.Product;
+import ru.gcsales.app.domain.model.ShopInfo;
 import ru.gcsales.app.presentation.mvp.presenter.ProductListPresenter;
 import ru.gcsales.app.presentation.mvp.view.ProductListView;
 import ru.gcsales.app.presentation.ui.adapter.ProductsAdapter;
@@ -123,13 +121,13 @@ public class ProductListActivity extends MvpAppCompatActivity implements Product
     }
 
     @Override
-    public void addProducts(List<ProductModel> products) {
+    public void addProducts(List<Product> products) {
         mProductsAdapter.addData(products);
         Toast.makeText(this, "Count: " + mProductsAdapter.getItemCount(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void setProducts(List<ProductModel> products) {
+    public void setProducts(List<Product> products) {
         mProductsAdapter.setData(products);
     }
 
@@ -139,7 +137,7 @@ public class ProductListActivity extends MvpAppCompatActivity implements Product
     }
 
     @Override
-    public void setShopInfo(ShopInfoModel shopInfo) {
+    public void setShopInfo(ShopInfo shopInfo) {
         // TODO: LinearLayout плавно появляется с анимацией
         Glide.with(this)
                 .load(shopInfo.getShop().getImageUrl())
@@ -197,5 +195,4 @@ public class ProductListActivity extends MvpAppCompatActivity implements Product
         intent.putExtra(EXTRA_SHOP_NAME, name);
         return intent;
     }
-
 }

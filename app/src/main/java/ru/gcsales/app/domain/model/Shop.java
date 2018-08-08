@@ -1,47 +1,57 @@
 package ru.gcsales.app.domain.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
- * Domain model to represent a shop.
+ * Class that represents JSON shop entity.
  *
  * @author Maxim Surovtsev
  * Created on 7/24/18
  */
 public class Shop {
-
-    private long mId;
-    private String mAlias;
-    private String mName;
-    private String mImageUrl;
+    @SerializedName("id")
+    @Expose
+    private long id;
+    @SerializedName("alias")
+    @Expose
+    private String alias;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("imageUrl")
+    @Expose
+    private String imageUrl;
 
     public long getId() {
-        return mId;
+        return id;
     }
 
     public void setId(long id) {
-        mId = id;
+        this.id = id;
     }
 
     public String getAlias() {
-        return mAlias;
+        return alias;
     }
 
     public void setAlias(String alias) {
-        mAlias = alias;
+        this.alias = alias;
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
     public void setName(String name) {
-        mName = name;
+        this.name = name;
     }
 
     public String getImageUrl() {
-        return mImageUrl;
+        return imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
-        mImageUrl = imageUrl;
+        this.imageUrl = imageUrl;
     }
 }

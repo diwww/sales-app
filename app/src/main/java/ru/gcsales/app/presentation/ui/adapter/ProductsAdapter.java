@@ -20,11 +20,11 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
-import ru.gcsales.app.presentation.mvp.model.ProductModel;
+import ru.gcsales.app.domain.model.Product;
 
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHolder> {
 
-    private List<ProductModel> mProductModels = new ArrayList<>();
+    private List<Product> mProducts = new ArrayList<>();
 
     @NonNull
     @Override
@@ -36,29 +36,29 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        final ProductModel productModel = mProductModels.get(position);
-        holder.bind(productModel);
+        final Product product = mProducts.get(position);
+        holder.bind(product);
     }
 
-    public void setData(List<ProductModel> data) {
-        mProductModels.clear();
-        mProductModels.addAll(data);
+    public void setData(List<Product> data) {
+        mProducts.clear();
+        mProducts.addAll(data);
         notifyDataSetChanged();
     }
 
-    public void addData(List<ProductModel> data) {
-        mProductModels.addAll(data);
+    public void addData(List<Product> data) {
+        mProducts.addAll(data);
         notifyDataSetChanged();
     }
 
     public void clear() {
-        mProductModels.clear();
+        mProducts.clear();
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return mProductModels.size();
+        return mProducts.size();
     }
 
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
@@ -77,14 +77,14 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
             mOldPriceTextView.setPaintFlags(mOldPriceTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
-        public void bind(ProductModel productModel) {
+        public void bind(Product product) {
             final Context context = itemView.getContext();
-            mNameTextView.setText(productModel.getName());
-            mCategoryTextView.setText(productModel.getCategory());
-            mOldPriceTextView.setText(String.format(Locale.getDefault(), "%.2f", productModel.getOldPrice()));
-            mNewPriceTextView.setText(String.format(Locale.getDefault(), "%.2f", productModel.getNewPrice()));
+            mNameTextView.setText(product.getName());
+            mCategoryTextView.setText(product.getCategory());
+            mOldPriceTextView.setText(String.format(Locale.getDefault(), "%.2f", product.getOldPrice()));
+            mNewPriceTextView.setText(String.format(Locale.getDefault(), "%.2f", product.getNewPrice()));
             Glide.with(context)
-                    .load(productModel.getImageUrl())
+                    .load(product.getImageUrl())
                     .into(mImageView);
             mAddButton.setOnClickListener(new View.OnClickListener() {
                 @Override

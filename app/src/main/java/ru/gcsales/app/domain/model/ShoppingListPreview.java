@@ -1,14 +1,12 @@
-package ru.gcsales.app.presentation.mvp.model;
+package ru.gcsales.app.domain.model;
 
 import java.util.List;
 
 /**
- * Shopping list preview presentation model.
- *
  * @author Maxim Surovtsev
- * Created on 7/24/18
+ * Created on 8/8/18
  */
-public class ShoppingListPreviewModel {
+public class ShoppingListPreview {
 
     private int mId;
     private String mName;

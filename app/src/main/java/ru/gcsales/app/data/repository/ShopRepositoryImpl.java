@@ -3,11 +3,9 @@ package ru.gcsales.app.data.repository;
 import java.util.List;
 
 import io.reactivex.Observable;
-import ru.gcsales.app.mapper.entity.ShopEntityDataMapper;
-import ru.gcsales.app.data.service.ShopService;
-import ru.gcsales.app.mapper.entity.ShopInfoEntityDataMapper;
 import ru.gcsales.app.domain.model.Shop;
 import ru.gcsales.app.domain.model.ShopInfo;
+import ru.gcsales.app.data.service.ShopService;
 import ru.gcsales.app.domain.repository.ShopRepository;
 
 /**
@@ -20,24 +18,18 @@ import ru.gcsales.app.domain.repository.ShopRepository;
 public class ShopRepositoryImpl implements ShopRepository {
 
     private ShopService mShopService;
-    private ShopEntityDataMapper mShopEntityDataMapper;
-    private ShopInfoEntityDataMapper mShopInfoEntityDataMapper;
 
-    public ShopRepositoryImpl(ShopService shopService,
-                              ShopEntityDataMapper shopEntityDataMapper,
-                              ShopInfoEntityDataMapper shopInfoEntityDataMapper) {
+    public ShopRepositoryImpl(ShopService shopService) {
         mShopService = shopService;
-        mShopEntityDataMapper = shopEntityDataMapper;
-        mShopInfoEntityDataMapper = shopInfoEntityDataMapper;
     }
 
     @Override
     public Observable<List<Shop>> getShops() {
-        return mShopService.getShops().map(mShopEntityDataMapper::transform);
+        return mShopService.getShops();
     }
 
     @Override
     public Observable<ShopInfo> getShopInfo(long id) {
-        return mShopService.getShopInfo(id).map(mShopInfoEntityDataMapper::transform);
+        return mShopService.getShopInfo(id);
     }
 }

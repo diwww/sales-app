@@ -4,7 +4,7 @@ import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import ru.gcsales.app.data.entity.ProductsInfoEntity;
+import ru.gcsales.app.domain.model.ProductsInfo;
 
 /**
  * API requests to get products.
@@ -20,8 +20,8 @@ public interface ProductService {
      * @param id       id of a shop
      * @param page     page number in pagination
      * @param category category to filter products (optional)
-     * @return {@link Observable} of {@link ProductsInfoEntity} object
+     * @return {@link Observable} of {@link ProductsInfo} object
      */
     @GET("shops/{id}")
-    Observable<ProductsInfoEntity> getProducts(@Path("id") long id, @Query("category") String category, @Query("page") int page);
+    Observable<ProductsInfo> getProducts(@Path("id") long id, @Query("category") String category, @Query("page") int page);
 }

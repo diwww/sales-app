@@ -5,8 +5,8 @@ import java.util.List;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import ru.gcsales.app.data.entity.ShopEntity;
-import ru.gcsales.app.data.entity.ShopInfoEntity;
+import ru.gcsales.app.domain.model.Shop;
+import ru.gcsales.app.domain.model.ShopInfo;
 
 /**
  * API requests to get shops.
@@ -19,18 +19,18 @@ public interface ShopService {
     /**
      * Gets all shops.
      *
-     * @return {@link Observable} list of {@link ShopEntity} objects
+     * @return {@link Observable} list of {@link Shop} objects
      */
     @GET("shops")
-    Observable<List<ShopEntity>> getShops();
+    Observable<List<Shop>> getShops();
 
     /**
      * Gets shop info.
      *
      * @param id id of a shop
-     * @return {@link Observable} list of {@link ShopInfoEntity} objects
+     * @return {@link Observable} list of {@link ShopInfo} objects
      */
     @GET("shops/{id}/info")
-    Observable<ShopInfoEntity> getShopInfo(@Path("id") long id);
+    Observable<ShopInfo> getShopInfo(@Path("id") long id);
 
 }

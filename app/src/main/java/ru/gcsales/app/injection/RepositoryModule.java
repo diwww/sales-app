@@ -12,9 +12,6 @@ import ru.gcsales.app.data.service.AuthService;
 import ru.gcsales.app.data.service.ProductService;
 import ru.gcsales.app.domain.repository.AuthRepository;
 import ru.gcsales.app.domain.repository.TokenRepository;
-import ru.gcsales.app.mapper.entity.ProductsInfoEntityDataMapper;
-import ru.gcsales.app.mapper.entity.ShopEntityDataMapper;
-import ru.gcsales.app.mapper.entity.ShopInfoEntityDataMapper;
 import ru.gcsales.app.data.repository.ProductRepositoryImpl;
 import ru.gcsales.app.data.repository.ShopRepositoryImpl;
 import ru.gcsales.app.data.service.ShopService;
@@ -26,17 +23,14 @@ public class RepositoryModule {
 
     @Provides
     @Singleton
-    public ShopRepository provideShopRepository(ShopService service,
-                                                ShopEntityDataMapper shopEntityDataMapper,
-                                                ShopInfoEntityDataMapper shopInfoEntityDataMapper) {
-        return new ShopRepositoryImpl(service, shopEntityDataMapper, shopInfoEntityDataMapper);
+    public ShopRepository provideShopRepository(ShopService service) {
+        return new ShopRepositoryImpl(service);
     }
 
     @Provides
     @Singleton
-    public ProductRepository provideProductRepository(ProductService service,
-                                                      ProductsInfoEntityDataMapper mapper) {
-        return new ProductRepositoryImpl(service, mapper);
+    public ProductRepository provideProductRepository(ProductService service) {
+        return new ProductRepositoryImpl(service);
     }
 
 

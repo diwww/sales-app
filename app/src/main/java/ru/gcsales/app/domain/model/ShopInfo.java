@@ -1,16 +1,22 @@
 package ru.gcsales.app.domain.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
- * Domain model to represent shop info.
- *
  * @author Maxim Surovtsev
  * Created on 8/5/18
  */
 public class ShopInfo {
 
+    @SerializedName("shop")
+    @Expose
     private Shop mShop;
+
+    @SerializedName("categories")
+    @Expose
     private List<String> mCategories;
 
     public Shop getShop() {

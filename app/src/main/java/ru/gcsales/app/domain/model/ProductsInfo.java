@@ -1,18 +1,26 @@
 package ru.gcsales.app.domain.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 /**
- * Domain model to represent products info.
+ * Represents JSON response for getting products
+ * with pagination.
  *
  * @author Maxim Surovtsev
  * Created on 7/27/18
  */
 public class ProductsInfo {
-
+    @SerializedName("count")
+    @Expose
     private long mCount;
+    @SerializedName("rows")
+    @Expose
     private List<Product> mProducts = null;
+    @SerializedName("numPages")
+    @Expose
     private long mNumPages;
 
     public long getCount() {
@@ -28,7 +36,7 @@ public class ProductsInfo {
     }
 
     public void setProducts(List<Product> products) {
-        mProducts = products;
+        this.mProducts = products;
     }
 
     public long getNumPages() {

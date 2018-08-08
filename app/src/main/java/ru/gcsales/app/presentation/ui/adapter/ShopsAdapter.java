@@ -17,12 +17,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
-import ru.gcsales.app.presentation.mvp.model.ShopModel;
+import ru.gcsales.app.domain.model.Shop;
 import ru.gcsales.app.presentation.ui.activity.ProductListActivity;
 
 public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ShopViewHolder> {
 
-    private List<ShopModel> mShopModels = new ArrayList<>();
+    private List<Shop> mShops = new ArrayList<>();
 
     public ShopsAdapter() {
     }
@@ -37,17 +37,17 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ShopViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ShopViewHolder holder, int position) {
-        ShopModel shopModel = mShopModels.get(position);
-        holder.bind(shopModel);
+        Shop shop = mShops.get(position);
+        holder.bind(shop);
     }
 
     @Override
     public int getItemCount() {
-        return mShopModels.size();
+        return mShops.size();
     }
 
-    public void setData(List<ShopModel> data) {
-        mShopModels = data;
+    public void setData(List<Shop> data) {
+        mShops = data;
         notifyDataSetChanged();
     }
 
@@ -64,7 +64,7 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ShopViewHold
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final ShopModel shopModel) {
+        public void bind(final Shop shopModel) {
             final Context context = itemView.getContext();
             mShopNameTextView.setText(shopModel.getName());
             // Download image from url into image view

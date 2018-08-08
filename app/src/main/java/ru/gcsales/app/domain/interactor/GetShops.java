@@ -4,7 +4,6 @@ import java.util.List;
 
 
 import io.reactivex.Observable;
-import io.reactivex.observers.DisposableObserver;
 import ru.gcsales.app.domain.model.Shop;
 import ru.gcsales.app.domain.repository.ShopRepository;
 

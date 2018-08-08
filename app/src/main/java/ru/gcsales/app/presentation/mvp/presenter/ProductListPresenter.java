@@ -4,21 +4,14 @@ package ru.gcsales.app.presentation.mvp.presenter;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import io.reactivex.observers.DisposableObserver;
 import ru.gcsales.app.AppApplication;
 import ru.gcsales.app.domain.interactor.GetProducts;
 import ru.gcsales.app.domain.interactor.GetShopInfo;
-import ru.gcsales.app.domain.model.Product;
 import ru.gcsales.app.domain.model.ProductsInfo;
 import ru.gcsales.app.domain.model.ShopInfo;
-import ru.gcsales.app.mapper.model.ProductModelDataMapper;
-import ru.gcsales.app.mapper.model.ShopInfoModelDataMapper;
-import ru.gcsales.app.presentation.mvp.model.ShopInfoModel;
-import ru.gcsales.app.presentation.mvp.model.ShopModel;
 import ru.gcsales.app.presentation.mvp.view.ProductListView;
 
 /**
@@ -35,13 +28,9 @@ public class ProductListPresenter extends MvpPresenter<ProductListView> {
 
     @Inject
     GetProducts mGetProducts;
-    @Inject
-    ProductModelDataMapper mProductModelDataMapper;
 
     @Inject
     GetShopInfo mGetShopInfo;
-    @Inject
-    ShopInfoModelDataMapper mShopInfoModelDataMapper;
 
     private long mShopId;
     private String mCategory;
@@ -121,7 +110,7 @@ public class ProductListPresenter extends MvpPresenter<ProductListView> {
             if (productsInfo.getProducts().isEmpty()) {
                 mEnd = true;
             }
-            getViewState().addProducts(mProductModelDataMapper.transform(productsInfo.getProducts()));
+            getViewState().addProducts(productsInfo.getProducts());
             getViewState().setNumItems(productsInfo.getCount());
         }
 
@@ -144,7 +133,7 @@ public class ProductListPresenter extends MvpPresenter<ProductListView> {
 
         @Override
         public void onNext(ShopInfo shopInfo) {
-            getViewState().setShopInfo(mShopInfoModelDataMapper.transform(shopInfo));
+            getViewState().setShopInfo(shopInfo);
         }
 
         @Override

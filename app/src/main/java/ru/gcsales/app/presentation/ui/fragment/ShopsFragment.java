@@ -18,7 +18,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
-import ru.gcsales.app.presentation.mvp.model.ShopModel;
+import ru.gcsales.app.domain.model.Shop;
 import ru.gcsales.app.presentation.mvp.presenter.ShopsPresenter;
 import ru.gcsales.app.presentation.mvp.view.ShopsView;
 import ru.gcsales.app.presentation.ui.adapter.ShopsAdapter;
@@ -73,7 +73,7 @@ public class ShopsFragment extends MvpAppCompatFragment implements ShopsView {
     }
 
     @Override
-    public void setShops(List<ShopModel> shops) {
+    public void setShops(List<Shop> shops) {
         mShopsAdapter.setData(shops);
     }
 

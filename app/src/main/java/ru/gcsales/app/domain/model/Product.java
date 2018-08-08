@@ -1,112 +1,150 @@
 package ru.gcsales.app.domain.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
- * Domain model to represent a product.
+ * Class that represents JSON product entity.
  *
  * @author Maxim Surovtsev
- * Created on 7/27/18
+ * Created on 7/26/18
  */
 public class Product {
 
-    private long mId;
-    private String mName;
-    private String mCategory;
-    private double mOldPrice;
-    private double mNewPrice;
-    private String mDateIn;
-    private String mDateOut;
-    private String mCrawlDate;
-    private String mCondition;
-    private String mImageUrl;
-    private String mDiscount;
+    @SerializedName("id")
+    @Expose
+    private long id;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("category")
+    @Expose
+    private String category;
+    @SerializedName("oldPrice")
+    @Expose
+    private double oldPrice;
+    @SerializedName("newPrice")
+    @Expose
+    private double newPrice;
+    @SerializedName("dateIn")
+    @Expose
+    private String dateIn;
+    @SerializedName("dateOut")
+    @Expose
+    private String dateOut;
+    @SerializedName("crawlDate")
+    @Expose
+    private String crawlDate;
+    @SerializedName("condition")
+    @Expose
+    private String condition;
+    @SerializedName("image")
+    @Expose
+    private Object image;
+    @SerializedName("imageUrl")
+    @Expose
+    private String imageUrl;
+    @SerializedName("discount")
+    @Expose
+    private String discount;
+    @SerializedName("mShop")
+    @Expose
     private Shop mShop;
 
     public long getId() {
-        return mId;
+        return id;
     }
 
     public void setId(long id) {
-        mId = id;
+        this.id = id;
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
     public void setName(String name) {
-        mName = name;
+        this.name = name;
     }
 
     public String getCategory() {
-        return mCategory;
+        return category;
     }
 
     public void setCategory(String category) {
-        mCategory = category;
+        this.category = category;
     }
 
     public double getOldPrice() {
-        return mOldPrice;
+        return oldPrice;
     }
 
     public void setOldPrice(double oldPrice) {
-        mOldPrice = oldPrice;
+        this.oldPrice = oldPrice;
     }
 
     public double getNewPrice() {
-        return mNewPrice;
+        return newPrice;
     }
 
     public void setNewPrice(double newPrice) {
-        mNewPrice = newPrice;
+        this.newPrice = newPrice;
     }
 
     public String getDateIn() {
-        return mDateIn;
+        return dateIn;
     }
 
     public void setDateIn(String dateIn) {
-        mDateIn = dateIn;
+        this.dateIn = dateIn;
     }
 
     public String getDateOut() {
-        return mDateOut;
+        return dateOut;
     }
 
     public void setDateOut(String dateOut) {
-        mDateOut = dateOut;
+        this.dateOut = dateOut;
     }
 
     public String getCrawlDate() {
-        return mCrawlDate;
+        return crawlDate;
     }
 
     public void setCrawlDate(String crawlDate) {
-        mCrawlDate = crawlDate;
+        this.crawlDate = crawlDate;
     }
 
     public String getCondition() {
-        return mCondition;
+        return condition;
     }
 
     public void setCondition(String condition) {
-        mCondition = condition;
+        this.condition = condition;
+    }
+
+    public Object getImage() {
+        return image;
+    }
+
+    public void setImage(Object image) {
+        this.image = image;
     }
 
     public String getImageUrl() {
-        return mImageUrl;
+        return imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
-        mImageUrl = imageUrl;
+        this.imageUrl = imageUrl;
     }
 
     public String getDiscount() {
-        return mDiscount;
+        return discount;
     }
 
     public void setDiscount(String discount) {
-        mDiscount = discount;
+        this.discount = discount;
     }
 
     public Shop getShop() {
@@ -114,6 +152,6 @@ public class Product {
     }
 
     public void setShop(Shop shop) {
-        mShop = shop;
+        this.mShop = shop;
     }
 }

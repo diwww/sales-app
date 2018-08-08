@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.gcsales.app.R;
-import ru.gcsales.app.presentation.mvp.model.ShoppingListPreviewModel;
+import ru.gcsales.app.domain.model.ShoppingListPreview;
 import ru.gcsales.app.presentation.ui.activity.ShoppingListActivity;
 
 public class ShoppingListPreviewsAdapter extends RecyclerView.Adapter<ShoppingListPreviewsAdapter.ShoppingListViewHolder> {
 
-    private List<ShoppingListPreviewModel> mShoppingListPreviewModels = new ArrayList<>();
+    private List<ShoppingListPreview> mShoppingListPreviews = new ArrayList<>();
     private Context mContext;
 
     public ShoppingListPreviewsAdapter(Context context) {
@@ -34,7 +34,7 @@ public class ShoppingListPreviewsAdapter extends RecyclerView.Adapter<ShoppingLi
 
     @Override
     public void onBindViewHolder(@NonNull ShoppingListViewHolder holder, int position) {
-        ShoppingListPreviewModel shoppingListPreviewModel = mShoppingListPreviewModels.get(position);
+        ShoppingListPreview shoppingListPreviewModel = mShoppingListPreviews.get(position);
         holder.getNameTextView().setText(shoppingListPreviewModel.getName());
 
         // TODO: improve
@@ -63,12 +63,12 @@ public class ShoppingListPreviewsAdapter extends RecyclerView.Adapter<ShoppingLi
 
     @Override
     public int getItemCount() {
-        return mShoppingListPreviewModels.size();
+        return mShoppingListPreviews.size();
     }
 
-    public void setData(List<ShoppingListPreviewModel> data) {
-        mShoppingListPreviewModels.clear();
-        mShoppingListPreviewModels.addAll(data);
+    public void setData(List<ShoppingListPreview> data) {
+        mShoppingListPreviews.clear();
+        mShoppingListPreviews.addAll(data);
         notifyDataSetChanged();
     }
 

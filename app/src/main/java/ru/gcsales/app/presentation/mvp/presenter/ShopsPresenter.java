@@ -12,7 +12,6 @@ import io.reactivex.observers.DisposableObserver;
 import ru.gcsales.app.AppApplication;
 import ru.gcsales.app.domain.interactor.GetShops;
 import ru.gcsales.app.domain.model.Shop;
-import ru.gcsales.app.mapper.model.ShopModelDataMapper;
 import ru.gcsales.app.presentation.mvp.view.ShopsView;
 
 /**
@@ -26,8 +25,6 @@ public class ShopsPresenter extends MvpPresenter<ShopsView> {
 
     @Inject
     GetShops mGetShops;
-    @Inject
-    ShopModelDataMapper mShopModelDataMapper;
 
     public ShopsPresenter() {
         AppApplication.getApplicationComponent().inject(this);
@@ -50,7 +47,7 @@ public class ShopsPresenter extends MvpPresenter<ShopsView> {
 
         @Override
         public void onNext(List<Shop> shops) {
-            getViewState().setShops(mShopModelDataMapper.transform(shops));
+            getViewState().setShops(shops);
         }
 
         @Override
