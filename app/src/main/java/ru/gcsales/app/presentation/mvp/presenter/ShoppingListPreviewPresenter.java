@@ -28,6 +28,7 @@ public class ShoppingListPreviewPresenter extends MvpPresenter<ShoppingListPrevi
     }
 
     public void loadData() {
+        getViewState().showProgress();
         mGetShoppingListPreviews.execute(new ShoppingListPreviewObserver(), null);
     }
 
@@ -40,12 +41,13 @@ public class ShoppingListPreviewPresenter extends MvpPresenter<ShoppingListPrevi
 
         @Override
         public void onError(Throwable e) {
-
+            getViewState().hideProgress();
+            getViewState().showError("Network error.");
         }
 
         @Override
         public void onComplete() {
-
+            getViewState().hideProgress();
         }
     }
 }

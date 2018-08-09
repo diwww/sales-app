@@ -13,4 +13,5 @@
     <string name="default_category">All categories</string>
     <string name="select_category_text">Select the category</string>
     <string name="login_progress_text">Logging in</string>
+    <string name="shopping_list_name_hint">Shopping List Name</string>
 </resources>

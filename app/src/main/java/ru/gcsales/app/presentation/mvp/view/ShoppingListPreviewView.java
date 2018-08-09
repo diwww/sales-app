@@ -13,4 +13,10 @@ import ru.gcsales.app.domain.model.ShoppingListPreview;
 public interface ShoppingListPreviewView extends MvpView {
 
     void setData(List<ShoppingListPreview> data);
+
+    void showProgress();
+
+    void hideProgress();
+
+    void showError(String error);
 }

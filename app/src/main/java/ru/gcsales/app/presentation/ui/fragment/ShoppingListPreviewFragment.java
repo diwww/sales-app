@@ -10,12 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ru.gcsales.app.R;
 import ru.gcsales.app.domain.model.ShoppingListPreview;
 import ru.gcsales.app.presentation.mvp.presenter.ShoppingListPreviewPresenter;
@@ -28,9 +31,10 @@ public class ShoppingListPreviewFragment extends MvpAppCompatFragment implements
     @InjectPresenter
     ShoppingListPreviewPresenter mShoppingListPreviewPresenter;
 
-    private RecyclerView mRecyclerView;
-    private ShoppingListPreviewsAdapter mShoppingListPreviewsAdapter;
-    private ProgressBar mProgressBar;
+    @BindView(R.id.progress_bar) ProgressBar mProgressBar;
+    @BindView(R.id.recycler_view_shopping_list_previews) RecyclerView mRecyclerView;
+
+    ShoppingListPreviewsAdapter mShoppingListPreviewsAdapter;
 
     @Override
     public void onAttach(Context context) {
@@ -41,12 +45,11 @@ public class ShoppingListPreviewFragment extends MvpAppCompatFragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_shopping_list_preview, container, false);
+        ButterKnife.bind(this, root);
 
-        mRecyclerView = root.findViewById(R.id.recycler_view_shopping_list_previews);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
         mShoppingListPreviewsAdapter = new ShoppingListPreviewsAdapter(getActivity());
         mRecyclerView.setAdapter(mShoppingListPreviewsAdapter);
-        mProgressBar = root.findViewById(R.id.progress_bar);
 
         return root;
     }
@@ -70,6 +73,21 @@ public class ShoppingListPreviewFragment extends MvpAppCompatFragment implements
     @Override
     public void setData(List<ShoppingListPreview> data) {
         mShoppingListPreviewsAdapter.setData(data);
+    }
+
+    @Override
+    public void showProgress() {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        mProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showError(String error) {
+        Toast.makeText(this.getActivity(), error, Toast.LENGTH_SHORT).show();
     }
 
     /**

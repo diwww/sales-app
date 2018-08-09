@@ -24,16 +24,21 @@
         <item name="contentPadding">8dp</item>
     </style>
 
+    <style name="ProgressBar" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+    </style>
+
     <!--TODO: разобраться с цветами текста и где их объявлять-->
     <!--Font size styles-->
-    <style name="NameText_Body1" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="NameText_Body1">
         <item name="android:textSize">16sp</item>
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
         <item name="android:text">@string/undefined_text</item>
     </style>
 
-    <style name="CategoryText_Body2" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="CategoryText_Body2">
         <item name="android:textSize">14sp</item>
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
