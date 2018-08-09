@@ -1,6 +1,5 @@
 package ru.gcsales.app.domain.model;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -12,43 +11,30 @@ import com.google.gson.annotations.SerializedName;
 public class Product {
 
     @SerializedName("id")
-    @Expose
     private long id;
     @SerializedName("name")
-    @Expose
     private String name;
     @SerializedName("category")
-    @Expose
     private String category;
     @SerializedName("oldPrice")
-    @Expose
     private double oldPrice;
     @SerializedName("newPrice")
-    @Expose
     private double newPrice;
     @SerializedName("dateIn")
-    @Expose
     private String dateIn;
     @SerializedName("dateOut")
-    @Expose
     private String dateOut;
     @SerializedName("crawlDate")
-    @Expose
     private String crawlDate;
     @SerializedName("condition")
-    @Expose
     private String condition;
     @SerializedName("image")
-    @Expose
     private Object image;
     @SerializedName("imageUrl")
-    @Expose
     private String imageUrl;
     @SerializedName("discount")
-    @Expose
     private String discount;
     @SerializedName("mShop")
-    @Expose
     private Shop mShop;
 
     public long getId() {

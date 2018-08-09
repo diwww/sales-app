@@ -1,6 +1,5 @@
 package ru.gcsales.app.domain.model;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -12,11 +11,9 @@ import java.util.List;
 public class ShopInfo {
 
     @SerializedName("shop")
-    @Expose
     private Shop mShop;
 
     @SerializedName("categories")
-    @Expose
     private List<String> mCategories;
 
     public Shop getShop() {

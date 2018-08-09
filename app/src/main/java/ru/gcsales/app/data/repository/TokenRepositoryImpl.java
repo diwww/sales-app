@@ -7,10 +7,12 @@ import ru.gcsales.app.domain.repository.TokenRepository;
 
 
 /**
+ * Must be subclassed by repositories working with authenticated requests.
+ *
  * @author Maxim Surovtsev
  * Created on 8/7/18
  */
-public class TokenRepositoryImpl implements TokenRepository {
+public abstract class TokenRepositoryImpl implements TokenRepository {
 
     private static final String PREFERENCE_FILE_KEY = "ru.gcsales.app.PREFERENCE_FILE_KEY";
     public static final String KEY = "ru.gcsales.app.TOKEN_KEY";
@@ -38,5 +40,10 @@ public class TokenRepositoryImpl implements TokenRepository {
         SharedPreferences.Editor editor = prefs.edit();
         editor.remove(KEY);
         editor.commit();
+    }
+
+    @Override
+    public String getAuthHeader() {
+        return "Bearer " + getToken();
     }
 }

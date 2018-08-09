@@ -1,6 +1,7 @@
 package ru.gcsales.app.data.repository;
 
 
+import android.content.Context;
 import io.reactivex.Observable;
 import retrofit2.Response;
 import ru.gcsales.app.data.service.AuthService;
@@ -10,11 +11,12 @@ import ru.gcsales.app.domain.repository.AuthRepository;
  * @author Maxim Surovtsev
  * Created on 8/7/18
  */
-public class AuthRepositoryImpl implements AuthRepository {
+public class AuthRepositoryImpl extends TokenRepositoryImpl implements AuthRepository {
 
     private AuthService mAuthService;
 
-    public AuthRepositoryImpl(AuthService authService) {
+    public AuthRepositoryImpl(AuthService authService, Context context) {
+        super(context);
         mAuthService = authService;
     }
 

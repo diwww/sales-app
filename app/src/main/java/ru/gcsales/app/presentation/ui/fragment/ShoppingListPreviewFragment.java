@@ -3,7 +3,7 @@ package ru.gcsales.app.presentation.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,11 +11,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.arellomobile.mvp.MvpAppCompatFragment;
+import com.arellomobile.mvp.presenter.InjectPresenter;
+
+import java.util.List;
+
 import ru.gcsales.app.R;
+import ru.gcsales.app.domain.model.ShoppingListPreview;
+import ru.gcsales.app.presentation.mvp.presenter.ShoppingListPreviewPresenter;
+import ru.gcsales.app.presentation.mvp.view.ShoppingListPreviewView;
 import ru.gcsales.app.presentation.ui.adapter.ShoppingListPreviewsAdapter;
 
 
-public class ShoppingListPreviewsFragment extends Fragment {
+public class ShoppingListPreviewFragment extends MvpAppCompatFragment implements ShoppingListPreviewView {
+
+    @InjectPresenter
+    ShoppingListPreviewPresenter mShoppingListPreviewPresenter;
 
     private RecyclerView mRecyclerView;
     private ShoppingListPreviewsAdapter mShoppingListPreviewsAdapter;
@@ -29,7 +40,7 @@ public class ShoppingListPreviewsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_shopping_list_previews, container, false);
+        View root = inflater.inflate(R.layout.fragment_shopping_list_preview, container, false);
 
         mRecyclerView = root.findViewById(R.id.recycler_view_shopping_list_previews);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
@@ -50,15 +61,26 @@ public class ShoppingListPreviewsFragment extends Fragment {
         super.onPause();
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mShoppingListPreviewPresenter.loadData();
+    }
+
+    @Override
+    public void setData(List<ShoppingListPreview> data) {
+        mShoppingListPreviewsAdapter.setData(data);
+    }
+
     /**
-     * Creates new fragment instance
+     * Creates a new fragment instance.
      *
      * @param bundle args to pass to a fragment
      * @return new fragment instance
      */
-    public static ShoppingListPreviewsFragment newInstance(Bundle bundle) {
-        ShoppingListPreviewsFragment shoppingListPreviewsFragment = new ShoppingListPreviewsFragment();
-        shoppingListPreviewsFragment.setArguments(bundle);
-        return shoppingListPreviewsFragment;
+    public static ShoppingListPreviewFragment newInstance(Bundle bundle) {
+        ShoppingListPreviewFragment shoppingListPreviewFragment = new ShoppingListPreviewFragment();
+        shoppingListPreviewFragment.setArguments(bundle);
+        return shoppingListPreviewFragment;
     }
 }

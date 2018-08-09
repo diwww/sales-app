@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.fragment.ShoppingListPreviewsFragment">
+    tools:context=".presentation.ui.fragment.ShoppingListPreviewFragment">
 
     <ProgressBar
         android:id="@+id/progress_bar"

@@ -1,6 +1,5 @@
 package ru.gcsales.app.domain.model;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -11,16 +10,12 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Shop {
     @SerializedName("id")
-    @Expose
     private long id;
     @SerializedName("alias")
-    @Expose
     private String alias;
     @SerializedName("name")
-    @Expose
     private String name;
     @SerializedName("imageUrl")
-    @Expose
     private String imageUrl;
 
     public long getId() {

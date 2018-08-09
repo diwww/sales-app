@@ -1,6 +1,5 @@
 package ru.gcsales.app.domain.model;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -14,13 +13,11 @@ import java.util.List;
  */
 public class ProductsInfo {
     @SerializedName("count")
-    @Expose
     private long mCount;
     @SerializedName("rows")
-    @Expose
     private List<Product> mProducts = null;
     @SerializedName("numPages")
-    @Expose
+
     private long mNumPages;
 
     public long getCount() {

@@ -1,5 +1,7 @@
 package ru.gcsales.app.domain.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -8,9 +10,13 @@ import java.util.List;
  */
 public class ShoppingListPreview {
 
+    @SerializedName("id")
     private int mId;
+    @SerializedName("name")
     private String mName;
+    @SerializedName("items")
     private List<String> mItems;
+    @SerializedName("customItems")
     private List<String> mCustomItems;
 
     public int getId() {

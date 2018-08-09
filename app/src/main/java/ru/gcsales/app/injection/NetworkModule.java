@@ -13,6 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import ru.gcsales.app.data.service.AuthService;
 import ru.gcsales.app.data.service.ProductService;
 import ru.gcsales.app.data.service.ShopService;
+import ru.gcsales.app.data.service.ShoppingListService;
 
 @Module
 public class NetworkModule {
@@ -42,5 +43,11 @@ public class NetworkModule {
     @Singleton
     public AuthService provideAuthService() {
         return builder.baseUrl(AUTH_BASE_URL).build().create(AuthService.class);
+    }
+
+    @Provides
+    @Singleton
+    public ShoppingListService provideShoppingListService() {
+        return builder.baseUrl(API_BASE_URL).build().create(ShoppingListService.class);
     }
 }

@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 import ru.gcsales.app.presentation.mvp.presenter.LoginPresenter;
 import ru.gcsales.app.presentation.mvp.presenter.ProductListPresenter;
+import ru.gcsales.app.presentation.mvp.presenter.ShoppingListPreviewPresenter;
 import ru.gcsales.app.presentation.mvp.presenter.ShopsPresenter;
 
 @Singleton
@@ -15,4 +16,6 @@ public interface ApplicationComponent {
     void inject(ProductListPresenter presenter);
 
     void inject(LoginPresenter presenter);
+
+    void inject(ShoppingListPreviewPresenter presenter);
 }

@@ -1,17 +1,21 @@
 package ru.gcsales.app.injection;
 
 
+import android.content.Context;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import ru.gcsales.app.domain.interactor.GetProducts;
 import ru.gcsales.app.domain.interactor.GetShopInfo;
+import ru.gcsales.app.domain.interactor.GetShoppingListPreviews;
 import ru.gcsales.app.domain.interactor.GetShops;
 import ru.gcsales.app.domain.interactor.Login;
 import ru.gcsales.app.domain.repository.AuthRepository;
 import ru.gcsales.app.domain.repository.ProductRepository;
 import ru.gcsales.app.domain.repository.ShopRepository;
+import ru.gcsales.app.domain.repository.ShoppingListRepository;
 import ru.gcsales.app.domain.repository.TokenRepository;
 
 // TODO: make Activity scope
@@ -37,7 +41,14 @@ public class UseCaseModule {
     }
 
     @Provides
-    public Login provideLogin(AuthRepository authRepository, TokenRepository tokenRepository) {
-        return new Login(authRepository, tokenRepository);
+//    @Singleton
+    public Login provideLogin(AuthRepository authRepository) {
+        return new Login(authRepository);
+    }
+
+    @Provides
+//    @Singleton
+    public GetShoppingListPreviews provideGetShoppingListPreviews(ShoppingListRepository shoppingListRepository) {
+        return new GetShoppingListPreviews(shoppingListRepository);
     }
 }

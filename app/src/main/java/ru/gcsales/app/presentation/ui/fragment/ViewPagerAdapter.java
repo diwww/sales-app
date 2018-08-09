@@ -19,7 +19,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return ShopsFragment.newInstance(null);
             case 1:
-                return ShoppingListPreviewsFragment.newInstance(null);
+                return ShoppingListPreviewFragment.newInstance(null);
             default:
                 return null;
         }

@@ -7,7 +7,6 @@ import java.security.NoSuchAlgorithmException;
 import io.reactivex.Observable;
 import retrofit2.Response;
 import ru.gcsales.app.domain.repository.AuthRepository;
-import ru.gcsales.app.domain.repository.TokenRepository;
 
 /**
  * @author Maxim Surovtsev
@@ -16,11 +15,9 @@ import ru.gcsales.app.domain.repository.TokenRepository;
 public class Login extends UseCase<Response<String>, Login.Params> {
 
     private AuthRepository mAuthRepository;
-    private TokenRepository mTokenRepository;
 
-    public Login(AuthRepository authRepository, TokenRepository tokenRepository) {
+    public Login(AuthRepository authRepository) {
         mAuthRepository = authRepository;
-        mTokenRepository = tokenRepository;
     }
 
     @Override
@@ -31,7 +28,7 @@ public class Login extends UseCase<Response<String>, Login.Params> {
                     .doOnNext(res -> {
                         if (res.isSuccessful()) {
                             // TODO: нормально ли записывать токен в doOnNext?
-                            mTokenRepository.setToken(res.body());
+                            mAuthRepository.setToken(res.body());
                         }
                     });
         } catch (NoSuchAlgorithmException e) {
