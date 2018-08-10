@@ -24,6 +24,28 @@
         <item name="contentPadding">8dp</item>
     </style>
 
+    <style name="CardShoppingListPreview" parent="CardView">
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">96dp</item>
+        <item name="cardCornerRadius">4dp</item>
+        <item name="contentPadding">16dp</item>
+    </style>
+
+    <style name="CardShop" parent="CardView">
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:layout_marginEnd">4dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">200dp</item>
+        <item name="cardCornerRadius">4dp</item>
+        <item name="contentPadding">16dp</item>
+    </style>
+
     <style name="ProgressBar" parent="Widget.AppCompat.ProgressBar">
         <item name="android:layout_width">48dp</item>
         <item name="android:layout_height">48dp</item>
@@ -31,15 +53,29 @@
 
     <!--TODO: разобраться с цветами текста и где их объявлять-->
     <!--Font size styles-->
-    <style name="NameText_Body1">
+    <style name="TextProductName">
         <item name="android:textSize">16sp</item>
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
         <item name="android:text">@string/undefined_text</item>
     </style>
 
-    <style name="CategoryText_Body2">
+    <style name="TextProductCategory">
         <item name="android:textSize">14sp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:text">@string/undefined_text</item>
+    </style>
+
+    <style name="TextShoppingListPreviewName">
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:text">@string/undefined_text</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="TextShopName">
+        <item name="android:textSize">16sp</item>
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
         <item name="android:text">@string/undefined_text</item>

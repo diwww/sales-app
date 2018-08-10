@@ -1,6 +1,5 @@
 package ru.gcsales.app.presentation.ui.activity;
 
-import android.app.AlertDialog;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -11,7 +10,6 @@ import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.ScaleAnimation;
-import android.widget.EditText;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -45,7 +43,6 @@ public class HomeActivity extends MvpAppCompatActivity implements HomeView {
         setSupportActionBar(mToolbar);
         initAnimations();
         initTabs();
-        AlertDialog dialog = new AlertDialog.Builder(this).setView(new EditText(this)).create();
     }
 
     private void initTabs() {

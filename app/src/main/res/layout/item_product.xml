@@ -20,7 +20,7 @@
 
         <TextView
             android:id="@+id/text_name"
-            style="@style/NameText_Body1"
+            style="@style/TextProductName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -35,7 +35,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            style="@style/CategoryText_Body2"
+            style="@style/TextProductCategory"
             app:layout_constraintBottom_toTopOf="@+id/text_new_price"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image"
