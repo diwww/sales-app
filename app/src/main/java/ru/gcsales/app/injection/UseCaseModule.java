@@ -13,6 +13,7 @@ import ru.gcsales.app.domain.interactor.GetShopInfo;
 import ru.gcsales.app.domain.interactor.GetShoppingListPreviews;
 import ru.gcsales.app.domain.interactor.GetShops;
 import ru.gcsales.app.domain.interactor.Login;
+import ru.gcsales.app.domain.interactor.RemoveShoppingList;
 import ru.gcsales.app.domain.repository.AuthRepository;
 import ru.gcsales.app.domain.repository.ProductRepository;
 import ru.gcsales.app.domain.repository.ShopRepository;
@@ -57,5 +58,11 @@ public class UseCaseModule {
 //    @Singleton
     public AddShoppingList provideAddShoppingList(ShoppingListRepository shoppingListRepository) {
         return new AddShoppingList(shoppingListRepository);
+    }
+
+    @Provides
+//    @Singleton
+    public RemoveShoppingList provideRemoveShoppingList(ShoppingListRepository shoppingListRepository) {
+        return new RemoveShoppingList(shoppingListRepository);
     }
 }

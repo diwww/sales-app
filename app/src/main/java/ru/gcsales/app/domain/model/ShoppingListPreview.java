@@ -11,7 +11,7 @@ import java.util.List;
 public class ShoppingListPreview {
 
     @SerializedName("id")
-    private int mId;
+    private long mId;
     @SerializedName("name")
     private String mName;
     @SerializedName("items")
@@ -19,11 +19,11 @@ public class ShoppingListPreview {
     @SerializedName("customItems")
     private List<String> mCustomItems;
 
-    public int getId() {
+    public long getId() {
         return mId;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         mId = id;
     }
 

@@ -26,7 +26,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    public static Intent newIntent(Context context, int id) {
+    public static Intent newIntent(Context context, long id) {
         Intent intent = new Intent(context, ShoppingListActivity.class);
         // TODO: put extra id and etc...
         return intent;

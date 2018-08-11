@@ -32,10 +32,13 @@ import ru.gcsales.app.R;
 import ru.gcsales.app.domain.model.ShoppingListPreview;
 import ru.gcsales.app.presentation.mvp.presenter.ShoppingListPreviewPresenter;
 import ru.gcsales.app.presentation.mvp.view.ShoppingListPreviewView;
+import ru.gcsales.app.presentation.ui.activity.ShoppingListActivity;
 import ru.gcsales.app.presentation.ui.adapter.ShoppingListPreviewsAdapter;
+import ru.gcsales.app.presentation.ui.adapter.ShoppingListPreviewsAdapter.*;
 
 
-public class ShoppingListPreviewFragment extends MvpAppCompatFragment implements ShoppingListPreviewView {
+public class ShoppingListPreviewFragment extends MvpAppCompatFragment
+        implements ShoppingListPreviewView, OnItemClickListener, OnItemLongClickListener {
 
     @InjectPresenter
     ShoppingListPreviewPresenter mShoppingListPreviewPresenter;
@@ -52,7 +55,7 @@ public class ShoppingListPreviewFragment extends MvpAppCompatFragment implements
         ButterKnife.bind(this, root);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
-        mShoppingListPreviewsAdapter = new ShoppingListPreviewsAdapter(getActivity());
+        mShoppingListPreviewsAdapter = new ShoppingListPreviewsAdapter(this, this);
         mRecyclerView.setAdapter(mShoppingListPreviewsAdapter);
 
         return root;
@@ -80,8 +83,13 @@ public class ShoppingListPreviewFragment extends MvpAppCompatFragment implements
     }
 
     @Override
-    public void addData(ShoppingListPreview data) {
-        mShoppingListPreviewsAdapter.addData(data);
+    public void addItem(ShoppingListPreview data) {
+        mShoppingListPreviewsAdapter.addItem(data);
+    }
+
+    @Override
+    public void removeItem(ShoppingListPreview item) {
+        mShoppingListPreviewsAdapter.removeItem(item);
     }
 
     @Override
@@ -99,7 +107,17 @@ public class ShoppingListPreviewFragment extends MvpAppCompatFragment implements
         Toast.makeText(this.getActivity(), error, Toast.LENGTH_SHORT).show();
     }
 
-    private void showDialog() {
+    @Override
+    public void onClick(ShoppingListPreview preview) {
+        startActivity(ShoppingListActivity.newIntent(getActivity(), preview.getId()));
+    }
+
+    @Override
+    public void onLongClick(ShoppingListPreview preview) {
+        showRemoveDialog(preview);
+    }
+
+    private void showAddDialog() {
         Context context = getActivity();
 
         EditText editText = new EditText(context);
@@ -118,7 +136,7 @@ public class ShoppingListPreviewFragment extends MvpAppCompatFragment implements
         AlertDialog dialog = new AlertDialog.Builder(context)
                 .setTitle(R.string.new_shopping_list_text)
                 .setView(frameLayout)
-                .setPositiveButton(R.string.ok_text, (d, w) -> {
+                .setPositiveButton(R.string.ok_button_text, (d, w) -> {
                     mShoppingListPreviewPresenter.addShoppingList(editText.getText().toString());
                 })
                 .create();
@@ -147,8 +165,19 @@ public class ShoppingListPreviewFragment extends MvpAppCompatFragment implements
         dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
     }
 
+    private void showRemoveDialog(ShoppingListPreview preview) {
+        AlertDialog dialog = new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.delete_shopping_list_prompt)
+                .setNegativeButton(R.string.cancel_button_text, null)
+                .setPositiveButton(R.string.delete_button_text, (d, w) -> {
+                    mShoppingListPreviewPresenter.removeShoppingList(preview);
+                })
+                .create();
+        dialog.show();
+    }
+
     public void addShoppingList() {
-        showDialog();
+        showAddDialog();
     }
 
     /**

@@ -14,4 +14,6 @@ public interface ShoppingListRepository extends TokenRepository {
     Observable<List<ShoppingListPreview>> getPreviews();
 
     Observable<ShoppingListPreview> addShoppingList(String name);
+
+    Observable<String> removeShoppingList(long id);
 }

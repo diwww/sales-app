@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.Response;
 import ru.gcsales.app.data.service.ShoppingListService;
 import ru.gcsales.app.domain.model.ShoppingListPreview;
 import ru.gcsales.app.domain.repository.ShoppingListRepository;
@@ -31,5 +32,10 @@ public class ShoppingListRepositoryImpl extends TokenRepositoryImpl implements S
     public Observable<ShoppingListPreview> addShoppingList(String name) {
         return mShoppingListService.addShoppingList(getAuthHeader(),
                 new ShoppingListService.ShoppingListBody(name));
+    }
+
+    @Override
+    public Observable<String> removeShoppingList(long id) {
+        return mShoppingListService.removeShoppingList(getAuthHeader(), id);
     }
 }

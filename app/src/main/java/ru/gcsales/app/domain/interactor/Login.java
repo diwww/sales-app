@@ -21,6 +21,7 @@ public class Login extends UseCase<Response<String>, Login.Params> {
     }
 
     @Override
+    // TODO: изменить возвращаемое значение, т.к. в этом слое не может быть зависимостей
     Observable<Response<String>> buildObservable(Params params) {
         try {
             String hashedPassword = sha256(params.password);

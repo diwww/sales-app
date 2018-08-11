@@ -15,5 +15,8 @@
     <string name="login_progress_text">Logging in</string>
     <string name="new_shopping_list_text">New Shopping List</string>
     <string name="shopping_list_name_hint">Name</string>
-    <string name="ok_text">OK</string>
+    <string name="ok_button_text">OK</string>
+    <string name="delete_shopping_list_prompt">Delete shopping list?</string>
+    <string name="cancel_button_text">Cancel</string>
+    <string name="delete_button_text">Delete</string>
 </resources>

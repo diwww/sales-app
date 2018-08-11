@@ -15,15 +15,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
 import ru.gcsales.app.domain.model.ShoppingListPreview;
-import ru.gcsales.app.presentation.ui.activity.ShoppingListActivity;
 
 public class ShoppingListPreviewsAdapter extends RecyclerView.Adapter<ShoppingListPreviewsAdapter.ShoppingListViewHolder> {
 
     private List<ShoppingListPreview> mShoppingListPreviews = new ArrayList<>();
-    private Context mContext;
+    private OnItemClickListener mClickListener;
+    private OnItemLongClickListener mLongClickListener;
 
-    public ShoppingListPreviewsAdapter(Context context) {
-        mContext = context;
+    public ShoppingListPreviewsAdapter(OnItemClickListener clickListener, OnItemLongClickListener longClickListener) {
+        mClickListener = clickListener;
+        mLongClickListener = longClickListener;
     }
 
     @NonNull
@@ -37,7 +38,7 @@ public class ShoppingListPreviewsAdapter extends RecyclerView.Adapter<ShoppingLi
     @Override
     public void onBindViewHolder(@NonNull ShoppingListViewHolder holder, int position) {
         ShoppingListPreview preview = mShoppingListPreviews.get(position);
-        holder.bind(preview);
+        holder.bind(preview, mClickListener, mLongClickListener);
     }
 
     @Override
@@ -51,9 +52,15 @@ public class ShoppingListPreviewsAdapter extends RecyclerView.Adapter<ShoppingLi
         notifyDataSetChanged();
     }
 
-    public void addData(ShoppingListPreview preview) {
+    public void addItem(ShoppingListPreview preview) {
         mShoppingListPreviews.add(preview);
         notifyDataSetChanged();
+    }
+
+    public void removeItem(ShoppingListPreview preview) {
+        int i = mShoppingListPreviews.indexOf(preview);
+        mShoppingListPreviews.remove(i);
+        notifyItemRemoved(i);
     }
 
     public static class ShoppingListViewHolder extends RecyclerView.ViewHolder {
@@ -65,10 +72,21 @@ public class ShoppingListPreviewsAdapter extends RecyclerView.Adapter<ShoppingLi
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(ShoppingListPreview preview) {
-            final Context context = itemView.getContext();
+        public void bind(ShoppingListPreview preview, OnItemClickListener clickListener, OnItemLongClickListener longClickListener) {
             mNameTextView.setText(preview.getName());
-            itemView.setOnClickListener(v -> context.startActivity(ShoppingListActivity.newIntent(context, preview.getId())));
+            itemView.setOnClickListener(v -> clickListener.onClick(preview));
+            itemView.setOnLongClickListener(v -> {
+                longClickListener.onLongClick(preview);
+                return true;
+            });
         }
+    }
+
+    public interface OnItemClickListener {
+        void onClick(ShoppingListPreview preview);
+    }
+
+    public interface OnItemLongClickListener {
+        void onLongClick(ShoppingListPreview preview);
     }
 }
