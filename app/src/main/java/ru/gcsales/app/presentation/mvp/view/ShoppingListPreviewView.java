@@ -14,6 +14,8 @@ public interface ShoppingListPreviewView extends MvpView {
 
     void setData(List<ShoppingListPreview> data);
 
+    void addData(ShoppingListPreview data);
+
     void showProgress();
 
     void hideProgress();

@@ -13,5 +13,7 @@
     <string name="default_category">All categories</string>
     <string name="select_category_text">Select the category</string>
     <string name="login_progress_text">Logging in</string>
-    <string name="shopping_list_name_hint">Shopping List Name</string>
+    <string name="new_shopping_list_text">New Shopping List</string>
+    <string name="shopping_list_name_hint">Name</string>
+    <string name="ok_text">OK</string>
 </resources>

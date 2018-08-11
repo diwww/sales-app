@@ -12,4 +12,6 @@ import ru.gcsales.app.domain.model.ShoppingListPreview;
 public interface ShoppingListRepository extends TokenRepository {
 
     Observable<List<ShoppingListPreview>> getPreviews();
+
+    Observable<ShoppingListPreview> addShoppingList(String name);
 }

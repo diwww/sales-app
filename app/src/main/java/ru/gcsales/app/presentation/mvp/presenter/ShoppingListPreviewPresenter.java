@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import io.reactivex.observers.DisposableObserver;
 import ru.gcsales.app.AppApplication;
+import ru.gcsales.app.domain.interactor.AddShoppingList;
 import ru.gcsales.app.domain.interactor.GetShoppingListPreviews;
 import ru.gcsales.app.domain.model.ShoppingListPreview;
 import ru.gcsales.app.presentation.mvp.view.ShoppingListPreviewView;
@@ -22,6 +23,8 @@ public class ShoppingListPreviewPresenter extends MvpPresenter<ShoppingListPrevi
 
     @Inject
     GetShoppingListPreviews mGetShoppingListPreviews;
+    @Inject
+    AddShoppingList mAddShoppingList;
 
     public ShoppingListPreviewPresenter() {
         AppApplication.getApplicationComponent().inject(this);
@@ -29,14 +32,37 @@ public class ShoppingListPreviewPresenter extends MvpPresenter<ShoppingListPrevi
 
     public void loadData() {
         getViewState().showProgress();
-        mGetShoppingListPreviews.execute(new ShoppingListPreviewObserver(), null);
+        mGetShoppingListPreviews.execute(new GetShoppingListPreviewsObserver(), null);
     }
 
-    private final class ShoppingListPreviewObserver extends DisposableObserver<List<ShoppingListPreview>> {
+    public void addShoppingList(String name) {
+        mAddShoppingList.execute(new AddShoppingListObserver(), AddShoppingList.Params.forShoppingList(name));
+    }
+
+    private final class GetShoppingListPreviewsObserver extends DisposableObserver<List<ShoppingListPreview>> {
 
         @Override
         public void onNext(List<ShoppingListPreview> shoppingListPreviewList) {
             getViewState().setData(shoppingListPreviewList);
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            getViewState().hideProgress();
+            getViewState().showError("Network error.");
+        }
+
+        @Override
+        public void onComplete() {
+            getViewState().hideProgress();
+        }
+    }
+
+    private final class AddShoppingListObserver extends DisposableObserver<ShoppingListPreview> {
+
+        @Override
+        public void onNext(ShoppingListPreview preview) {
+            getViewState().addData(preview);
         }
 
         @Override

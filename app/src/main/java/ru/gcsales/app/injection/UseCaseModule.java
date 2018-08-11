@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import ru.gcsales.app.domain.interactor.AddShoppingList;
 import ru.gcsales.app.domain.interactor.GetProducts;
 import ru.gcsales.app.domain.interactor.GetShopInfo;
 import ru.gcsales.app.domain.interactor.GetShoppingListPreviews;
@@ -50,5 +51,11 @@ public class UseCaseModule {
 //    @Singleton
     public GetShoppingListPreviews provideGetShoppingListPreviews(ShoppingListRepository shoppingListRepository) {
         return new GetShoppingListPreviews(shoppingListRepository);
+    }
+
+    @Provides
+//    @Singleton
+    public AddShoppingList provideAddShoppingList(ShoppingListRepository shoppingListRepository) {
+        return new AddShoppingList(shoppingListRepository);
     }
 }

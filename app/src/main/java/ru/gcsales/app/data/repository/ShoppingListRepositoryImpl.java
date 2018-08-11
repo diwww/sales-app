@@ -26,4 +26,10 @@ public class ShoppingListRepositoryImpl extends TokenRepositoryImpl implements S
     public Observable<List<ShoppingListPreview>> getPreviews() {
         return mShoppingListService.getPreviews(getAuthHeader());
     }
+
+    @Override
+    public Observable<ShoppingListPreview> addShoppingList(String name) {
+        return mShoppingListService.addShoppingList(getAuthHeader(),
+                new ShoppingListService.ShoppingListBody(name));
+    }
 }

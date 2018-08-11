@@ -2,15 +2,24 @@ package ru.gcsales.app.presentation.ui.fragment;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import android.widget.FrameLayout.LayoutParams;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -35,11 +44,6 @@ public class ShoppingListPreviewFragment extends MvpAppCompatFragment implements
     @BindView(R.id.recycler_view_shopping_list_previews) RecyclerView mRecyclerView;
 
     ShoppingListPreviewsAdapter mShoppingListPreviewsAdapter;
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,6 +80,11 @@ public class ShoppingListPreviewFragment extends MvpAppCompatFragment implements
     }
 
     @Override
+    public void addData(ShoppingListPreview data) {
+        mShoppingListPreviewsAdapter.addData(data);
+    }
+
+    @Override
     public void showProgress() {
         mProgressBar.setVisibility(View.VISIBLE);
     }
@@ -88,6 +97,58 @@ public class ShoppingListPreviewFragment extends MvpAppCompatFragment implements
     @Override
     public void showError(String error) {
         Toast.makeText(this.getActivity(), error, Toast.LENGTH_SHORT).show();
+    }
+
+    private void showDialog() {
+        Context context = getActivity();
+
+        EditText editText = new EditText(context);
+        editText.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+        editText.setHint(R.string.shopping_list_name_hint);
+        editText.setMaxLines(1);
+
+        FrameLayout frameLayout = new FrameLayout(context);
+        // Set 16dp padding
+        float scale = getResources().getDisplayMetrics().density;
+        int padding16dp = (int) (16 * scale + 0.5f);
+        frameLayout.setPadding(padding16dp, padding16dp, padding16dp, padding16dp);
+        // Add editText to layout
+        frameLayout.addView(editText);
+
+        AlertDialog dialog = new AlertDialog.Builder(context)
+                .setTitle(R.string.new_shopping_list_text)
+                .setView(frameLayout)
+                .setPositiveButton(R.string.ok_text, (d, w) -> {
+                    mShoppingListPreviewPresenter.addShoppingList(editText.getText().toString());
+                })
+                .create();
+
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (TextUtils.isEmpty(s)) {
+                    dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
+                } else {
+                    dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(true);
+                }
+            }
+        });
+
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        dialog.show();
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
+    }
+
+    public void addShoppingList() {
+        showDialog();
     }
 
     /**
