@@ -15,13 +15,13 @@ import butterknife.ButterKnife;
 import ru.gcsales.app.R;
 import ru.gcsales.app.domain.model.ShoppingList;
 
-public class ShoppingListPreviewsAdapter extends RecyclerView.Adapter<ShoppingListPreviewsAdapter.ShoppingListViewHolder> {
+public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdapter.ShoppingListViewHolder> {
 
     private List<ShoppingList> mShoppingLists = new ArrayList<>();
     private OnItemClickListener mClickListener;
     private OnItemLongClickListener mLongClickListener;
 
-    public ShoppingListPreviewsAdapter(OnItemClickListener clickListener, OnItemLongClickListener longClickListener) {
+    public ShoppingListsAdapter(OnItemClickListener clickListener, OnItemLongClickListener longClickListener) {
         mClickListener = clickListener;
         mLongClickListener = longClickListener;
     }

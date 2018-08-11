@@ -10,32 +10,32 @@ import javax.inject.Inject;
 import io.reactivex.observers.DisposableObserver;
 import ru.gcsales.app.AppApplication;
 import ru.gcsales.app.domain.interactor.AddShoppingList;
-import ru.gcsales.app.domain.interactor.GetShoppingListPreviews;
+import ru.gcsales.app.domain.interactor.GetShoppingLists;
 import ru.gcsales.app.domain.interactor.RemoveShoppingList;
 import ru.gcsales.app.domain.model.ShoppingList;
-import ru.gcsales.app.presentation.mvp.view.ShoppingListPreviewView;
+import ru.gcsales.app.presentation.mvp.view.ShoppingListsView;
 
 /**
  * @author Maxim Surovtsev
  * Created on 8/8/18
  */
 @InjectViewState
-public class ShoppingListPreviewPresenter extends MvpPresenter<ShoppingListPreviewView> {
+public class ShoppingListsPresenter extends MvpPresenter<ShoppingListsView> {
 
     @Inject
-    GetShoppingListPreviews mGetShoppingListPreviews;
+    GetShoppingLists mGetShoppingLists;
     @Inject
     AddShoppingList mAddShoppingList;
     @Inject
     RemoveShoppingList mRemoveShoppingList;
 
-    public ShoppingListPreviewPresenter() {
+    public ShoppingListsPresenter() {
         AppApplication.getApplicationComponent().inject(this);
     }
 
     public void loadData() {
         getViewState().showProgress();
-        mGetShoppingListPreviews.execute(new GetShoppingListPreviewsObserver(), null);
+        mGetShoppingLists.execute(new GetShoppingListPreviewsObserver(), null);
     }
 
     public void addShoppingList(String name) {

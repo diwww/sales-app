@@ -12,7 +12,7 @@ import ru.gcsales.app.domain.interactor.GetProducts;
 import ru.gcsales.app.domain.interactor.GetShopInfo;
 import ru.gcsales.app.domain.model.ProductsInfo;
 import ru.gcsales.app.domain.model.ShopInfo;
-import ru.gcsales.app.presentation.mvp.view.ProductListView;
+import ru.gcsales.app.presentation.mvp.view.ProductsView;
 
 /**
  * Product list presenter.
@@ -21,7 +21,7 @@ import ru.gcsales.app.presentation.mvp.view.ProductListView;
  * Created on 7/27/18
  */
 @InjectViewState
-public class ProductListPresenter extends MvpPresenter<ProductListView> {
+public class ProductsPresenter extends MvpPresenter<ProductsView> {
 
     public static final int VISIBLE_THRESHOLD = 2;
     public static final int FIRST_PAGE = 1;
@@ -40,7 +40,7 @@ public class ProductListPresenter extends MvpPresenter<ProductListView> {
     // If the last page is loaded
     private boolean mEnd = false;
 
-    public ProductListPresenter(long shopId) {
+    public ProductsPresenter(long shopId) {
         AppApplication.getApplicationComponent().inject(this);
         mShopId = shopId;
     }

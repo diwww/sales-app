@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 import ru.gcsales.app.R;
 import ru.gcsales.app.presentation.mvp.presenter.HomePresenter;
 import ru.gcsales.app.presentation.mvp.view.HomeView;
-import ru.gcsales.app.presentation.ui.fragment.ShoppingListPreviewFragment;
+import ru.gcsales.app.presentation.ui.fragment.ShoppingListsFragment;
 import ru.gcsales.app.presentation.ui.fragment.ViewPagerAdapter;
 
 public class HomeActivity extends MvpAppCompatActivity implements HomeView {
@@ -37,7 +37,7 @@ public class HomeActivity extends MvpAppCompatActivity implements HomeView {
         setSupportActionBar(mToolbar);
         initTabs();
         mFloatingActionButton.setOnClickListener(v -> {
-            ShoppingListPreviewFragment fragment = (ShoppingListPreviewFragment) mViewPagerAdapter.getRegisteredFragment(1);
+            ShoppingListsFragment fragment = (ShoppingListsFragment) mViewPagerAdapter.getRegisteredFragment(1);
             fragment.addShoppingList();
         });
     }

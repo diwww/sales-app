@@ -19,14 +19,17 @@ import ru.gcsales.app.domain.model.ShoppingList;
  */
 public interface ShoppingListService {
 
-    @GET("shoplist")
-    Observable<List<ShoppingList>> getPreviews(@Header("Authorization") String auth);
+    @GET("shoplist?mode=full")
+    Observable<List<ShoppingList>> getShoppingLists(@Header("Authorization") String auth);
 
     @POST("shoplist")
     Observable<ShoppingList> addShoppingList(@Header("Authorization") String auth, @Body ShoppingListBody body);
 
     @DELETE("shoplist/{id}")
     Observable<String> removeShoppingList(@Header("Authorization") String auth, @Path("id") long id);
+
+    @GET("shoplist/{id}")
+    Observable<ShoppingList> getShoppingList(@Header("Authorization") String auth, @Path("id") long id);
 
     class ShoppingListBody {
         @SerializedName("name")

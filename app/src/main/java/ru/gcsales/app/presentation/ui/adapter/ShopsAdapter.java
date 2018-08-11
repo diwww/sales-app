@@ -18,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
 import ru.gcsales.app.domain.model.Shop;
-import ru.gcsales.app.presentation.ui.activity.ProductListActivity;
+import ru.gcsales.app.presentation.ui.activity.ProductsActivity;
 
 public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ShopViewHolder> {
 
@@ -76,7 +76,7 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ShopViewHold
                 @Override
                 public void onClick(View v) {
                     // Start a new activity
-                    context.startActivity(ProductListActivity.newIntent(context, shopModel.getId(), shopModel.getName()));
+                    context.startActivity(ProductsActivity.newIntent(context, shopModel.getId(), shopModel.getName()));
                 }
             });
         }

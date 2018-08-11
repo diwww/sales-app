@@ -36,6 +36,7 @@ dependencies {
     final RX_ADAPTER_VERSION = '2.4.0'
     final DAGGER_VERSION = '2.16'
     final PAGING_VERSION = "1.0.0"
+    final ROOM_VERSION = "1.1.1"
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:${SUPPORT_LIB_VERSION}"
@@ -70,4 +71,12 @@ dependencies {
     // optional - RxJava support, currently in release candidate
     implementation "android.arch.paging:rxjava2:1.0.0-rc1"
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+    implementation "android.arch.persistence.room:runtime:$ROOM_VERSION"
+    annotationProcessor "android.arch.persistence.room:compiler:$ROOM_VERSION"
+    // use kapt for Kotlin
+    // optional - RxJava support for Room
+    implementation "android.arch.persistence.room:rxjava2:$ROOM_VERSION"
+    // Test helpers
+    testImplementation "android.arch.persistence.room:testing:$ROOM_VERSION"
 }

@@ -10,7 +10,7 @@ import ru.gcsales.app.domain.model.ShoppingList;
  * @author Maxim Surovtsev
  * Created on 8/8/18
  */
-public interface ShoppingListPreviewView extends MvpView {
+public interface ShoppingListsView extends MvpView {
 
     void setData(List<ShoppingList> data);
 

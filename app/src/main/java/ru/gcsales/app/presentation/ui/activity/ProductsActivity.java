@@ -27,17 +27,17 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import ru.gcsales.app.R;
 import ru.gcsales.app.domain.model.Product;
 import ru.gcsales.app.domain.model.ShopInfo;
-import ru.gcsales.app.presentation.mvp.presenter.ProductListPresenter;
-import ru.gcsales.app.presentation.mvp.view.ProductListView;
+import ru.gcsales.app.presentation.mvp.presenter.ProductsPresenter;
+import ru.gcsales.app.presentation.mvp.view.ProductsView;
 import ru.gcsales.app.presentation.ui.adapter.ProductsAdapter;
 
-public class ProductListActivity extends MvpAppCompatActivity implements ProductListView {
+public class ProductsActivity extends MvpAppCompatActivity implements ProductsView {
 
     public static final String EXTRA_SHOP_ID = "EXTRA_SHOP_ID";
     public static final String EXTRA_SHOP_NAME = "EXTRA_SHOP_NAME";
 
     @InjectPresenter
-    ProductListPresenter mProductListPresenter;
+    ProductsPresenter mProductsPresenter;
 
     // Product list views
     @BindView(R.id.toolbar) Toolbar mToolbar;
@@ -55,9 +55,9 @@ public class ProductListActivity extends MvpAppCompatActivity implements Product
     private AlertDialog mAlertDialog;
 
     @ProvidePresenter
-    ProductListPresenter provideProductListPresenter() {
+    ProductsPresenter provideProductListPresenter() {
         long shopId = getIntent().getLongExtra(EXTRA_SHOP_ID, 0);
-        return new ProductListPresenter(shopId);
+        return new ProductsPresenter(shopId);
     }
 
     @Override
@@ -77,8 +77,8 @@ public class ProductListActivity extends MvpAppCompatActivity implements Product
         mRecyclerView.setAdapter(mProductsAdapter);
         setOnScrollListener();
 
-        mProductListPresenter.loadUnfiltered();
-        mProductListPresenter.loadShopInfo();
+        mProductsPresenter.loadUnfiltered();
+        mProductsPresenter.loadShopInfo();
     }
 
     @Override
@@ -170,9 +170,9 @@ public class ProductListActivity extends MvpAppCompatActivity implements Product
                 .setTitle(R.string.select_category_text)
                 .setItems(items, (dialog, which) -> {
                     if (which == 0) {
-                        mProductListPresenter.loadCategory(null);
+                        mProductsPresenter.loadCategory(null);
                     } else {
-                        mProductListPresenter.loadCategory(items[which]);
+                        mProductsPresenter.loadCategory(items[which]);
                     }
                 })
                 .create();
@@ -184,13 +184,13 @@ public class ProductListActivity extends MvpAppCompatActivity implements Product
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 int totalItems = mLinearLayoutManager.getItemCount();
                 int lastVisibleItemIndex = mLinearLayoutManager.findLastVisibleItemPosition();
-                mProductListPresenter.onScrolled(totalItems, lastVisibleItemIndex);
+                mProductsPresenter.onScrolled(totalItems, lastVisibleItemIndex);
             }
         });
     }
 
     public static Intent newIntent(Context context, long id, String name) {
-        Intent intent = new Intent(context, ProductListActivity.class);
+        Intent intent = new Intent(context, ProductsActivity.class);
         intent.putExtra(EXTRA_SHOP_ID, id);
         intent.putExtra(EXTRA_SHOP_NAME, name);
         return intent;

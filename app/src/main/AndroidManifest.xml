@@ -23,7 +23,7 @@
             android:name=".presentation.ui.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".presentation.ui.activity.ProductListActivity" />
+        <activity android:name=".presentation.ui.activity.ProductsActivity" />
         <activity android:name=".presentation.ui.activity.ShoppingListActivity"></activity>
     </application>
 

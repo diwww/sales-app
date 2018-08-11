@@ -23,8 +23,8 @@ public class ShoppingListRepositoryImpl extends TokenRepositoryImpl implements S
     }
 
     @Override
-    public Observable<List<ShoppingList>> getPreviews() {
-        return mShoppingListService.getPreviews(getAuthHeader());
+    public Observable<List<ShoppingList>> getShoppingLists() {
+        return mShoppingListService.getShoppingLists(getAuthHeader());
     }
 
     @Override
@@ -36,5 +36,10 @@ public class ShoppingListRepositoryImpl extends TokenRepositoryImpl implements S
     @Override
     public Observable<String> removeShoppingList(long id) {
         return mShoppingListService.removeShoppingList(getAuthHeader(), id);
+    }
+
+    @Override
+    public Observable<ShoppingList> getShoppingList(long id) {
+        return mShoppingListService.getShoppingList(getAuthHeader(), id);
     }
 }

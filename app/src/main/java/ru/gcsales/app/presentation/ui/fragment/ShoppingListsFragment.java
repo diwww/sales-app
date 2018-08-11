@@ -30,23 +30,23 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
 import ru.gcsales.app.domain.model.ShoppingList;
-import ru.gcsales.app.presentation.mvp.presenter.ShoppingListPreviewPresenter;
-import ru.gcsales.app.presentation.mvp.view.ShoppingListPreviewView;
+import ru.gcsales.app.presentation.mvp.presenter.ShoppingListsPresenter;
+import ru.gcsales.app.presentation.mvp.view.ShoppingListsView;
 import ru.gcsales.app.presentation.ui.activity.ShoppingListActivity;
-import ru.gcsales.app.presentation.ui.adapter.ShoppingListPreviewsAdapter;
-import ru.gcsales.app.presentation.ui.adapter.ShoppingListPreviewsAdapter.*;
+import ru.gcsales.app.presentation.ui.adapter.ShoppingListsAdapter;
+import ru.gcsales.app.presentation.ui.adapter.ShoppingListsAdapter.*;
 
 
-public class ShoppingListPreviewFragment extends MvpAppCompatFragment
-        implements ShoppingListPreviewView, OnItemClickListener, OnItemLongClickListener {
+public class ShoppingListsFragment extends MvpAppCompatFragment
+        implements ShoppingListsView, OnItemClickListener, OnItemLongClickListener {
 
     @InjectPresenter
-    ShoppingListPreviewPresenter mShoppingListPreviewPresenter;
+    ShoppingListsPresenter mShoppingListsPresenter;
 
     @BindView(R.id.progress_bar) ProgressBar mProgressBar;
     @BindView(R.id.recycler_view_shopping_list_previews) RecyclerView mRecyclerView;
 
-    ShoppingListPreviewsAdapter mShoppingListPreviewsAdapter;
+    ShoppingListsAdapter mShoppingListsAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,8 +55,8 @@ public class ShoppingListPreviewFragment extends MvpAppCompatFragment
         ButterKnife.bind(this, root);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
-        mShoppingListPreviewsAdapter = new ShoppingListPreviewsAdapter(this, this);
-        mRecyclerView.setAdapter(mShoppingListPreviewsAdapter);
+        mShoppingListsAdapter = new ShoppingListsAdapter(this, this);
+        mRecyclerView.setAdapter(mShoppingListsAdapter);
 
         return root;
     }
@@ -74,22 +74,22 @@ public class ShoppingListPreviewFragment extends MvpAppCompatFragment
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mShoppingListPreviewPresenter.loadData();
+        mShoppingListsPresenter.loadData();
     }
 
     @Override
     public void setData(List<ShoppingList> data) {
-        mShoppingListPreviewsAdapter.setData(data);
+        mShoppingListsAdapter.setData(data);
     }
 
     @Override
     public void addItem(ShoppingList data) {
-        mShoppingListPreviewsAdapter.addItem(data);
+        mShoppingListsAdapter.addItem(data);
     }
 
     @Override
     public void removeItem(ShoppingList item) {
-        mShoppingListPreviewsAdapter.removeItem(item);
+        mShoppingListsAdapter.removeItem(item);
     }
 
     @Override
@@ -137,7 +137,7 @@ public class ShoppingListPreviewFragment extends MvpAppCompatFragment
                 .setTitle(R.string.new_shopping_list_text)
                 .setView(frameLayout)
                 .setPositiveButton(R.string.ok_button_text, (d, w) -> {
-                    mShoppingListPreviewPresenter.addShoppingList(editText.getText().toString());
+                    mShoppingListsPresenter.addShoppingList(editText.getText().toString());
                 })
                 .create();
 
@@ -170,7 +170,7 @@ public class ShoppingListPreviewFragment extends MvpAppCompatFragment
                 .setTitle(R.string.delete_shopping_list_prompt)
                 .setNegativeButton(R.string.cancel_button_text, null)
                 .setPositiveButton(R.string.delete_button_text, (d, w) -> {
-                    mShoppingListPreviewPresenter.removeShoppingList(preview);
+                    mShoppingListsPresenter.removeShoppingList(preview);
                 })
                 .create();
         dialog.show();
@@ -186,8 +186,8 @@ public class ShoppingListPreviewFragment extends MvpAppCompatFragment
      * @param bundle args to pass to a fragment
      * @return new fragment instance
      */
-    public static ShoppingListPreviewFragment newInstance(Bundle bundle) {
-        ShoppingListPreviewFragment shoppingListPreviewFragment = new ShoppingListPreviewFragment();
+    public static ShoppingListsFragment newInstance(Bundle bundle) {
+        ShoppingListsFragment shoppingListPreviewFragment = new ShoppingListsFragment();
         shoppingListPreviewFragment.setArguments(bundle);
         return shoppingListPreviewFragment;
     }

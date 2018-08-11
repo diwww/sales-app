@@ -13,7 +13,7 @@ import ru.gcsales.app.domain.model.ShopInfo;
  * @author Maxim Surovtsev
  * Created on 7/27/18
  */
-public interface ProductListView extends MvpView {
+public interface ProductsView extends MvpView {
 
 
     /**
