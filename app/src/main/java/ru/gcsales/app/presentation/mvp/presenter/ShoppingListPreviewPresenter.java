@@ -12,7 +12,7 @@ import ru.gcsales.app.AppApplication;
 import ru.gcsales.app.domain.interactor.AddShoppingList;
 import ru.gcsales.app.domain.interactor.GetShoppingListPreviews;
 import ru.gcsales.app.domain.interactor.RemoveShoppingList;
-import ru.gcsales.app.domain.model.ShoppingListPreview;
+import ru.gcsales.app.domain.model.ShoppingList;
 import ru.gcsales.app.presentation.mvp.view.ShoppingListPreviewView;
 
 /**
@@ -42,16 +42,16 @@ public class ShoppingListPreviewPresenter extends MvpPresenter<ShoppingListPrevi
         mAddShoppingList.execute(new AddShoppingListObserver(), AddShoppingList.Params.forShoppingList(name));
     }
 
-    public void removeShoppingList(ShoppingListPreview preview) {
+    public void removeShoppingList(ShoppingList preview) {
         getViewState().removeItem(preview);
         mRemoveShoppingList.execute(new RemoveShoppingListObserver(),
                 RemoveShoppingList.Params.forShoppingList(preview.getId()));
     }
 
-    private final class GetShoppingListPreviewsObserver extends DisposableObserver<List<ShoppingListPreview>> {
+    private final class GetShoppingListPreviewsObserver extends DisposableObserver<List<ShoppingList>> {
 
         @Override
-        public void onNext(List<ShoppingListPreview> shoppingListPreviewList) {
+        public void onNext(List<ShoppingList> shoppingListPreviewList) {
             getViewState().setData(shoppingListPreviewList);
         }
 
@@ -67,10 +67,10 @@ public class ShoppingListPreviewPresenter extends MvpPresenter<ShoppingListPrevi
         }
     }
 
-    private final class AddShoppingListObserver extends DisposableObserver<ShoppingListPreview> {
+    private final class AddShoppingListObserver extends DisposableObserver<ShoppingList> {
 
         @Override
-        public void onNext(ShoppingListPreview preview) {
+        public void onNext(ShoppingList preview) {
             getViewState().addItem(preview);
         }
 

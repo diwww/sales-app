@@ -29,7 +29,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
-import ru.gcsales.app.domain.model.ShoppingListPreview;
+import ru.gcsales.app.domain.model.ShoppingList;
 import ru.gcsales.app.presentation.mvp.presenter.ShoppingListPreviewPresenter;
 import ru.gcsales.app.presentation.mvp.view.ShoppingListPreviewView;
 import ru.gcsales.app.presentation.ui.activity.ShoppingListActivity;
@@ -78,17 +78,17 @@ public class ShoppingListPreviewFragment extends MvpAppCompatFragment
     }
 
     @Override
-    public void setData(List<ShoppingListPreview> data) {
+    public void setData(List<ShoppingList> data) {
         mShoppingListPreviewsAdapter.setData(data);
     }
 
     @Override
-    public void addItem(ShoppingListPreview data) {
+    public void addItem(ShoppingList data) {
         mShoppingListPreviewsAdapter.addItem(data);
     }
 
     @Override
-    public void removeItem(ShoppingListPreview item) {
+    public void removeItem(ShoppingList item) {
         mShoppingListPreviewsAdapter.removeItem(item);
     }
 
@@ -108,12 +108,12 @@ public class ShoppingListPreviewFragment extends MvpAppCompatFragment
     }
 
     @Override
-    public void onClick(ShoppingListPreview preview) {
+    public void onClick(ShoppingList preview) {
         startActivity(ShoppingListActivity.newIntent(getActivity(), preview.getId()));
     }
 
     @Override
-    public void onLongClick(ShoppingListPreview preview) {
+    public void onLongClick(ShoppingList preview) {
         showRemoveDialog(preview);
     }
 
@@ -165,7 +165,7 @@ public class ShoppingListPreviewFragment extends MvpAppCompatFragment
         dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
     }
 
-    private void showRemoveDialog(ShoppingListPreview preview) {
+    private void showRemoveDialog(ShoppingList preview) {
         AlertDialog dialog = new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.delete_shopping_list_prompt)
                 .setNegativeButton(R.string.cancel_button_text, null)

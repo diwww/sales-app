@@ -1,6 +1,5 @@
 package ru.gcsales.app.presentation.ui.adapter;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,11 +13,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
-import ru.gcsales.app.domain.model.ShoppingListPreview;
+import ru.gcsales.app.domain.model.ShoppingList;
 
 public class ShoppingListPreviewsAdapter extends RecyclerView.Adapter<ShoppingListPreviewsAdapter.ShoppingListViewHolder> {
 
-    private List<ShoppingListPreview> mShoppingListPreviews = new ArrayList<>();
+    private List<ShoppingList> mShoppingLists = new ArrayList<>();
     private OnItemClickListener mClickListener;
     private OnItemLongClickListener mLongClickListener;
 
@@ -37,29 +36,29 @@ public class ShoppingListPreviewsAdapter extends RecyclerView.Adapter<ShoppingLi
 
     @Override
     public void onBindViewHolder(@NonNull ShoppingListViewHolder holder, int position) {
-        ShoppingListPreview preview = mShoppingListPreviews.get(position);
+        ShoppingList preview = mShoppingLists.get(position);
         holder.bind(preview, mClickListener, mLongClickListener);
     }
 
     @Override
     public int getItemCount() {
-        return mShoppingListPreviews.size();
+        return mShoppingLists.size();
     }
 
-    public void setData(List<ShoppingListPreview> data) {
-        mShoppingListPreviews.clear();
-        mShoppingListPreviews.addAll(data);
+    public void setData(List<ShoppingList> data) {
+        mShoppingLists.clear();
+        mShoppingLists.addAll(data);
         notifyDataSetChanged();
     }
 
-    public void addItem(ShoppingListPreview preview) {
-        mShoppingListPreviews.add(preview);
+    public void addItem(ShoppingList preview) {
+        mShoppingLists.add(preview);
         notifyDataSetChanged();
     }
 
-    public void removeItem(ShoppingListPreview preview) {
-        int i = mShoppingListPreviews.indexOf(preview);
-        mShoppingListPreviews.remove(i);
+    public void removeItem(ShoppingList preview) {
+        int i = mShoppingLists.indexOf(preview);
+        mShoppingLists.remove(i);
         notifyItemRemoved(i);
     }
 
@@ -72,7 +71,7 @@ public class ShoppingListPreviewsAdapter extends RecyclerView.Adapter<ShoppingLi
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(ShoppingListPreview preview, OnItemClickListener clickListener, OnItemLongClickListener longClickListener) {
+        public void bind(ShoppingList preview, OnItemClickListener clickListener, OnItemLongClickListener longClickListener) {
             mNameTextView.setText(preview.getName());
             itemView.setOnClickListener(v -> clickListener.onClick(preview));
             itemView.setOnLongClickListener(v -> {
@@ -83,10 +82,10 @@ public class ShoppingListPreviewsAdapter extends RecyclerView.Adapter<ShoppingLi
     }
 
     public interface OnItemClickListener {
-        void onClick(ShoppingListPreview preview);
+        void onClick(ShoppingList preview);
     }
 
     public interface OnItemLongClickListener {
-        void onLongClick(ShoppingListPreview preview);
+        void onLongClick(ShoppingList preview);
     }
 }

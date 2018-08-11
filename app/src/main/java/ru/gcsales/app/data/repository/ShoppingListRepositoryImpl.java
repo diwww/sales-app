@@ -5,9 +5,8 @@ import android.content.Context;
 import java.util.List;
 
 import io.reactivex.Observable;
-import retrofit2.Response;
 import ru.gcsales.app.data.service.ShoppingListService;
-import ru.gcsales.app.domain.model.ShoppingListPreview;
+import ru.gcsales.app.domain.model.ShoppingList;
 import ru.gcsales.app.domain.repository.ShoppingListRepository;
 
 /**
@@ -24,12 +23,12 @@ public class ShoppingListRepositoryImpl extends TokenRepositoryImpl implements S
     }
 
     @Override
-    public Observable<List<ShoppingListPreview>> getPreviews() {
+    public Observable<List<ShoppingList>> getPreviews() {
         return mShoppingListService.getPreviews(getAuthHeader());
     }
 
     @Override
-    public Observable<ShoppingListPreview> addShoppingList(String name) {
+    public Observable<ShoppingList> addShoppingList(String name) {
         return mShoppingListService.addShoppingList(getAuthHeader(),
                 new ShoppingListService.ShoppingListBody(name));
     }

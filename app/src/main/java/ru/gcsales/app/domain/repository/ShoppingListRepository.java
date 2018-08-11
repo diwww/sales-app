@@ -3,7 +3,7 @@ package ru.gcsales.app.domain.repository;
 import java.util.List;
 
 import io.reactivex.Observable;
-import ru.gcsales.app.domain.model.ShoppingListPreview;
+import ru.gcsales.app.domain.model.ShoppingList;
 
 /**
  * @author Maxim Surovtsev
@@ -11,9 +11,9 @@ import ru.gcsales.app.domain.model.ShoppingListPreview;
  */
 public interface ShoppingListRepository extends TokenRepository {
 
-    Observable<List<ShoppingListPreview>> getPreviews();
+    Observable<List<ShoppingList>> getPreviews();
 
-    Observable<ShoppingListPreview> addShoppingList(String name);
+    Observable<ShoppingList> addShoppingList(String name);
 
     Observable<String> removeShoppingList(long id);
 }

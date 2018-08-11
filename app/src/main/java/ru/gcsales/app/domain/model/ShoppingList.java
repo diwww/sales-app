@@ -8,23 +8,22 @@ import java.util.List;
  * @author Maxim Surovtsev
  * Created on 8/8/18
  */
-public class ShoppingListPreview {
-
+public class ShoppingList {
     @SerializedName("id")
     private long mId;
     @SerializedName("name")
     private String mName;
     @SerializedName("items")
-    private List<String> mItems;
+    private List<Product> mItems = null;
     @SerializedName("customItems")
-    private List<String> mCustomItems;
+    private List<CustomItem> mCustomItems = null;
 
     public long getId() {
         return mId;
     }
 
     public void setId(long id) {
-        mId = id;
+        this.mId = id;
     }
 
     public String getName() {
@@ -32,22 +31,22 @@ public class ShoppingListPreview {
     }
 
     public void setName(String name) {
-        mName = name;
+        this.mName = name;
     }
 
-    public List<String> getItems() {
+    public List<Product> getItems() {
         return mItems;
     }
 
-    public void setItems(List<String> items) {
-        mItems = items;
+    public void setItems(List<Product> items) {
+        this.mItems = items;
     }
 
-    public List<String> getCustomItems() {
+    public List<CustomItem> getCustomItems() {
         return mCustomItems;
     }
 
-    public void setCustomItems(List<String> customItems) {
-        mCustomItems = customItems;
+    public void setCustomItems(List<CustomItem> customItems) {
+        this.mCustomItems = customItems;
     }
 }
