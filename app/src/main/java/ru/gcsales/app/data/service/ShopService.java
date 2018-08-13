@@ -5,7 +5,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import ru.gcsales.app.domain.model.Shop;
+import ru.gcsales.app.data.model.remote.ShopResponse;
 import ru.gcsales.app.domain.model.ShopInfo;
 
 /**
@@ -19,10 +19,10 @@ public interface ShopService {
     /**
      * Gets all shops.
      *
-     * @return {@link Observable} list of {@link Shop} objects
+     * @return {@link Observable} list of {@link ShopResponse} objects
      */
     @GET("shops")
-    Observable<List<Shop>> getShops();
+    Observable<List<ShopResponse>> getShops();
 
     /**
      * Gets shop info.

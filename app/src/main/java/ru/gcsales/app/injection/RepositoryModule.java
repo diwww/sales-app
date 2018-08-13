@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import ru.gcsales.app.data.AppDatabase;
 import ru.gcsales.app.data.repository.AuthRepositoryImpl;
 import ru.gcsales.app.data.repository.ShoppingListRepositoryImpl;
 import ru.gcsales.app.data.service.AuthService;
@@ -24,14 +25,14 @@ public class RepositoryModule {
 
     @Provides
     @Singleton
-    public ShopRepository provideShopRepository(ShopService service) {
-        return new ShopRepositoryImpl(service);
+    public ShopRepository provideShopRepository(ShopService service, AppDatabase database) {
+        return new ShopRepositoryImpl(service, database.getShopDAO());
     }
 
     @Provides
     @Singleton
-    public ProductRepository provideProductRepository(ProductService service) {
-        return new ProductRepositoryImpl(service);
+    public ProductRepository provideProductRepository(ProductService service, AppDatabase database) {
+        return new ProductRepositoryImpl(service, database.getProductDAO());
     }
 
     @Provides

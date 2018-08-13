@@ -4,12 +4,15 @@ package ru.gcsales.app.presentation.mvp.presenter;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import io.reactivex.observers.DisposableObserver;
 import ru.gcsales.app.AppApplication;
 import ru.gcsales.app.domain.interactor.GetProducts;
 import ru.gcsales.app.domain.interactor.GetShopInfo;
+import ru.gcsales.app.domain.model.Product;
 import ru.gcsales.app.domain.model.ProductsInfo;
 import ru.gcsales.app.domain.model.ShopInfo;
 import ru.gcsales.app.presentation.mvp.view.ProductsView;
@@ -102,16 +105,16 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
         }
     }
 
-    private final class ProductsObserver extends DisposableObserver<ProductsInfo> {
+    private final class ProductsObserver extends DisposableObserver<List<Product>> {
 
         @Override
-        public void onNext(ProductsInfo productsInfo) {
+        public void onNext(List<Product> products) {
             // End signal to prevent further loading
-            if (productsInfo.getProducts().isEmpty()) {
+            if (products.isEmpty()) {
                 mEnd = true;
             }
-            getViewState().addProducts(productsInfo.getProducts());
-            getViewState().setNumItems(productsInfo.getCount());
+            getViewState().addProducts(products);
+//            getViewState().setNumItems(productsInfo.getCount());
         }
 
         @Override

@@ -1,14 +1,25 @@
-package ru.gcsales.app.domain.model;
+package ru.gcsales.app.data.model.local;
+
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 /**
- *
  * @author Maxim Surovtsev
- * Created on 7/24/18
+ * Created on 8/12/18
  */
-public class Shop {
+@Entity(tableName = "shop")
+public class ShopEntity {
+
+    @PrimaryKey
+    @ColumnInfo(name = "id")
     private long mId;
+
+    @ColumnInfo(name = "alias")
     private String mAlias;
+    @ColumnInfo(name = "name")
     private String mName;
+    @ColumnInfo(name = "image_url")
     private String mImageUrl;
 
     public long getId() {
@@ -16,7 +27,7 @@ public class Shop {
     }
 
     public void setId(long id) {
-        this.mId = id;
+        mId = id;
     }
 
     public String getAlias() {
@@ -24,7 +35,7 @@ public class Shop {
     }
 
     public void setAlias(String alias) {
-        this.mAlias = alias;
+        mAlias = alias;
     }
 
     public String getName() {
@@ -32,7 +43,7 @@ public class Shop {
     }
 
     public void setName(String name) {
-        this.mName = name;
+        mName = name;
     }
 
     public String getImageUrl() {
@@ -40,6 +51,6 @@ public class Shop {
     }
 
     public void setImageUrl(String imageUrl) {
-        this.mImageUrl = imageUrl;
+        mImageUrl = imageUrl;
     }
 }

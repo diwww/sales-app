@@ -9,7 +9,8 @@ import ru.gcsales.app.presentation.mvp.presenter.ShoppingListsPresenter;
 import ru.gcsales.app.presentation.mvp.presenter.ShopsPresenter;
 
 @Singleton
-@Component(modules = {ApplicationModule.class, RepositoryModule.class, UseCaseModule.class, NetworkModule.class})
+@Component(modules = {ApplicationModule.class, RepositoryModule.class, UseCaseModule.class,
+        NetworkModule.class, DatabaseModule.class})
 public interface ApplicationComponent {
     void inject(ShopsPresenter presenter);
 

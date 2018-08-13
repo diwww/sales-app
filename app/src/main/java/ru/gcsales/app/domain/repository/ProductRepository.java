@@ -1,7 +1,9 @@
 package ru.gcsales.app.domain.repository;
 
+import java.util.List;
+
 import io.reactivex.Observable;
-import ru.gcsales.app.domain.model.ProductsInfo;
+import ru.gcsales.app.domain.model.Product;
 
 /**
  * @author Maxim Surovtsev
@@ -9,5 +11,5 @@ import ru.gcsales.app.domain.model.ProductsInfo;
  */
 public interface ProductRepository {
 
-    Observable<ProductsInfo> getProducts(long shopId, String category, int page);
+    Observable<List<Product>> getProducts(long shopId, String category, int page);
 }
