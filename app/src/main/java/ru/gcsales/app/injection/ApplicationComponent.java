@@ -7,6 +7,7 @@ import ru.gcsales.app.presentation.mvp.presenter.LoginPresenter;
 import ru.gcsales.app.presentation.mvp.presenter.ProductsPresenter;
 import ru.gcsales.app.presentation.mvp.presenter.ShoppingListsPresenter;
 import ru.gcsales.app.presentation.mvp.presenter.ShopsPresenter;
+import ru.gcsales.app.presentation.ui.activity.ShoppingListActivity;
 
 @Singleton
 @Component(modules = {ApplicationModule.class, RepositoryModule.class, UseCaseModule.class,
@@ -19,4 +20,6 @@ public interface ApplicationComponent {
     void inject(LoginPresenter presenter);
 
     void inject(ShoppingListsPresenter presenter);
+
+    void inject(ShoppingListActivity activity);
 }

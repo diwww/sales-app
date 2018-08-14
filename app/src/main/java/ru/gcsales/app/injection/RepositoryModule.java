@@ -26,24 +26,26 @@ public class RepositoryModule {
     @Provides
     @Singleton
     public ShopRepository provideShopRepository(ShopService service, AppDatabase database) {
-        return new ShopRepositoryImpl(service, database.getShopDAO());
+        return new ShopRepositoryImpl(service, database);
     }
 
     @Provides
     @Singleton
     public ProductRepository provideProductRepository(ProductService service, AppDatabase database) {
-        return new ProductRepositoryImpl(service, database.getProductDAO());
+        return new ProductRepositoryImpl(service, database);
     }
 
     @Provides
     @Singleton
-    public AuthRepository provideAuthRepository(AuthService service, Context context) {
-        return new AuthRepositoryImpl(service, context);
+    public AuthRepository provideAuthRepository(Context context, AuthService service) {
+        return new AuthRepositoryImpl(context, service);
     }
 
     @Provides
     @Singleton
-    public ShoppingListRepository provideShoppingListRepository(ShoppingListService service, Context context) {
-        return new ShoppingListRepositoryImpl(service, context);
+    public ShoppingListRepository provideShoppingListRepository(Context context,
+                                                                ShoppingListService service,
+                                                                AppDatabase database) {
+        return new ShoppingListRepositoryImpl(context, service, database);
     }
 }

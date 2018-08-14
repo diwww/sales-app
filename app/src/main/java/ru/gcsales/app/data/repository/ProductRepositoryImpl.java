@@ -3,6 +3,7 @@ package ru.gcsales.app.data.repository;
 import java.util.List;
 
 import io.reactivex.Observable;
+import ru.gcsales.app.data.AppDatabase;
 import ru.gcsales.app.data.ProductDAO;
 import ru.gcsales.app.data.model.local.ProductWithShop;
 import ru.gcsales.app.data.model.mapper.ProductMapper;
@@ -32,9 +33,9 @@ public class ProductRepositoryImpl implements ProductRepository {
     private ProductDAO mProductDAO;
     private ProductMapper mProductMapper = new ProductMapper();
 
-    public ProductRepositoryImpl(ProductService productService, ProductDAO productDAO) {
+    public ProductRepositoryImpl(ProductService productService, AppDatabase database) {
         mProductService = productService;
-        mProductDAO = productDAO;
+        mProductDAO = database.getProductDAO();
     }
 
     @Override
@@ -61,9 +62,9 @@ public class ProductRepositoryImpl implements ProductRepository {
         Observable<List<ProductWithShop>> observable;
 
         if (category == null) {
-            observable = mProductDAO.getProductsWithShops(shopId, page).toObservable();
+            observable = mProductDAO.getProducts(shopId, page).toObservable();
         } else {
-            observable = mProductDAO.getProductsWithShops(shopId, category, page).toObservable();
+            observable = mProductDAO.getProducts(shopId, category, page).toObservable();
         }
 
         return observable;

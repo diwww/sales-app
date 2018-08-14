@@ -3,6 +3,7 @@ package ru.gcsales.app.data.repository;
 import java.util.List;
 
 import io.reactivex.Observable;
+import ru.gcsales.app.data.AppDatabase;
 import ru.gcsales.app.data.ShopDAO;
 import ru.gcsales.app.data.model.local.ShopEntity;
 import ru.gcsales.app.data.model.mapper.ShopMapper;
@@ -33,9 +34,9 @@ public class ShopRepositoryImpl implements ShopRepository {
     private ShopDAO mShopDAO;
     private ShopMapper mShopMapper = new ShopMapper();
 
-    public ShopRepositoryImpl(ShopService shopService, ShopDAO shopDAO) {
+    public ShopRepositoryImpl(ShopService shopService, AppDatabase database) {
         mShopService = shopService;
-        mShopDAO = shopDAO;
+        mShopDAO = database.getShopDAO();
     }
 
     @Override

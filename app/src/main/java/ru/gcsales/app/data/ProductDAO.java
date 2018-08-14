@@ -22,13 +22,13 @@ public interface ProductDAO {
             "FROM product p INNER JOIN shop s ON p.shop_id = s.id " +
             "WHERE shop_id = :shopId " +
             "LIMIT 30 OFFSET 30 * (:page - 1)")
-    Single<List<ProductWithShop>> getProductsWithShops(long shopId, int page);
+    Single<List<ProductWithShop>> getProducts(long shopId, int page);
 
     @Query("SELECT p.*, s.alias shop_alias, s.name shop_name, s.image_url shop_image_url " +
             "FROM product p INNER JOIN shop s ON p.shop_id = s.id " +
             "WHERE shop_id = :shopId AND category = :category " +
             "LIMIT 30 OFFSET 30 * (:page - 1)")
-    Single<List<ProductWithShop>> getProductsWithShops(long shopId, String category, int page);
+    Single<List<ProductWithShop>> getProducts(long shopId, String category, int page);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long[] insert(List<ProductEntity> productEntities);

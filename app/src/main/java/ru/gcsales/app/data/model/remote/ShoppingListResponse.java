@@ -8,7 +8,7 @@ import java.util.List;
  * @author Maxim Surovtsev
  * Created on 8/8/18
  */
-public class ShoppingList {
+public class ShoppingListResponse {
     @SerializedName("id")
     private long mId;
     @SerializedName("name")

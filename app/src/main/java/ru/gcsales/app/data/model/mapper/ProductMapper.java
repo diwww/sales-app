@@ -58,20 +58,20 @@ public class ProductMapper {
 
         if (productWithShop != null) {
             product = new Product();
-            product.setId(productWithShop.getId());
-            product.setName(productWithShop.getName());
-            product.setCategory(productWithShop.getCategory());
-            product.setImageUrl(productWithShop.getImageUrl());
-            product.setCondition(productWithShop.getCondition());
-            product.setCrawlDate(productWithShop.getCrawlDate());
-            product.setDateIn(productWithShop.getDateIn());
-            product.setDateOut(productWithShop.getDateOut());
-            product.setDiscount(productWithShop.getDiscount());
-            product.setOldPrice(productWithShop.getOldPrice());
-            product.setNewPrice(productWithShop.getNewPrice());
+            product.setId(productWithShop.getProductEntity().getId());
+            product.setName(productWithShop.getProductEntity().getName());
+            product.setCategory(productWithShop.getProductEntity().getCategory());
+            product.setImageUrl(productWithShop.getProductEntity().getImageUrl());
+            product.setCondition(productWithShop.getProductEntity().getCondition());
+            product.setCrawlDate(productWithShop.getProductEntity().getCrawlDate());
+            product.setDateIn(productWithShop.getProductEntity().getDateIn());
+            product.setDateOut(productWithShop.getProductEntity().getDateOut());
+            product.setDiscount(productWithShop.getProductEntity().getDiscount());
+            product.setOldPrice(productWithShop.getProductEntity().getOldPrice());
+            product.setNewPrice(productWithShop.getProductEntity().getNewPrice());
 
             Shop shop = new Shop();
-            shop.setId(productWithShop.getShopId());
+            shop.setId(productWithShop.getProductEntity().getShopId());
             shop.setName(productWithShop.getShopName());
             shop.setAlias(productWithShop.getShopAlias());
             shop.setImageUrl(productWithShop.getShopImageUrl());

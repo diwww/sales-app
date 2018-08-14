@@ -19,6 +19,14 @@ public interface ShoppingListRepository extends TokenRepository {
     Observable<List<ShoppingList>> getShoppingLists();
 
     /**
+     * Gets a full version of the shopping list with the given id.
+     *
+     * @param id id of the shopping list to get
+     * @return {@link Observable} of retrieved shopping list
+     */
+    Observable<ShoppingList> getShoppingList(long id);
+
+    /**
      * Adds a new shopping list.
      *
      * @param name name of the shopping list
@@ -33,12 +41,4 @@ public interface ShoppingListRepository extends TokenRepository {
      * @return basically nothing
      */
     Observable<String> removeShoppingList(long id);
-
-    /**
-     * Gets a full version of the shopping list with the given id.
-     *
-     * @param id id of the shopping list to get
-     * @return {@link Observable} of retrieved shopping list
-     */
-    Observable<ShoppingList> getShoppingList(long id);
 }

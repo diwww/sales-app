@@ -5,13 +5,15 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
+import static android.arch.persistence.room.ForeignKey.CASCADE;
+
 
 /**
  * @author Maxim Surovtsev
  * Created on 8/12/18
  */
 @Entity(tableName = "product", foreignKeys = @ForeignKey(entity = ShopEntity.class, parentColumns = "id",
-        childColumns = "shop_id"))
+        childColumns = "shop_id", onDelete = CASCADE))
 public class ProductEntity {
 
     @PrimaryKey

@@ -19,7 +19,7 @@ public class DatabaseModule {
     @Singleton
     AppDatabase provideAppDatabase(Context context) {
         return Room.databaseBuilder(context, AppDatabase.class, "app_database")
-//                .fallbackToDestructiveMigration()
+                .fallbackToDestructiveMigration()
                 .build();
     }
 }
