@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Represents JSON response for getting products
+ * Represents JSON response for getting mProductItems
  * with pagination.
  *
  * @author Maxim Surovtsev

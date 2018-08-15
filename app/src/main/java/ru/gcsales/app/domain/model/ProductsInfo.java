@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Represents JSON response for getting products
+ * Represents JSON response for getting mProductItems
  * with pagination.
  *
  * @author Maxim Surovtsev
@@ -15,7 +15,7 @@ public class ProductsInfo {
     @SerializedName("count")
     private long mCount;
     @SerializedName("rows")
-    private List<Product> mProducts = null;
+    private List<ProductItem> mProductItems = null;
     @SerializedName("numPages")
 
     private long mNumPages;
@@ -28,12 +28,12 @@ public class ProductsInfo {
         this.mCount = count;
     }
 
-    public List<Product> getProducts() {
-        return mProducts;
+    public List<ProductItem> getProductItems() {
+        return mProductItems;
     }
 
-    public void setProducts(List<Product> products) {
-        this.mProducts = products;
+    public void setProductItems(List<ProductItem> productItems) {
+        this.mProductItems = productItems;
     }
 
     public long getNumPages() {

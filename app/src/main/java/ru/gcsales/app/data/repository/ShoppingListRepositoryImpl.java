@@ -16,7 +16,7 @@ import ru.gcsales.app.data.model.mapper.ProductMapper;
 import ru.gcsales.app.data.model.mapper.ShoppingListMapper;
 import ru.gcsales.app.data.model.remote.ProductResponse;
 import ru.gcsales.app.data.service.ShoppingListService;
-import ru.gcsales.app.domain.model.Product;
+import ru.gcsales.app.domain.model.ProductItem;
 import ru.gcsales.app.domain.model.ShoppingList;
 import ru.gcsales.app.domain.repository.ShoppingListRepository;
 
@@ -66,16 +66,16 @@ public class ShoppingListRepositoryImpl extends TokenRepositoryImpl implements S
                     // FIXME: очищаются все шоплисты, вместо одного
                     // Clears old local data
                     mShoppingListDAO.clearShoppingListProductTable(id);
-                    // Insert products from remote shopping list in db
+                    // Insert mProductItems from remote shopping list in db
                     mProductDAO.insert(mProductMapper.transformResponse(response.getItems()));
 
-                    // Register products within shopping list
+                    // Register mProductItems within shopping list
                     List<ShoppingListProductEntity> list = new ArrayList<>();
                     for (ProductResponse p : response.getItems()) {
                         list.add(new ShoppingListProductEntity(id, p.getId()));
                     }
 
-                    // Establish many-to-many relation (shopping lists with products)
+                    // Establish many-to-many relation (shopping lists with mProductItems)
                     mShoppingListDAO.addShoppingListProducts(list);
                     return mShoppingListDAO.getShoppingListProducts(id).toObservable();
                 });
@@ -87,7 +87,7 @@ public class ShoppingListRepositoryImpl extends TokenRepositoryImpl implements S
                     ShoppingList shoppingList = new ShoppingList();
                     shoppingList.setId(id);
 
-                    List<Product> items = new ArrayList<>();
+                    List<ProductItem> items = new ArrayList<>();
                     for (ProductWithShop entity : data) {
                         items.add(mProductMapper.transformEntity(entity));
                     }

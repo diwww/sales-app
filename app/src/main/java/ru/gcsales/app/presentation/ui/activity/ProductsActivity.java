@@ -25,11 +25,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import ru.gcsales.app.R;
-import ru.gcsales.app.domain.model.Product;
+import ru.gcsales.app.domain.model.ProductItem;
 import ru.gcsales.app.domain.model.ShopInfo;
 import ru.gcsales.app.presentation.mvp.presenter.ProductsPresenter;
 import ru.gcsales.app.presentation.mvp.view.ProductsView;
-import ru.gcsales.app.presentation.ui.adapter.ProductsAdapter;
+import ru.gcsales.app.presentation.ui.adapter.ItemsAdapter;
 
 public class ProductsActivity extends MvpAppCompatActivity implements ProductsView {
 
@@ -39,7 +39,7 @@ public class ProductsActivity extends MvpAppCompatActivity implements ProductsVi
     @InjectPresenter
     ProductsPresenter mProductsPresenter;
 
-    // Product list views
+    // ProductItem list views
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.recycler_view_products) RecyclerView mRecyclerView;
     @BindView(R.id.progress_bar) ProgressBar mProgressBar;
@@ -49,7 +49,7 @@ public class ProductsActivity extends MvpAppCompatActivity implements ProductsVi
     @BindView(R.id.text_current_category) TextView mCurrentCategoryTextView;
     @BindView(R.id.image_shop_logo) CircleImageView mShopLogoImageView;
 
-    ProductsAdapter mProductsAdapter;
+    ItemsAdapter mItemsAdapter;
     LinearLayoutManager mLinearLayoutManager;
 
     private AlertDialog mAlertDialog;
@@ -73,8 +73,8 @@ public class ProductsActivity extends MvpAppCompatActivity implements ProductsVi
         mToolbar.setOnClickListener(v -> mRecyclerView.smoothScrollToPosition(0));
         mLinearLayoutManager = new LinearLayoutManager(mRecyclerView.getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mProductsAdapter = new ProductsAdapter();
-        mRecyclerView.setAdapter(mProductsAdapter);
+        mItemsAdapter = new ItemsAdapter(ItemsAdapter.ActionButtonIcon.ADD);
+        mRecyclerView.setAdapter(mItemsAdapter);
         setOnScrollListener();
 
         mProductsPresenter.loadUnfiltered();
@@ -121,19 +121,19 @@ public class ProductsActivity extends MvpAppCompatActivity implements ProductsVi
     }
 
     @Override
-    public void addProducts(List<Product> products) {
-        mProductsAdapter.addData(products);
-        Toast.makeText(this, "Count: " + mProductsAdapter.getItemCount(), Toast.LENGTH_SHORT).show();
+    public void addProducts(List<ProductItem> productItems) {
+        mItemsAdapter.addData(productItems);
+        Toast.makeText(this, "Count: " + mItemsAdapter.getItemCount(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void setProducts(List<Product> products) {
-        mProductsAdapter.setData(products);
+    public void setProducts(List<ProductItem> productItems) {
+        mItemsAdapter.setData(productItems);
     }
 
     @Override
     public void clearProducts() {
-        mProductsAdapter.clear();
+        mItemsAdapter.clear();
     }
 
     @Override

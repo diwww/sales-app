@@ -8,7 +8,7 @@ import ru.gcsales.app.data.ProductDAO;
 import ru.gcsales.app.data.model.local.ProductWithShop;
 import ru.gcsales.app.data.model.mapper.ProductMapper;
 import ru.gcsales.app.data.service.ProductService;
-import ru.gcsales.app.domain.model.Product;
+import ru.gcsales.app.domain.model.ProductItem;
 import ru.gcsales.app.domain.repository.ProductRepository;
 
 /**
@@ -39,7 +39,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public Observable<List<Product>> getProducts(long shopId, String category, int page) {
+    public Observable<List<ProductItem>> getProducts(long shopId, String category, int page) {
         Observable<List<ProductWithShop>> remoteObservable = mProductService.getProducts(shopId, category, page)
                 .flatMap(response -> {
                     // Write fresh data from network to db

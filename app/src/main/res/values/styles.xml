@@ -13,7 +13,18 @@
         <item name="android:background">?attr/colorPrimary</item>
     </style>
 
-    <style name="CardProduct" parent="CardView">
+    <style name="CardProductItem" parent="CardView">
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">144dp</item>
+        <item name="cardCornerRadius">4dp</item>
+        <item name="contentPadding">8dp</item>
+    </style>
+
+    <style name="CardCustomItem" parent="CardView">
         <item name="android:layout_marginStart">8dp</item>
         <item name="android:layout_marginTop">4dp</item>
         <item name="android:layout_marginBottom">4dp</item>

@@ -8,7 +8,7 @@ import java.util.List;
  * @author Maxim Surovtsev
  * Created on 8/11/18
  */
-class CustomItem {
+public class CustomItem implements Item {
 
     @SerializedName("id")
     private long mId;
@@ -17,7 +17,7 @@ class CustomItem {
     @SerializedName("shoplistId")
     private long mShoppingListId;
     @SerializedName("matchingItems")
-    private List<Product> mMatchingItems = null;
+    private List<ProductItem> mMatchingItems = null;
 
     public long getId() {
         return mId;
@@ -43,11 +43,16 @@ class CustomItem {
         this.mShoppingListId = shoppingListId;
     }
 
-    public List<Product> getMatchingItems() {
+    public List<ProductItem> getMatchingItems() {
         return mMatchingItems;
     }
 
-    public void setMatchingItems(List<Product> matchingItems) {
+    public void setMatchingItems(List<ProductItem> matchingItems) {
         this.mMatchingItems = matchingItems;
+    }
+
+    @Override
+    public int getType() {
+        return CUSTOM_ITEM_TYPE;
     }
 }

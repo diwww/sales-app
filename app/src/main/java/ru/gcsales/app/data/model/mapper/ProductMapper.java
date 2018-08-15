@@ -7,7 +7,7 @@ import java.util.List;
 import ru.gcsales.app.data.model.local.ProductEntity;
 import ru.gcsales.app.data.model.local.ProductWithShop;
 import ru.gcsales.app.data.model.remote.ProductResponse;
-import ru.gcsales.app.domain.model.Product;
+import ru.gcsales.app.domain.model.ProductItem;
 import ru.gcsales.app.domain.model.Shop;
 
 /**
@@ -53,22 +53,22 @@ public class ProductMapper {
         return entityList;
     }
 
-    public Product transformEntity(ProductWithShop productWithShop) {
-        Product product = null;
+    public ProductItem transformEntity(ProductWithShop productWithShop) {
+        ProductItem productItem = null;
 
         if (productWithShop != null) {
-            product = new Product();
-            product.setId(productWithShop.getProductEntity().getId());
-            product.setName(productWithShop.getProductEntity().getName());
-            product.setCategory(productWithShop.getProductEntity().getCategory());
-            product.setImageUrl(productWithShop.getProductEntity().getImageUrl());
-            product.setCondition(productWithShop.getProductEntity().getCondition());
-            product.setCrawlDate(productWithShop.getProductEntity().getCrawlDate());
-            product.setDateIn(productWithShop.getProductEntity().getDateIn());
-            product.setDateOut(productWithShop.getProductEntity().getDateOut());
-            product.setDiscount(productWithShop.getProductEntity().getDiscount());
-            product.setOldPrice(productWithShop.getProductEntity().getOldPrice());
-            product.setNewPrice(productWithShop.getProductEntity().getNewPrice());
+            productItem = new ProductItem();
+            productItem.setId(productWithShop.getProductEntity().getId());
+            productItem.setName(productWithShop.getProductEntity().getName());
+            productItem.setCategory(productWithShop.getProductEntity().getCategory());
+            productItem.setImageUrl(productWithShop.getProductEntity().getImageUrl());
+            productItem.setCondition(productWithShop.getProductEntity().getCondition());
+            productItem.setCrawlDate(productWithShop.getProductEntity().getCrawlDate());
+            productItem.setDateIn(productWithShop.getProductEntity().getDateIn());
+            productItem.setDateOut(productWithShop.getProductEntity().getDateOut());
+            productItem.setDiscount(productWithShop.getProductEntity().getDiscount());
+            productItem.setOldPrice(productWithShop.getProductEntity().getOldPrice());
+            productItem.setNewPrice(productWithShop.getProductEntity().getNewPrice());
 
             Shop shop = new Shop();
             shop.setId(productWithShop.getProductEntity().getShopId());
@@ -76,14 +76,14 @@ public class ProductMapper {
             shop.setAlias(productWithShop.getShopAlias());
             shop.setImageUrl(productWithShop.getShopImageUrl());
 
-            product.setShop(shop);
+            productItem.setShop(shop);
         }
 
-        return product;
+        return productItem;
     }
 
-    public List<Product> transformEntity(List<ProductWithShop> productWithShopList) {
-        List<Product> entityList;
+    public List<ProductItem> transformEntity(List<ProductWithShop> productWithShopList) {
+        List<ProductItem> entityList;
 
         if (productWithShopList != null && !productWithShopList.isEmpty()) {
             entityList = new ArrayList<>();

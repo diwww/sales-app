@@ -7,7 +7,7 @@ import retrofit2.http.Query;
 import ru.gcsales.app.data.model.remote.ProductsInfoResponse;
 
 /**
- * API requests to get products.
+ * API requests to get mProductItems.
  *
  * @author Maxim Surovtsev
  * Created on 7/30/18
@@ -15,11 +15,11 @@ import ru.gcsales.app.data.model.remote.ProductsInfoResponse;
 public interface ProductService {
 
     /**
-     * Gets products for a given shop.
+     * Gets mProductItems for a given shop.
      *
      * @param id       id of a shop
      * @param page     page number in pagination
-     * @param category category to filter products (optional)
+     * @param category category to filter mProductItems (optional)
      * @return {@link Observable} of {@link ProductsInfoResponse} object
      */
     @GET("shops/{id}")

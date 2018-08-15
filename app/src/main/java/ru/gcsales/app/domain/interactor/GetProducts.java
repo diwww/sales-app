@@ -3,16 +3,16 @@ package ru.gcsales.app.domain.interactor;
 import java.util.List;
 
 import io.reactivex.Observable;
-import ru.gcsales.app.domain.model.Product;
+import ru.gcsales.app.domain.model.ProductItem;
 import ru.gcsales.app.domain.repository.ProductRepository;
 
 /**
- * Use case for getting products for given shop and category.
+ * Use case for getting mProductItems for given shop and category.
  *
  * @author Maxim Surovtsev
  * Created on 7/27/18
  */
-public class GetProducts extends UseCase<List<Product>, GetProducts.Params> {
+public class GetProducts extends UseCase<List<ProductItem>, GetProducts.Params> {
 
     private ProductRepository mProductRepository;
 
@@ -21,7 +21,7 @@ public class GetProducts extends UseCase<List<Product>, GetProducts.Params> {
     }
 
     @Override
-    Observable<List<Product>> buildObservable(Params params) {
+    Observable<List<ProductItem>> buildObservable(Params params) {
         return mProductRepository.getProducts(params.mShopId, params.mCategory, params.mPage);
     }
 

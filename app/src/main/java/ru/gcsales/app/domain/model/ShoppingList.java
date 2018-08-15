@@ -14,7 +14,7 @@ public class ShoppingList {
     @SerializedName("name")
     private String mName;
     @SerializedName("items")
-    private List<Product> mItems = null;
+    private List<ProductItem> mItems = null;
     @SerializedName("customItems")
     private List<CustomItem> mCustomItems = null;
 
@@ -34,11 +34,11 @@ public class ShoppingList {
         this.mName = name;
     }
 
-    public List<Product> getItems() {
+    public List<ProductItem> getItems() {
         return mItems;
     }
 
-    public void setItems(List<Product> items) {
+    public void setItems(List<ProductItem> items) {
         this.mItems = items;
     }
 

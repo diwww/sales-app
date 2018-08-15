@@ -13,7 +13,7 @@ import ru.gcsales.app.domain.model.Shop;
  * @author Maxim Surovtsev
  * Created on 8/11/18
  */
-@Database(entities = {ShopEntity.class, ProductEntity.class, ShoppingListEntity.class, ShoppingListProductEntity.class}, version = 1)
+@Database(entities = {ShopEntity.class, ProductEntity.class, ShoppingListEntity.class, ShoppingListProductEntity.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ShopDAO getShopDAO();
 

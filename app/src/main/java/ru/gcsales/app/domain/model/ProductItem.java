@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
  * @author Maxim Surovtsev
  * Created on 7/26/18
  */
-public class Product {
+public class ProductItem implements Item {
 
     @SerializedName("id")
     private long id;
@@ -139,5 +139,10 @@ public class Product {
 
     public void setShop(Shop shop) {
         this.mShop = shop;
+    }
+
+    @Override
+    public int getType() {
+        return PRODUCT_TYPE;
     }
 }

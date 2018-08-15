@@ -12,13 +12,12 @@ import io.reactivex.observers.DisposableObserver;
 import ru.gcsales.app.AppApplication;
 import ru.gcsales.app.domain.interactor.GetProducts;
 import ru.gcsales.app.domain.interactor.GetShopInfo;
-import ru.gcsales.app.domain.model.Product;
-import ru.gcsales.app.domain.model.ProductsInfo;
+import ru.gcsales.app.domain.model.ProductItem;
 import ru.gcsales.app.domain.model.ShopInfo;
 import ru.gcsales.app.presentation.mvp.view.ProductsView;
 
 /**
- * Product list presenter.
+ * ProductItem list presenter.
  *
  * @author Maxim Surovtsev
  * Created on 7/27/18
@@ -78,7 +77,7 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
     }
 
     /**
-     * Downloads the next page of products.
+     * Downloads the next page of mProductItems.
      */
     private void loadNextPageProducts() {
         getViewState().showProgress();
@@ -105,15 +104,15 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
         }
     }
 
-    private final class ProductsObserver extends DisposableObserver<List<Product>> {
+    private final class ProductsObserver extends DisposableObserver<List<ProductItem>> {
 
         @Override
-        public void onNext(List<Product> products) {
+        public void onNext(List<ProductItem> productItems) {
             // End signal to prevent further loading
-            if (products.isEmpty()) {
+            if (productItems.isEmpty()) {
                 mEnd = true;
             }
-            getViewState().addProducts(products);
+            getViewState().addProducts(productItems);
 //            getViewState().setNumItems(productsInfo.getCount());
         }
 
