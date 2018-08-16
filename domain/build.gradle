@@ -1,0 +1,14 @@
+apply plugin: 'java-library'
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+dependencies {
+    def domainDependencies = rootProject.ext.domainDependencies
+    def domainTestDependencies = rootProject.ext.domainTestDependencies
+
+    implementation domainDependencies.rxJava
+
+    testImplementation domainTestDependencies.junit
+}
+
