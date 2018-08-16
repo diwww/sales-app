@@ -20,14 +20,4 @@ public interface ShopRepository {
      * @return {@link Single} list of shops
      */
     Single<List<Shop>> getShops();
-
-    /**
-     * Get products for given shop, category and page.
-     *
-     * @param shopId   shop id
-     * @param category category name
-     * @param page     pagination page
-     * @return {@link Single} list of products
-     */
-    Single<List<Item>> getProducts(long shopId, String category, int page);
 }

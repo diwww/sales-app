@@ -25,7 +25,7 @@ public class GetProducts extends UseCase<List<Item>, GetProducts.Params> {
 
     @Override
     Single<List<Item>> buildSingle(Params params) {
-        return mShopRepository.getProducts(params.mShopId, params.mCategory, params.mPage);
+        return mShopRepository.getItems(params.mShopId, params.mCategory, params.mPage);
     }
 
     /**

@@ -36,11 +36,11 @@ ext {
     ]
 
     dataDependencies = [
+            rxJava               : "io.reactivex.rxjava2:rxjava:${RX_VERSION}",
             retrofit             : "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}",
             gson                 : "com.google.code.gson:gson:${GSON_VERSION}",
             retrofitGsonConverter: "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}",
             retrofitAdapterRxJava: "com.squareup.retrofit2:adapter-rxjava2:${RX_ADAPTER_VERSION}",
-            rxJava               : "io.reactivex.rxjava2:rxjava:${RX_VERSION}",
             roomRuntime          : "android.arch.persistence.room:runtime:$ROOM_VERSION",
             roomCompiler         : "android.arch.persistence.room:compiler:$ROOM_VERSION",
             roomRxJava           : "android.arch.persistence.room:rxjava2:$ROOM_VERSION"
