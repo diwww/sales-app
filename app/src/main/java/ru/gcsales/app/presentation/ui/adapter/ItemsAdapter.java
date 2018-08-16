@@ -2,6 +2,7 @@ package ru.gcsales.app.presentation.ui.adapter;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -30,9 +31,11 @@ public class ItemsAdapter extends RecyclerView.Adapter {
 
     private ActionButtonIcon mActionButtonIcon;
     private List<Item> mItems = new ArrayList<>();
+    private OnButtonClickListener mButtonClickListener;
 
-    public ItemsAdapter(ActionButtonIcon actionButtonIcon) {
+    public ItemsAdapter(ActionButtonIcon actionButtonIcon, OnButtonClickListener listener) {
         mActionButtonIcon = actionButtonIcon;
+        mButtonClickListener = listener;
     }
 
     @NonNull
@@ -54,7 +57,8 @@ public class ItemsAdapter extends RecyclerView.Adapter {
         Item item = mItems.get(position);
         switch (item.getType()) {
             case Item.PRODUCT_TYPE:
-                ((ProductViewHolder) holder).bind((ProductItem) item, mActionButtonIcon);
+                ProductItem productItem = (ProductItem) item;
+                ((ProductViewHolder) holder).bind(productItem, mActionButtonIcon, mButtonClickListener);
                 break;
             case Item.CUSTOM_ITEM_TYPE:
                 ((CustomItemViewHolder) holder).bind((CustomItem) item);
@@ -75,6 +79,11 @@ public class ItemsAdapter extends RecyclerView.Adapter {
 
     public void addData(List<? extends Item> data) {
         mItems.addAll(data);
+        notifyDataSetChanged();
+    }
+
+    public void deleteItem(Item item) {
+        mItems.remove(item);
         notifyDataSetChanged();
     }
 
@@ -102,7 +111,8 @@ public class ItemsAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(ProductItem productItem, ActionButtonIcon actionButtonIcon) {
+        public void bind(ProductItem productItem, ActionButtonIcon actionButtonIcon,
+                         OnButtonClickListener buttonClickListener) {
             final Context context = itemView.getContext();
             mNameTextView.setText(productItem.getName());
             mCategoryTextView.setText(productItem.getCategory());
@@ -123,7 +133,7 @@ public class ItemsAdapter extends RecyclerView.Adapter {
                     break;
             }
             mActionButton.setOnClickListener(v -> {
-                // TODO
+                buttonClickListener.onButtonClicked(productItem);
             });
         }
     }
@@ -140,5 +150,9 @@ public class ItemsAdapter extends RecyclerView.Adapter {
         public void bind(CustomItem customItem) {
             mNameTextView.setText(customItem.getName());
         }
+    }
+
+    public interface OnButtonClickListener {
+        void onButtonClicked(ProductItem productItem);
     }
 }

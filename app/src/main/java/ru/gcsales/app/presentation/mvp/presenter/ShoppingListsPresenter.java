@@ -11,7 +11,7 @@ import io.reactivex.observers.DisposableObserver;
 import ru.gcsales.app.AppApplication;
 import ru.gcsales.app.domain.interactor.AddShoppingList;
 import ru.gcsales.app.domain.interactor.GetShoppingLists;
-import ru.gcsales.app.domain.interactor.RemoveShoppingList;
+import ru.gcsales.app.domain.interactor.DeleteShoppingList;
 import ru.gcsales.app.domain.model.ShoppingList;
 import ru.gcsales.app.presentation.mvp.view.ShoppingListsView;
 
@@ -27,7 +27,7 @@ public class ShoppingListsPresenter extends MvpPresenter<ShoppingListsView> {
     @Inject
     AddShoppingList mAddShoppingList;
     @Inject
-    RemoveShoppingList mRemoveShoppingList;
+    DeleteShoppingList mDeleteShoppingList;
 
     public ShoppingListsPresenter() {
         AppApplication.getApplicationComponent().inject(this);
@@ -44,8 +44,8 @@ public class ShoppingListsPresenter extends MvpPresenter<ShoppingListsView> {
 
     public void removeShoppingList(ShoppingList preview) {
         getViewState().removeItem(preview);
-        mRemoveShoppingList.execute(new RemoveShoppingListObserver(),
-                RemoveShoppingList.Params.forShoppingList(preview.getId()));
+        mDeleteShoppingList.execute(new RemoveShoppingListObserver(),
+                DeleteShoppingList.Params.forShoppingList(preview.getId()));
     }
 
     private final class GetShoppingListPreviewsObserver extends DisposableObserver<List<ShoppingList>> {

@@ -40,5 +40,23 @@ public interface ShoppingListRepository extends TokenRepository {
      * @param id id of the shopping list to remove
      * @return basically nothing
      */
-    Observable<String> removeShoppingList(long id);
+    Observable<String> deletehoppingList(long id);
+
+    /**
+     * Adds the item to the shopping list.
+     *
+     * @param shoppingListId id of the shopping list
+     * @param itemId         id of the item
+     * @return response message, e.g. "OK"
+     */
+    Observable<String> addItem(long shoppingListId, long itemId);
+
+    /**
+     * Deletes the item from the shopping list.
+     *
+     * @param shoppingListId id of the shopping list
+     * @param itemId         id of the item
+     * @return response message, e.g. "OK"
+     */
+    Observable<String> deleteItem(long shoppingListId, long itemId);
 }

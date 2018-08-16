@@ -16,12 +16,14 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
+import ru.gcsales.app.domain.model.ProductItem;
 import ru.gcsales.app.domain.model.ShoppingList;
 import ru.gcsales.app.presentation.mvp.presenter.ShoppingListPresenter;
 import ru.gcsales.app.presentation.mvp.view.ShoppingListView;
+import ru.gcsales.app.presentation.ui.adapter.ItemsAdapter.OnButtonClickListener;
 import ru.gcsales.app.presentation.ui.adapter.ItemsAdapter;
 
-public class ShoppingListActivity extends MvpAppCompatActivity implements ShoppingListView {
+public class ShoppingListActivity extends MvpAppCompatActivity implements ShoppingListView, OnButtonClickListener {
 
     public static final String EXTRA_SHOPPING_LIST_ID = "EXTRA_SHOPPING_LIST_ID";
 
@@ -55,7 +57,7 @@ public class ShoppingListActivity extends MvpAppCompatActivity implements Shoppi
         mTotalPriceTextView.setText(getString(R.string.total_price_text, 534.87));
         mLinearLayoutManager = new LinearLayoutManager(mRecyclerView.getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mItemsAdapter = new ItemsAdapter(ItemsAdapter.ActionButtonIcon.REMOVE);
+        mItemsAdapter = new ItemsAdapter(ItemsAdapter.ActionButtonIcon.REMOVE, this);
         mRecyclerView.setAdapter(mItemsAdapter);
 
         mShoppingListPresenter.loadData();
@@ -67,9 +69,20 @@ public class ShoppingListActivity extends MvpAppCompatActivity implements Shoppi
         mItemsAdapter.setData(shoppingList.getItems());
     }
 
+    @Override
+    public void deleteItem(ProductItem productItem) {
+        mItemsAdapter.deleteItem(productItem);
+    }
+
     public static Intent newIntent(Context context, long id) {
         Intent intent = new Intent(context, ShoppingListActivity.class);
         intent.putExtra(EXTRA_SHOPPING_LIST_ID, id);
         return intent;
+    }
+
+    @Override
+    public void onButtonClicked(ProductItem productItem) {
+        // TODO: delete item
+        mShoppingListPresenter.deleteItem(productItem);
     }
 }

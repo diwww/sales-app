@@ -7,17 +7,17 @@ import ru.gcsales.app.domain.repository.ShoppingListRepository;
  * @author Maxim Surovtsev
  * Created on 8/11/18
  */
-public class RemoveShoppingList extends UseCase<String, RemoveShoppingList.Params> {
+public class DeleteShoppingList extends UseCase<String, DeleteShoppingList.Params> {
 
     private ShoppingListRepository mShoppingListRepository;
 
-    public RemoveShoppingList(ShoppingListRepository shoppingListRepository) {
+    public DeleteShoppingList(ShoppingListRepository shoppingListRepository) {
         mShoppingListRepository = shoppingListRepository;
     }
 
     @Override
     Observable<String> buildObservable(Params params) {
-        return mShoppingListRepository.removeShoppingList(params.id);
+        return mShoppingListRepository.deletehoppingList(params.id);
     }
 
     public static class Params {

@@ -11,6 +11,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import ru.gcsales.app.data.model.remote.ShoppingListResponse;
 import ru.gcsales.app.domain.model.ShoppingList;
 
@@ -31,6 +32,12 @@ public interface ShoppingListService {
 
     @GET("shoplist/{id}")
     Observable<ShoppingListResponse> getShoppingList(@Header("Authorization") String auth, @Path("id") long id);
+
+    @POST("shoplist/{id}/additem")
+    Observable<String> addItem(@Header("Authorization") String auth, @Path("id") long shoppingListId, @Query("id") long itemId);
+
+    @DELETE("shoplist/{id}/deleteitem")
+    Observable<String> deleteItem(@Header("Authorization") String auth, @Path("id") long shoppingListId, @Query("id") long itemId);
 
     class ShoppingListBody {
         @SerializedName("name")

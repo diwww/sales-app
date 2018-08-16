@@ -109,7 +109,17 @@ public class ShoppingListRepositoryImpl extends TokenRepositoryImpl implements S
     }
 
     @Override
-    public Observable<String> removeShoppingList(long id) {
+    public Observable<String> deletehoppingList(long id) {
         return mShoppingListService.removeShoppingList(getAuthHeader(), id);
+    }
+
+    @Override
+    public Observable<String> addItem(long shoppingListId, long itemId) {
+        return mShoppingListService.addItem(getAuthHeader(), shoppingListId, itemId);
+    }
+
+    @Override
+    public Observable<String> deleteItem(long shoppingListId, long itemId) {
+        return mShoppingListService.deleteItem(getAuthHeader(), shoppingListId, itemId);
     }
 }

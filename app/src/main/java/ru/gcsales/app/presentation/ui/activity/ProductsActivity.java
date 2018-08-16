@@ -29,9 +29,10 @@ import ru.gcsales.app.domain.model.ProductItem;
 import ru.gcsales.app.domain.model.ShopInfo;
 import ru.gcsales.app.presentation.mvp.presenter.ProductsPresenter;
 import ru.gcsales.app.presentation.mvp.view.ProductsView;
+import ru.gcsales.app.presentation.ui.adapter.ItemsAdapter.OnButtonClickListener;
 import ru.gcsales.app.presentation.ui.adapter.ItemsAdapter;
 
-public class ProductsActivity extends MvpAppCompatActivity implements ProductsView {
+public class ProductsActivity extends MvpAppCompatActivity implements ProductsView, OnButtonClickListener {
 
     public static final String EXTRA_SHOP_ID = "EXTRA_SHOP_ID";
     public static final String EXTRA_SHOP_NAME = "EXTRA_SHOP_NAME";
@@ -73,7 +74,7 @@ public class ProductsActivity extends MvpAppCompatActivity implements ProductsVi
         mToolbar.setOnClickListener(v -> mRecyclerView.smoothScrollToPosition(0));
         mLinearLayoutManager = new LinearLayoutManager(mRecyclerView.getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mItemsAdapter = new ItemsAdapter(ItemsAdapter.ActionButtonIcon.ADD);
+        mItemsAdapter = new ItemsAdapter(ItemsAdapter.ActionButtonIcon.ADD, this);
         mRecyclerView.setAdapter(mItemsAdapter);
         setOnScrollListener();
 
@@ -194,5 +195,11 @@ public class ProductsActivity extends MvpAppCompatActivity implements ProductsVi
         intent.putExtra(EXTRA_SHOP_ID, id);
         intent.putExtra(EXTRA_SHOP_NAME, name);
         return intent;
+    }
+
+    @Override
+    public void onButtonClicked(ProductItem productItem) {
+        // TODO: show dialog
+        mProductsPresenter.addItem(88, productItem.getId());
     }
 }

@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import io.reactivex.observers.DisposableObserver;
 import ru.gcsales.app.AppApplication;
+import ru.gcsales.app.domain.interactor.AddItem;
 import ru.gcsales.app.domain.interactor.GetProducts;
 import ru.gcsales.app.domain.interactor.GetShopInfo;
 import ru.gcsales.app.domain.model.ProductItem;
@@ -33,6 +34,9 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
 
     @Inject
     GetShopInfo mGetShopInfo;
+
+    @Inject
+    AddItem mAddItem;
 
     private long mShopId;
     private String mCategory;
@@ -102,6 +106,26 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
         if (!mEnd && !mLoading && totalItems <= (lastVisibleItemIndex + VISIBLE_THRESHOLD)) {
             loadNextPageProducts();
         }
+    }
+
+    public void addItem(long shoppingListId, long itemId) {
+        // FIXME: mock observer
+        mAddItem.execute(new DisposableObserver<String>() {
+            @Override
+            public void onNext(String s) {
+                System.out.println(s);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                System.err.println(e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        }, AddItem.Params.forItem(shoppingListId, itemId));
     }
 
     private final class ProductsObserver extends DisposableObserver<List<ProductItem>> {

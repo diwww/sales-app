@@ -3,14 +3,16 @@ package ru.gcsales.app.injection;
 
 import dagger.Module;
 import dagger.Provides;
+import ru.gcsales.app.domain.interactor.AddItem;
 import ru.gcsales.app.domain.interactor.AddShoppingList;
+import ru.gcsales.app.domain.interactor.DeleteItem;
 import ru.gcsales.app.domain.interactor.GetProducts;
 import ru.gcsales.app.domain.interactor.GetShopInfo;
 import ru.gcsales.app.domain.interactor.GetShoppingList;
 import ru.gcsales.app.domain.interactor.GetShoppingLists;
 import ru.gcsales.app.domain.interactor.GetShops;
 import ru.gcsales.app.domain.interactor.Login;
-import ru.gcsales.app.domain.interactor.RemoveShoppingList;
+import ru.gcsales.app.domain.interactor.DeleteShoppingList;
 import ru.gcsales.app.domain.repository.AuthRepository;
 import ru.gcsales.app.domain.repository.ProductRepository;
 import ru.gcsales.app.domain.repository.ShopRepository;
@@ -58,13 +60,25 @@ public class UseCaseModule {
 
     @Provides
 //    @Singleton
-    public RemoveShoppingList provideRemoveShoppingList(ShoppingListRepository shoppingListRepository) {
-        return new RemoveShoppingList(shoppingListRepository);
+    public DeleteShoppingList provideRemoveShoppingList(ShoppingListRepository shoppingListRepository) {
+        return new DeleteShoppingList(shoppingListRepository);
     }
 
     @Provides
 //    @Singleton
     public GetShoppingList provideGetShoppingList(ShoppingListRepository shoppingListRepository) {
         return new GetShoppingList(shoppingListRepository);
+    }
+
+    @Provides
+//    @Singleton
+    public AddItem provideAddItem(ShoppingListRepository shoppingListRepository) {
+        return new AddItem(shoppingListRepository);
+    }
+
+    @Provides
+//    @Singleton
+    public DeleteItem provideDeleteItem(ShoppingListRepository shoppingListRepository) {
+        return new DeleteItem(shoppingListRepository);
     }
 }
