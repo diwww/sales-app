@@ -1,4 +1,4 @@
-package ru.gcsales.app.presentation.mvp.presenter;
+package ru.gcsales.app.presentation.presenter;
 
 
 import com.arellomobile.mvp.InjectViewState;
@@ -8,14 +8,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.observers.DisposableObserver;
-import ru.gcsales.app.AppApplication;
+import io.reactivex.observers.DisposableSingleObserver;
+import ru.gcsales.app.domain.model.Item;
+import ru.gcsales.app.presentation.AppApplication;
 import ru.gcsales.app.domain.interactor.AddItem;
 import ru.gcsales.app.domain.interactor.GetProducts;
-import ru.gcsales.app.domain.interactor.GetShopInfo;
-import ru.gcsales.app.domain.model.ProductItem;
-import ru.gcsales.app.domain.model.ShopInfo;
-import ru.gcsales.app.presentation.mvp.view.ProductsView;
+import ru.gcsales.app.presentation.view.ProductsView;
 
 /**
  * ProductItem list presenter.
@@ -31,9 +29,6 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
 
     @Inject
     GetProducts mGetProducts;
-
-    @Inject
-    GetShopInfo mGetShopInfo;
 
     @Inject
     AddItem mAddItem;
@@ -63,7 +58,6 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
         mCategory = null;
         mPage = FIRST_PAGE;
         getViewState().clearProducts();
-        getViewState().setCategoryName(null);
         loadNextPageProducts();
     }
 
@@ -76,7 +70,6 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
         mCategory = category;
         mPage = FIRST_PAGE;
         getViewState().clearProducts();
-        getViewState().setCategoryName(category);
         loadNextPageProducts();
     }
 
@@ -87,13 +80,6 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
         getViewState().showProgress();
         mLoading = true;
         mGetProducts.execute(new ProductsObserver(), GetProducts.Params.forShop(mShopId, mCategory, mPage));
-    }
-
-    /**
-     * Loads shop info (num items, categories, shop name, shop logo).
-     */
-    public void loadShopInfo() {
-        mGetShopInfo.execute(new ShopInfoObserver(), GetShopInfo.Params.forShop(mShopId));
     }
 
     /**
@@ -110,9 +96,9 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
 
     public void addItem(long shoppingListId, long itemId) {
         // FIXME: mock observer
-        mAddItem.execute(new DisposableObserver<String>() {
+        mAddItem.execute(new DisposableSingleObserver<String>() {
             @Override
-            public void onNext(String s) {
+            public void onSuccess(String s) {
                 System.out.println(s);
             }
 
@@ -121,23 +107,21 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
                 System.err.println(e.getMessage());
             }
 
-            @Override
-            public void onComplete() {
-
-            }
-        }, AddItem.Params.forItem(shoppingListId, itemId));
+        }, AddItem.Params.get(shoppingListId, itemId));
     }
 
-    private final class ProductsObserver extends DisposableObserver<List<ProductItem>> {
+    private final class ProductsObserver extends DisposableSingleObserver<List<Item>> {
 
         @Override
-        public void onNext(List<ProductItem> productItems) {
+        public void onSuccess(List<Item> items) {
             // End signal to prevent further loading
-            if (productItems.isEmpty()) {
+            if (items.isEmpty()) {
                 mEnd = true;
             }
-            getViewState().addProducts(productItems);
-//            getViewState().setNumItems(productsInfo.getCount());
+            getViewState().hideProgress();
+            getViewState().addProducts(items);
+            mLoading = false;
+            mPage++;
         }
 
         @Override
@@ -145,31 +129,6 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
             getViewState().hideProgress();
             getViewState().showError("Network error.");
             mLoading = false;
-        }
-
-        @Override
-        public void onComplete() {
-            getViewState().hideProgress();
-            mLoading = false;
-            mPage++;
-        }
-    }
-
-    private final class ShopInfoObserver extends DisposableObserver<ShopInfo> {
-
-        @Override
-        public void onNext(ShopInfo shopInfo) {
-            getViewState().setShopInfo(shopInfo);
-        }
-
-        @Override
-        public void onError(Throwable e) {
-            // TODO
-        }
-
-        @Override
-        public void onComplete() {
-            // TODO
         }
     }
 }

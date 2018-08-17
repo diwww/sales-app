@@ -1,4 +1,4 @@
-package ru.gcsales.app.presentation.ui.fragment;
+package ru.gcsales.app.presentation.view.fragment;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;

@@ -1,4 +1,4 @@
-package ru.gcsales.app.presentation.ui.fragment;
+package ru.gcsales.app.presentation.view.fragment;
 
 
 import android.content.Context;
@@ -30,11 +30,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
 import ru.gcsales.app.domain.model.ShoppingList;
-import ru.gcsales.app.presentation.mvp.presenter.ShoppingListsPresenter;
-import ru.gcsales.app.presentation.mvp.view.ShoppingListsView;
-import ru.gcsales.app.presentation.ui.activity.ShoppingListActivity;
-import ru.gcsales.app.presentation.ui.adapter.ShoppingListsAdapter;
-import ru.gcsales.app.presentation.ui.adapter.ShoppingListsAdapter.*;
+import ru.gcsales.app.presentation.presenter.ShoppingListsPresenter;
+import ru.gcsales.app.presentation.view.ShoppingListsView;
+import ru.gcsales.app.presentation.view.activity.ShoppingListActivity;
+import ru.gcsales.app.presentation.view.adapter.ShoppingListsAdapter;
+import ru.gcsales.app.presentation.view.adapter.ShoppingListsAdapter.*;
 
 
 public class ShoppingListsFragment extends MvpAppCompatFragment

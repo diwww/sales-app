@@ -1,10 +1,10 @@
-package ru.gcsales.app;
+package ru.gcsales.app.presentation;
 
 import android.app.Application;
 
-import ru.gcsales.app.injection.ApplicationComponent;
-import ru.gcsales.app.injection.ApplicationModule;
-import ru.gcsales.app.injection.DaggerApplicationComponent;
+import ru.gcsales.app.presentation.di.ApplicationComponent;
+import ru.gcsales.app.presentation.di.ApplicationModule;
+import ru.gcsales.app.presentation.di.DaggerApplicationComponent;
 
 public class AppApplication extends Application {
 

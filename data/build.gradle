@@ -34,11 +34,16 @@ dependencies {
 
     implementation project(':domain')
 
+    implementation dataDependencies.dagger
+    annotationProcessor dataDependencies.daggerCompiler
+
     implementation dataDependencies.rxJava
+
     implementation dataDependencies.retrofit
     implementation dataDependencies.gson
     implementation dataDependencies.retrofitGsonConverter
     implementation dataDependencies.retrofitAdapterRxJava
+
     implementation dataDependencies.roomRuntime
     annotationProcessor dataDependencies.roomCompiler
     implementation dataDependencies.roomRxJava

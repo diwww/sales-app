@@ -1,4 +1,4 @@
-package ru.gcsales.app.presentation.ui.activity;
+package ru.gcsales.app.presentation.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,26 +11,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
-import com.bumptech.glide.Glide;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 import ru.gcsales.app.R;
-import ru.gcsales.app.domain.model.ProductItem;
-import ru.gcsales.app.domain.model.ShopInfo;
-import ru.gcsales.app.presentation.mvp.presenter.ProductsPresenter;
-import ru.gcsales.app.presentation.mvp.view.ProductsView;
-import ru.gcsales.app.presentation.ui.adapter.ItemsAdapter.OnButtonClickListener;
-import ru.gcsales.app.presentation.ui.adapter.ItemsAdapter;
+import ru.gcsales.app.domain.model.Item;
+import ru.gcsales.app.presentation.presenter.ProductsPresenter;
+import ru.gcsales.app.presentation.view.ProductsView;
+import ru.gcsales.app.presentation.view.adapter.ItemsAdapter.OnButtonClickListener;
+import ru.gcsales.app.presentation.view.adapter.ItemsAdapter;
 
 public class ProductsActivity extends MvpAppCompatActivity implements ProductsView, OnButtonClickListener {
 
@@ -44,11 +40,6 @@ public class ProductsActivity extends MvpAppCompatActivity implements ProductsVi
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.recycler_view_products) RecyclerView mRecyclerView;
     @BindView(R.id.progress_bar) ProgressBar mProgressBar;
-
-    // Shop info views
-    @BindView(R.id.text_num_items) TextView mNumItemsTextView;
-    @BindView(R.id.text_current_category) TextView mCurrentCategoryTextView;
-    @BindView(R.id.image_shop_logo) CircleImageView mShopLogoImageView;
 
     ItemsAdapter mItemsAdapter;
     LinearLayoutManager mLinearLayoutManager;
@@ -79,7 +70,6 @@ public class ProductsActivity extends MvpAppCompatActivity implements ProductsVi
         setOnScrollListener();
 
         mProductsPresenter.loadUnfiltered();
-        mProductsPresenter.loadShopInfo();
     }
 
     @Override
@@ -122,48 +112,19 @@ public class ProductsActivity extends MvpAppCompatActivity implements ProductsVi
     }
 
     @Override
-    public void addProducts(List<ProductItem> productItems) {
-        mItemsAdapter.addData(productItems);
+    public void addProducts(List<Item> items) {
+        mItemsAdapter.addData(items);
         Toast.makeText(this, "Count: " + mItemsAdapter.getItemCount(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void setProducts(List<ProductItem> productItems) {
-        mItemsAdapter.setData(productItems);
+    public void setProducts(List<Item> items) {
+        mItemsAdapter.setData(items);
     }
 
     @Override
     public void clearProducts() {
         mItemsAdapter.clear();
-    }
-
-    @Override
-    public void setShopInfo(ShopInfo shopInfo) {
-        // TODO: LinearLayout плавно появляется с анимацией
-        Glide.with(this)
-                .load(shopInfo.getShop().getImageUrl())
-                .into(mShopLogoImageView);
-
-        List<String> categoriesList = shopInfo.getCategories();
-        categoriesList.add(0, "Все категории");
-        String[] categories = new String[shopInfo.getCategories().size()];
-        categories = shopInfo.getCategories().toArray(categories);
-        initAlertDialog(categories);
-        mToolbar.getMenu().getItem(0).setEnabled(true);
-    }
-
-    @Override
-    public void setCategoryName(String category) {
-        if (category == null) {
-            mCurrentCategoryTextView.setText(R.string.default_category);
-        } else {
-            mCurrentCategoryTextView.setText(category);
-        }
-    }
-
-    @Override
-    public void setNumItems(long numItems) {
-        mNumItemsTextView.setText(getString(R.string.num_items_text, numItems));
     }
 
     private void initAlertDialog(String[] items) {
@@ -198,8 +159,8 @@ public class ProductsActivity extends MvpAppCompatActivity implements ProductsVi
     }
 
     @Override
-    public void onButtonClicked(ProductItem productItem) {
+    public void onButtonClicked(Item item) {
         // TODO: show dialog
-        mProductsPresenter.addItem(88, productItem.getId());
+        mProductsPresenter.addItem(88, item.getId());
     }
 }

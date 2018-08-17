@@ -3,6 +3,9 @@ package ru.gcsales.app.data.repository;
 
 import android.content.Context;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import io.reactivex.Single;
 import ru.gcsales.app.data.service.AuthService;
 import ru.gcsales.app.domain.repository.AuthRepository;

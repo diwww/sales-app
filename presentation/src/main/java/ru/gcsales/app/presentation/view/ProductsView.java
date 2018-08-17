@@ -1,11 +1,10 @@
-package ru.gcsales.app.presentation.mvp.view;
+package ru.gcsales.app.presentation.view;
 
 import com.arellomobile.mvp.MvpView;
 
 import java.util.List;
 
-import ru.gcsales.app.domain.model.ProductItem;
-import ru.gcsales.app.domain.model.ShopInfo;
+import ru.gcsales.app.domain.model.Item;
 
 /**
  * ProductItem list view.
@@ -34,27 +33,21 @@ public interface ProductsView extends MvpView {
     void showError(String error);
 
     /**
-     * Adds mProductItems to a list.
+     * Adds items to a list.
      *
-     * @param productItems mProductItems to add
+     * @param items items to add
      */
-    void addProducts(List<ProductItem> productItems);
+    void addProducts(List<Item> items);
 
     /**
      * Sets the product list (replaces the old data).
      *
-     * @param productItems mProductItems to set
+     * @param items items to set
      */
-    void setProducts(List<ProductItem> productItems);
+    void setProducts(List<Item> items);
 
     /**
      * Clears the product list.
      */
     void clearProducts();
-
-    void setShopInfo(ShopInfo shopInfo);
-
-    void setCategoryName(String category);
-
-    void setNumItems(long numItems);
 }

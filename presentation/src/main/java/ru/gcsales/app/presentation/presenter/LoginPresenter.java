@@ -1,17 +1,15 @@
-package ru.gcsales.app.presentation.mvp.presenter;
+package ru.gcsales.app.presentation.presenter;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
-import java.io.IOException;
 
 import javax.inject.Inject;
 
-import io.reactivex.observers.DisposableObserver;
-import retrofit2.Response;
-import ru.gcsales.app.AppApplication;
+import io.reactivex.observers.DisposableSingleObserver;
+import ru.gcsales.app.presentation.AppApplication;
 import ru.gcsales.app.domain.interactor.Login;
-import ru.gcsales.app.presentation.mvp.view.LoginView;
+import ru.gcsales.app.presentation.view.LoginView;
 
 /**
  * @author Maxim Surovtsev
@@ -34,33 +32,21 @@ public class LoginPresenter extends MvpPresenter<LoginView> {
 
     public void login(String username, String password) {
         getViewState().showProgress();
-        mLogin.execute(new LoginObserver(), Login.Params.forUser(username, password));
+        mLogin.execute(new LoginObserver(), Login.Params.get(username, password));
     }
 
-    private final class LoginObserver extends DisposableObserver<Response<String>> {
+    private final class LoginObserver extends DisposableSingleObserver<String> {
 
         @Override
-        public void onNext(Response<String> response) {
-            if (response.isSuccessful()) {
-                getViewState().showToken(response.body());
-                getViewState().onSuccessLogin();
-            } else {
-                try {
-                    getViewState().showError(response.errorBody().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+        public void onSuccess(String s) {
+            // TODO: пофиксить (может не работать)
+            getViewState().showToken(s);
+            getViewState().onSuccessLogin();
         }
 
         @Override
         public void onError(Throwable e) {
-
-        }
-
-        @Override
-        public void onComplete() {
-            getViewState().hideProgress();
+            getViewState().showError(e.getMessage());
         }
     }
 }

@@ -12,7 +12,7 @@ import ru.gcsales.app.data.model.local.ShoppingListProductEntity;
  * @author Maxim Surovtsev
  * Created on 8/11/18
  */
-@Database(entities = {ShopEntity.class, ItemEntity.class, ShoppingListEntity.class, ShoppingListProductEntity.class}, version = 2)
+@Database(entities = {ShopEntity.class, ItemEntity.class, ShoppingListEntity.class, ShoppingListProductEntity.class}, version = 3)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ShopDAO getShopDAO();
 

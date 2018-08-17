@@ -2,6 +2,9 @@ package ru.gcsales.app.data.repository;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import io.reactivex.Single;
 import ru.gcsales.app.data.AppDatabase;
 import ru.gcsales.app.data.ItemDAO;

@@ -1,9 +1,9 @@
-package ru.gcsales.app.presentation.mvp.presenter;
+package ru.gcsales.app.presentation.presenter;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
-import ru.gcsales.app.presentation.mvp.view.HomeView;
+import ru.gcsales.app.presentation.view.HomeView;
 
 /**
  * Home presenter.

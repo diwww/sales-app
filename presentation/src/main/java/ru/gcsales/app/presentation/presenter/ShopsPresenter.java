@@ -1,4 +1,4 @@
-package ru.gcsales.app.presentation.mvp.presenter;
+package ru.gcsales.app.presentation.presenter;
 
 
 import com.arellomobile.mvp.InjectViewState;
@@ -8,11 +8,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.observers.DisposableObserver;
-import ru.gcsales.app.AppApplication;
+import io.reactivex.observers.DisposableSingleObserver;
+import ru.gcsales.app.presentation.AppApplication;
 import ru.gcsales.app.domain.interactor.GetShops;
 import ru.gcsales.app.domain.model.Shop;
-import ru.gcsales.app.presentation.mvp.view.ShopsView;
+import ru.gcsales.app.presentation.view.ShopsView;
 
 /**
  * Shops presenter.
@@ -43,10 +43,11 @@ public class ShopsPresenter extends MvpPresenter<ShopsView> {
         mGetShops.dispose();
     }
 
-    private final class ShopsObserver extends DisposableObserver<List<Shop>> {
+    private final class ShopsObserver extends DisposableSingleObserver<List<Shop>> {
 
         @Override
-        public void onNext(List<Shop> shops) {
+        public void onSuccess(List<Shop> shops) {
+            getViewState().hideProgress();
             getViewState().setShops(shops);
         }
 
@@ -54,11 +55,6 @@ public class ShopsPresenter extends MvpPresenter<ShopsView> {
         public void onError(Throwable e) {
             getViewState().hideProgress();
             getViewState().showError("Network error.");
-        }
-
-        @Override
-        public void onComplete() {
-            getViewState().hideProgress();
         }
     }
 }

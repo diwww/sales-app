@@ -1,4 +1,4 @@
-package ru.gcsales.app.injection;
+package ru.gcsales.app.data.di;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,7 +11,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.gcsales.app.data.service.AuthService;
-import ru.gcsales.app.data.service.ProductService;
+import ru.gcsales.app.data.service.ItemService;
 import ru.gcsales.app.data.service.ShopService;
 import ru.gcsales.app.data.service.ShoppingListService;
 
@@ -35,8 +35,8 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    public ProductService provideProductService() {
-        return builder.baseUrl(API_BASE_URL).build().create(ProductService.class);
+    public ItemService provideItemService() {
+        return builder.baseUrl(API_BASE_URL).build().create(ItemService.class);
     }
 
     @Provides

@@ -1,4 +1,4 @@
-package ru.gcsales.app.injection;
+package ru.gcsales.app.data.di;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
@@ -11,13 +11,14 @@ import ru.gcsales.app.data.AppDatabase;
 
 /**
  * @author Maxim Surovtsev
- * Created on 8/11/18
+ * Created on 8/17/18
  */
 @Module
 public class DatabaseModule {
+
     @Provides
     @Singleton
-    AppDatabase provideAppDatabase(Context context) {
+    public AppDatabase provideAppDatabase(Context context) {
         return Room.databaseBuilder(context, AppDatabase.class, "app_database")
                 .fallbackToDestructiveMigration()
                 .build();

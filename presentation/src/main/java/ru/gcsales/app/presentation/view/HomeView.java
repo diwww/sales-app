@@ -1,4 +1,4 @@
-package ru.gcsales.app.presentation.mvp.view;
+package ru.gcsales.app.presentation.view;
 
 
 import com.arellomobile.mvp.MvpView;

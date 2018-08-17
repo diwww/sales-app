@@ -1,9 +1,8 @@
-package ru.gcsales.app.presentation.ui.activity;
+package ru.gcsales.app.presentation.view.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,8 +14,8 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
-import ru.gcsales.app.presentation.mvp.presenter.LoginPresenter;
-import ru.gcsales.app.presentation.mvp.view.LoginView;
+import ru.gcsales.app.presentation.presenter.LoginPresenter;
+import ru.gcsales.app.presentation.view.LoginView;
 
 public class LoginActivity extends MvpAppCompatActivity implements LoginView {
 

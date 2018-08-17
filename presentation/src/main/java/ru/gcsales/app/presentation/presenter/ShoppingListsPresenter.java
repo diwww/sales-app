@@ -1,4 +1,4 @@
-package ru.gcsales.app.presentation.mvp.presenter;
+package ru.gcsales.app.presentation.presenter;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -7,13 +7,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.observers.DisposableObserver;
-import ru.gcsales.app.AppApplication;
+import io.reactivex.observers.DisposableSingleObserver;
+import ru.gcsales.app.presentation.AppApplication;
 import ru.gcsales.app.domain.interactor.AddShoppingList;
 import ru.gcsales.app.domain.interactor.GetShoppingLists;
 import ru.gcsales.app.domain.interactor.DeleteShoppingList;
 import ru.gcsales.app.domain.model.ShoppingList;
-import ru.gcsales.app.presentation.mvp.view.ShoppingListsView;
+import ru.gcsales.app.presentation.view.ShoppingListsView;
 
 /**
  * @author Maxim Surovtsev
@@ -39,7 +39,7 @@ public class ShoppingListsPresenter extends MvpPresenter<ShoppingListsView> {
     }
 
     public void addShoppingList(String name) {
-        mAddShoppingList.execute(new AddShoppingListObserver(), AddShoppingList.Params.forShoppingList(name));
+        mAddShoppingList.execute(new AddShoppingListObserver(), AddShoppingList.Params.get(name));
     }
 
     public void removeShoppingList(ShoppingList preview) {
@@ -48,59 +48,47 @@ public class ShoppingListsPresenter extends MvpPresenter<ShoppingListsView> {
                 DeleteShoppingList.Params.forShoppingList(preview.getId()));
     }
 
-    private final class GetShoppingListPreviewsObserver extends DisposableObserver<List<ShoppingList>> {
+    private final class GetShoppingListPreviewsObserver extends DisposableSingleObserver<List<ShoppingList>> {
 
         @Override
-        public void onNext(List<ShoppingList> shoppingListPreviewList) {
-            getViewState().setData(shoppingListPreviewList);
+        public void onSuccess(List<ShoppingList> shoppingLists) {
+
+            getViewState().hideProgress();
+            getViewState().setData(shoppingLists);
         }
 
         @Override
         public void onError(Throwable e) {
             getViewState().hideProgress();
             getViewState().showError(e.getMessage());
-        }
-
-        @Override
-        public void onComplete() {
-            getViewState().hideProgress();
         }
     }
 
-    private final class AddShoppingListObserver extends DisposableObserver<ShoppingList> {
+    private final class AddShoppingListObserver extends DisposableSingleObserver<ShoppingList> {
 
         @Override
-        public void onNext(ShoppingList preview) {
-            getViewState().addItem(preview);
+        public void onSuccess(ShoppingList shoppingList) {
+            getViewState().hideProgress();
+            getViewState().addItem(shoppingList);
         }
 
         @Override
         public void onError(Throwable e) {
             getViewState().hideProgress();
             getViewState().showError(e.getMessage());
-        }
-
-        @Override
-        public void onComplete() {
-            getViewState().hideProgress();
         }
     }
 
-    private final class RemoveShoppingListObserver extends DisposableObserver<String> {
+    private final class RemoveShoppingListObserver extends DisposableSingleObserver<String> {
 
         @Override
-        public void onNext(String s) {
+        public void onSuccess(String s) {
 
         }
 
         @Override
         public void onError(Throwable e) {
             getViewState().showError(e.getMessage());
-        }
-
-        @Override
-        public void onComplete() {
-
         }
     }
 }

@@ -1,4 +1,4 @@
-package ru.gcsales.app.presentation.ui.activity;
+package ru.gcsales.app.presentation.view.activity;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -12,10 +12,10 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
-import ru.gcsales.app.presentation.mvp.presenter.HomePresenter;
-import ru.gcsales.app.presentation.mvp.view.HomeView;
-import ru.gcsales.app.presentation.ui.fragment.ShoppingListsFragment;
-import ru.gcsales.app.presentation.ui.fragment.ViewPagerAdapter;
+import ru.gcsales.app.presentation.presenter.HomePresenter;
+import ru.gcsales.app.presentation.view.HomeView;
+import ru.gcsales.app.presentation.view.fragment.ShoppingListsFragment;
+import ru.gcsales.app.presentation.view.fragment.ViewPagerAdapter;
 
 public class HomeActivity extends MvpAppCompatActivity implements HomeView {
 

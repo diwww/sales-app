@@ -1,4 +1,4 @@
-package ru.gcsales.app.presentation.ui.activity;
+package ru.gcsales.app.presentation.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,12 +16,12 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
-import ru.gcsales.app.domain.model.ProductItem;
+import ru.gcsales.app.domain.model.Item;
 import ru.gcsales.app.domain.model.ShoppingList;
-import ru.gcsales.app.presentation.mvp.presenter.ShoppingListPresenter;
-import ru.gcsales.app.presentation.mvp.view.ShoppingListView;
-import ru.gcsales.app.presentation.ui.adapter.ItemsAdapter.OnButtonClickListener;
-import ru.gcsales.app.presentation.ui.adapter.ItemsAdapter;
+import ru.gcsales.app.presentation.presenter.ShoppingListPresenter;
+import ru.gcsales.app.presentation.view.ShoppingListView;
+import ru.gcsales.app.presentation.view.adapter.ItemsAdapter.OnButtonClickListener;
+import ru.gcsales.app.presentation.view.adapter.ItemsAdapter;
 
 public class ShoppingListActivity extends MvpAppCompatActivity implements ShoppingListView, OnButtonClickListener {
 
@@ -70,8 +70,8 @@ public class ShoppingListActivity extends MvpAppCompatActivity implements Shoppi
     }
 
     @Override
-    public void deleteItem(ProductItem productItem) {
-        mItemsAdapter.deleteItem(productItem);
+    public void deleteItem(Item item) {
+        mItemsAdapter.deleteItem(item);
     }
 
     public static Intent newIntent(Context context, long id) {
@@ -81,8 +81,8 @@ public class ShoppingListActivity extends MvpAppCompatActivity implements Shoppi
     }
 
     @Override
-    public void onButtonClicked(ProductItem productItem) {
+    public void onButtonClicked(Item item) {
         // TODO: delete item
-        mShoppingListPresenter.deleteItem(productItem);
+        mShoppingListPresenter.deleteItem(item);
     }
 }

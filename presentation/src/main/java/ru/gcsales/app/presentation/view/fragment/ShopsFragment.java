@@ -1,4 +1,4 @@
-package ru.gcsales.app.presentation.ui.fragment;
+package ru.gcsales.app.presentation.view.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,9 +19,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
 import ru.gcsales.app.domain.model.Shop;
-import ru.gcsales.app.presentation.mvp.presenter.ShopsPresenter;
-import ru.gcsales.app.presentation.mvp.view.ShopsView;
-import ru.gcsales.app.presentation.ui.adapter.ShopsAdapter;
+import ru.gcsales.app.presentation.presenter.ShopsPresenter;
+import ru.gcsales.app.presentation.view.ShopsView;
+import ru.gcsales.app.presentation.view.adapter.ShopsAdapter;
 
 /**
  * Fragment for displaying available shops.

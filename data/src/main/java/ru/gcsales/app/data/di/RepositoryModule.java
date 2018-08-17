@@ -1,4 +1,4 @@
-package ru.gcsales.app.injection;
+package ru.gcsales.app.data.di;
 
 import android.content.Context;
 
@@ -8,16 +8,16 @@ import dagger.Module;
 import dagger.Provides;
 import ru.gcsales.app.data.AppDatabase;
 import ru.gcsales.app.data.repository.AuthRepositoryImpl;
+import ru.gcsales.app.data.repository.ItemRepositoryImpl;
 import ru.gcsales.app.data.repository.ShoppingListRepositoryImpl;
 import ru.gcsales.app.data.service.AuthService;
-import ru.gcsales.app.data.service.ProductService;
+import ru.gcsales.app.data.service.ItemService;
 import ru.gcsales.app.data.service.ShoppingListService;
 import ru.gcsales.app.domain.repository.AuthRepository;
+import ru.gcsales.app.domain.repository.ItemRepository;
 import ru.gcsales.app.domain.repository.ShoppingListRepository;
-import ru.gcsales.app.data.repository.ProductRepositoryImpl;
 import ru.gcsales.app.data.repository.ShopRepositoryImpl;
 import ru.gcsales.app.data.service.ShopService;
-import ru.gcsales.app.domain.repository.ProductRepository;
 import ru.gcsales.app.domain.repository.ShopRepository;
 
 @Module
@@ -31,8 +31,8 @@ public class RepositoryModule {
 
     @Provides
     @Singleton
-    public ProductRepository provideProductRepository(ProductService service, AppDatabase database) {
-        return new ProductRepositoryImpl(service, database);
+    public ItemRepository provideProductRepository(ItemService service, AppDatabase database) {
+        return new ItemRepositoryImpl(service, database);
     }
 
     @Provides

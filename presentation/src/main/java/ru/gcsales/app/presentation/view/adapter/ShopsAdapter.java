@@ -1,4 +1,4 @@
-package ru.gcsales.app.presentation.ui.adapter;
+package ru.gcsales.app.presentation.view.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -18,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
 import ru.gcsales.app.domain.model.Shop;
-import ru.gcsales.app.presentation.ui.activity.ProductsActivity;
+import ru.gcsales.app.presentation.view.activity.ProductsActivity;
 
 public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ShopViewHolder> {
 

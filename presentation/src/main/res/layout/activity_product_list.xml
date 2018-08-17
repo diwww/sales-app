@@ -5,45 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".presentation.ui.activity.ProductsActivity">
+    tools:context=".presentation.view.activity.ProductsActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <LinearLayout
-            android:id="@+id/linear_layout_shop_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="16dp"
-            app:layout_scrollFlags="scroll">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/image_shop_logo"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:elevation="8dp" />
-
-            <TextView
-                android:id="@+id/text_current_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/undefined_text"
-                android:textColor="#fff" />
-
-            <TextView
-                android:id="@+id/text_num_items"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/undefined_text"
-                android:textColor="#fff" />
-
-        </LinearLayout>
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -69,8 +36,6 @@
         android:layout_height="match_parent"
         android:scrollbars="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-    <!--TODO: FAB for category pick-->
 
 </android.support.design.widget.CoordinatorLayout>
 
