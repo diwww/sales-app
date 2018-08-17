@@ -4,6 +4,8 @@ package ru.gcsales.app.domain.interactor;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import javax.inject.Inject;
+
 import io.reactivex.Single;
 import ru.gcsales.app.domain.executor.PostExecutionThread;
 import ru.gcsales.app.domain.repository.AuthRepository;
@@ -18,6 +20,7 @@ public class Login extends UseCase<String, Login.Params> {
 
     private AuthRepository mAuthRepository;
 
+    @Inject
     public Login(AuthRepository authRepository, PostExecutionThread postExecutionThread) {
         super(postExecutionThread);
         mAuthRepository = authRepository;

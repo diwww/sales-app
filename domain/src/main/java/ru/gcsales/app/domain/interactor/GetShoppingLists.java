@@ -2,6 +2,8 @@ package ru.gcsales.app.domain.interactor;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Single;
 import ru.gcsales.app.domain.executor.PostExecutionThread;
 import ru.gcsales.app.domain.model.ShoppingList;
@@ -17,6 +19,7 @@ public class GetShoppingLists extends UseCase<List<ShoppingList>, Void> {
 
     private ShoppingListRepository mShoppingListRepository;
 
+    @Inject
     public GetShoppingLists(ShoppingListRepository shoppingListRepository,
                             PostExecutionThread postExecutionThread) {
         super(postExecutionThread);

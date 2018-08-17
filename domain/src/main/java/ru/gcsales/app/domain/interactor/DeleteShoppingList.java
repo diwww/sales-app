@@ -1,5 +1,7 @@
 package ru.gcsales.app.domain.interactor;
 
+import javax.inject.Inject;
+
 import io.reactivex.Single;
 import ru.gcsales.app.domain.executor.PostExecutionThread;
 import ru.gcsales.app.domain.repository.ShoppingListRepository;
@@ -14,6 +16,7 @@ public class DeleteShoppingList extends UseCase<String, DeleteShoppingList.Param
 
     private ShoppingListRepository mShoppingListRepository;
 
+    @Inject
     public DeleteShoppingList(ShoppingListRepository shoppingListRepository,
                               PostExecutionThread postExecutionThread) {
         super(postExecutionThread);

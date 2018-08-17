@@ -2,9 +2,12 @@ package ru.gcsales.app.domain.interactor;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Single;
 import ru.gcsales.app.domain.executor.PostExecutionThread;
 import ru.gcsales.app.domain.model.Item;
+import ru.gcsales.app.domain.repository.ItemRepository;
 import ru.gcsales.app.domain.repository.ShopRepository;
 
 /**
@@ -15,17 +18,18 @@ import ru.gcsales.app.domain.repository.ShopRepository;
  */
 public class GetProducts extends UseCase<List<Item>, GetProducts.Params> {
 
-    private ShopRepository mShopRepository;
+    private ItemRepository mItemRepository;
 
-    public GetProducts(ShopRepository shopRepository,
+    @Inject
+    public GetProducts(ItemRepository itemRepository,
                        PostExecutionThread postExecutionThread) {
         super(postExecutionThread);
-        mShopRepository = shopRepository;
+        mItemRepository = itemRepository;
     }
 
     @Override
     Single<List<Item>> buildSingle(Params params) {
-        return mShopRepository.getItems(params.mShopId, params.mCategory, params.mPage);
+        return mItemRepository.getItems(params.mShopId, params.mCategory, params.mPage);
     }
 
     /**

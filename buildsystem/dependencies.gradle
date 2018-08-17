@@ -18,7 +18,9 @@ ext {
     RX_ADAPTER_VERSION = '2.4.0'
     DAGGER_VERSION = '2.16'
     BUTTERKNIFE_VERSION = '8.8.1'
-    ROOM_VERSION = "1.1.1"
+    ROOM_VERSION = '1.1.1'
+    JAVAX_INJECT_VERSION = '1'
+    JAVAX_ANNOTATION_VERSION = '1.0'
 
     // Unit testing
     JUNIT_VERSION = '4.12'
@@ -28,7 +30,9 @@ ext {
     ESPRESSO_VERSION = '3.0.2'
 
     domainDependencies = [
-            rxJava: "io.reactivex.rxjava2:rxjava:${RX_VERSION}"
+            javaxAnnotation: "javax.annotation:jsr250-api:${JAVAX_ANNOTATION_VERSION}",
+            javaxInject    : "javax.inject:javax.inject:${JAVAX_INJECT_VERSION}",
+            rxJava         : "io.reactivex.rxjava2:rxjava:${RX_VERSION}"
     ]
 
     domainTestDependencies = [
@@ -51,6 +55,8 @@ ext {
     ]
 
     presentationDependencies = [
+            rxJava             : "io.reactivex.rxjava2:rxjava:${RX_VERSION}",
+            rxAndroid          : "io.reactivex.rxjava2:rxandroid:${RX_ANDROID_VERSION}",
             appCompat          : "com.android.support:appcompat-v7:${SUPPORT_LIB_VERSION}",
             supportV4          : "com.android.support:support-v4:${SUPPORT_LIB_VERSION}",
             constraintLayout   : "com.android.support.constraint:constraint-layout:${CONSTRAINT_LAYOUT_VERSION}",
