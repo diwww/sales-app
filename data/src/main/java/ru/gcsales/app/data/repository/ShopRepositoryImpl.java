@@ -5,7 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import io.reactivex.Single;
+import io.reactivex.Observable;
 import ru.gcsales.app.data.AppDatabase;
 import ru.gcsales.app.data.ItemDAO;
 import ru.gcsales.app.data.ShopDAO;
@@ -46,18 +46,18 @@ public class ShopRepositoryImpl implements ShopRepository {
     }
 
     @Override
-    public Single<List<Shop>> getShops() {
-        Single<List<ShopEntity>> remoteObservable = mShopService.getShops()
+    public Observable<List<Shop>> getShops() {
+        Observable<List<ShopEntity>> remoteObservable = mShopService.getShops()
                 .flatMap(responseList -> {
                     // Write fresh data from network to db
                     mShopDAO.clearTable();
                     mShopDAO.insert(mShopMapper.transformResponse(responseList));
                     // Get written data from db
-                    return mShopDAO.getShops();
+                    return mShopDAO.getShops().toObservable();
                 });
 
         return remoteObservable
-                .onErrorResumeNext(mShopDAO.getShops())
+                .onErrorResumeNext(mShopDAO.getShops().toObservable())
                 .map(mShopMapper::transformEntity);
     }
 }

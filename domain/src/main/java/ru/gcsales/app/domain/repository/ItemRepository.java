@@ -2,7 +2,7 @@ package ru.gcsales.app.domain.repository;
 
 import java.util.List;
 
-import io.reactivex.Single;
+import io.reactivex.Observable;
 import ru.gcsales.app.domain.model.Item;
 
 /**
@@ -18,7 +18,7 @@ public interface ItemRepository {
      * @param shopId   shop id
      * @param category category name
      * @param page     pagination page
-     * @return {@link Single} list of products
+     * @return {@link Observable} list of products
      */
-    Single<List<Item>> getItems(long shopId, String category, int page);
+    Observable<List<Item>> getItems(long shopId, String category, int page);
 }

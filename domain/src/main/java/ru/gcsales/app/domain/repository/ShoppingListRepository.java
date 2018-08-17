@@ -2,7 +2,7 @@ package ru.gcsales.app.domain.repository;
 
 import java.util.List;
 
-import io.reactivex.Single;
+import io.reactivex.Observable;
 import ru.gcsales.app.domain.model.ShoppingList;
 
 /**
@@ -16,25 +16,25 @@ public interface ShoppingListRepository extends TokenRepository {
     /**
      * Gets all shopping lists (their previews).
      *
-     * @return {@link Single} list of shopping lists.
+     * @return {@link Observable} list of shopping lists.
      */
-    Single<List<ShoppingList>> getShoppingLists();
+    Observable<List<ShoppingList>> getShoppingLists();
 
     /**
      * Gets a full version of the shopping list with the given id.
      *
      * @param id id of the shopping list to get
-     * @return {@link Single} of retrieved shopping list
+     * @return {@link Observable} of retrieved shopping list
      */
-    Single<ShoppingList> getShoppingList(long id);
+    Observable<ShoppingList> getShoppingList(long id);
 
     /**
      * Adds a new shopping list.
      *
      * @param name name of the shopping list
-     * @return {@link Single} of newly added shopping list.
+     * @return {@link Observable} of newly added shopping list.
      */
-    Single<ShoppingList> addShoppingList(String name);
+    Observable<ShoppingList> addShoppingList(String name);
 
     /**
      * Removes the shopping list with the given id.
@@ -42,7 +42,7 @@ public interface ShoppingListRepository extends TokenRepository {
      * @param id id of the shopping list to remove
      * @return response message, e.g. "OK"
      */
-    Single<String> deleteShoppingList(long id);
+    Observable<String> deleteShoppingList(long id);
 
     /**
      * Adds the item to the shopping list.
@@ -51,7 +51,7 @@ public interface ShoppingListRepository extends TokenRepository {
      * @param itemId         id of the item
      * @return response message, e.g. "OK"
      */
-    Single<String> addItem(long shoppingListId, long itemId);
+    Observable<String> addItem(long shoppingListId, long itemId);
 
     /**
      * Deletes the item from the shopping list.
@@ -60,5 +60,5 @@ public interface ShoppingListRepository extends TokenRepository {
      * @param itemId         id of the item
      * @return response message, e.g. "OK"
      */
-    Single<String> deleteItem(long shoppingListId, long itemId);
+    Observable<String> deleteItem(long shoppingListId, long itemId);
 }

@@ -4,11 +4,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Single;
+import io.reactivex.Observable;
 import ru.gcsales.app.domain.executor.PostExecutionThread;
 import ru.gcsales.app.domain.model.Item;
 import ru.gcsales.app.domain.repository.ItemRepository;
-import ru.gcsales.app.domain.repository.ShopRepository;
 
 /**
  * Use case for getting Products for given shop and category.
@@ -28,7 +27,7 @@ public class GetProducts extends UseCase<List<Item>, GetProducts.Params> {
     }
 
     @Override
-    Single<List<Item>> buildSingle(Params params) {
+    Observable<List<Item>> buildObservable(Params params) {
         return mItemRepository.getItems(params.mShopId, params.mCategory, params.mPage);
     }
 

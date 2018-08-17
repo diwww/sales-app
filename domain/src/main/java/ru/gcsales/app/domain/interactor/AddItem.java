@@ -2,7 +2,7 @@ package ru.gcsales.app.domain.interactor;
 
 import javax.inject.Inject;
 
-import io.reactivex.Single;
+import io.reactivex.Observable;
 import ru.gcsales.app.domain.executor.PostExecutionThread;
 import ru.gcsales.app.domain.repository.ShoppingListRepository;
 
@@ -24,7 +24,7 @@ public class AddItem extends UseCase<String, AddItem.Params> {
     }
 
     @Override
-    Single<String> buildSingle(Params params) {
+    Observable<String> buildObservable(Params params) {
         return mShoppingListRepository.addItem(params.shoppingListId, params.itemId);
     }
 

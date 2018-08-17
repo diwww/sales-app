@@ -6,7 +6,7 @@ import android.content.Context;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import io.reactivex.Single;
+import io.reactivex.Observable;
 import ru.gcsales.app.data.service.AuthService;
 import ru.gcsales.app.domain.repository.AuthRepository;
 
@@ -23,8 +23,8 @@ public class AuthRepositoryImpl extends TokenRepositoryImpl implements AuthRepos
         mAuthService = authService;
     }
 
-    public Single<String> login(String username, String password) {
-        return mAuthService.login(new AuthService.UserInfo(username, password));
+    public Observable<String> login(String username, String password) {
+        return mAuthService.login(new AuthService.UserInfo(username, password)).toObservable();
     }
 
     @Override

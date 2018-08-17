@@ -40,10 +40,10 @@ public class ShoppingListPresenter extends MvpPresenter<ShoppingListView> {
 
     public void deleteItem(Item item) {
         // FIXME: mock observer
-        mDeleteItem.execute(new DisposableSingleObserver<String>() {
+        mDeleteItem.execute(new DisposableObserver<String>() {
 
             @Override
-            public void onSuccess(String s) {
+            public void onNext(String s) {
                 System.out.println(s);
                 getViewState().deleteItem(item);
             }
@@ -53,19 +53,29 @@ public class ShoppingListPresenter extends MvpPresenter<ShoppingListView> {
                 e.printStackTrace();
             }
 
+            @Override
+            public void onComplete() {
+
+            }
+
         }, DeleteItem.Params.get(mShoppingListId, item.getId()));
 
     }
 
-    private final class ShoppingListObserver extends DisposableSingleObserver<ShoppingList> {
+    private final class ShoppingListObserver extends DisposableObserver<ShoppingList> {
 
         @Override
-        public void onSuccess(ShoppingList shoppingList) {
+        public void onNext(ShoppingList shoppingList) {
             getViewState().setData(shoppingList);
         }
 
         @Override
         public void onError(Throwable e) {
+
+        }
+
+        @Override
+        public void onComplete() {
 
         }
     }

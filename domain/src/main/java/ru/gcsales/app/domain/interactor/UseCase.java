@@ -1,8 +1,10 @@
 package ru.gcsales.app.domain.interactor;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 import ru.gcsales.app.domain.executor.PostExecutionThread;
@@ -30,12 +32,12 @@ public abstract class UseCase<T, P> {
     }
 
     /**
-     * Builds a {@link Single} to perform a use case
+     * Builds a {@link Observable} to perform a use case
      *
      * @param params optional params that could be needed for a use case
      * @return {@link Single} object
      */
-    abstract Single<T> buildSingle(P params);
+    abstract Observable<T> buildObservable(P params);
 
     /**
      * Starts an execution of the use case.
@@ -43,11 +45,11 @@ public abstract class UseCase<T, P> {
      * @param observer observer to listen data on
      * @param params   optional params
      */
-    public void execute(DisposableSingleObserver<T> observer, P params) {
-        Single<T> single = buildSingle(params)
+    public void execute(DisposableObserver<T> observer, P params) {
+        Observable<T> observable = buildObservable(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(mPostExecutionThread.getScheduler());
-        addDisposable(single.subscribeWith(observer));
+        addDisposable(observable.subscribeWith(observer));
     }
 
     private void addDisposable(Disposable disposable) {

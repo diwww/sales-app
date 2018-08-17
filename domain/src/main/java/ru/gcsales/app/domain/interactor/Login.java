@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import ru.gcsales.app.domain.executor.PostExecutionThread;
 import ru.gcsales.app.domain.repository.AuthRepository;
@@ -27,14 +28,18 @@ public class Login extends UseCase<String, Login.Params> {
     }
 
     @Override
-    Single<String> buildSingle(Params params) {
+    Observable<String> buildObservable(Params params) {
         try {
             String hashedPassword = sha256(params.password);
             return mAuthRepository.login(params.username, hashedPassword)
-                    .doOnSuccess(res -> mAuthRepository.setToken(res));
+                    .doOnNext(res -> {
+                        // TODO: нормально ли записывать токен в doOnNext?
+                        mAuthRepository.setToken(res);
+                    });
         } catch (NoSuchAlgorithmException e) {
-            return Single.error(e);
+            e.printStackTrace();
         }
+        return Observable.empty();
     }
 
     /**

@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.observers.DisposableSingleObserver;
 import ru.gcsales.app.domain.model.Item;
 import ru.gcsales.app.presentation.AppApplication;
@@ -96,9 +97,9 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
 
     public void addItem(long shoppingListId, long itemId) {
         // FIXME: mock observer
-        mAddItem.execute(new DisposableSingleObserver<String>() {
+        mAddItem.execute(new DisposableObserver<String>() {
             @Override
-            public void onSuccess(String s) {
+            public void onNext(String s) {
                 System.out.println(s);
             }
 
@@ -107,18 +108,22 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
                 System.err.println(e.getMessage());
             }
 
+            @Override
+            public void onComplete() {
+
+            }
+
         }, AddItem.Params.get(shoppingListId, itemId));
     }
 
-    private final class ProductsObserver extends DisposableSingleObserver<List<Item>> {
+    private final class ProductsObserver extends DisposableObserver<List<Item>> {
 
         @Override
-        public void onSuccess(List<Item> items) {
+        public void onNext(List<Item> items) {
             // End signal to prevent further loading
             if (items.isEmpty()) {
                 mEnd = true;
             }
-            getViewState().hideProgress();
             getViewState().addProducts(items);
             mLoading = false;
             mPage++;
@@ -129,6 +134,11 @@ public class ProductsPresenter extends MvpPresenter<ProductsView> {
             getViewState().hideProgress();
             getViewState().showError("Network error.");
             mLoading = false;
+        }
+
+        @Override
+        public void onComplete() {
+            getViewState().hideProgress();
         }
     }
 }

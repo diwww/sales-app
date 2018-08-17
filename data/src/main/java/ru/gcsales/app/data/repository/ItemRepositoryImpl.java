@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import ru.gcsales.app.data.AppDatabase;
 import ru.gcsales.app.data.ItemDAO;
@@ -42,7 +43,7 @@ public class ItemRepositoryImpl implements ItemRepository {
     }
 
     @Override
-    public Single<List<Item>> getItems(long shopId, String category, int page) {
+    public Observable<List<Item>> getItems(long shopId, String category, int page) {
         Single<List<ItemWithShop>> remote = mItemService.getItems(shopId, category, page)
                 .flatMap(response -> {
                     // Write fresh data from network to db
@@ -58,7 +59,8 @@ public class ItemRepositoryImpl implements ItemRepository {
 
         return remote
                 .onErrorResumeNext(createDbSingle(shopId, category, page))
-                .map(mItemMapper::transformEntity);
+                .map(mItemMapper::transformEntity)
+                .toObservable();
     }
 
     private Single<List<ItemWithShop>> createDbSingle(long shopId, String category, int page) {

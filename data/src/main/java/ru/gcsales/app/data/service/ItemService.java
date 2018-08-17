@@ -20,7 +20,7 @@ public interface ItemService {
      * @param id       id of a shop
      * @param page     page number in pagination
      * @param category category to filter mProductItems (optional)
-     * @return {@link io.reactivex.Single} of {@link ItemsInfoResponse} object
+     * @return {@link Single} of {@link ItemsInfoResponse} object
      */
     @GET("shops/{id}")
     Single<ItemsInfoResponse> getItems(@Path("id") long id, @Query("category") String category,

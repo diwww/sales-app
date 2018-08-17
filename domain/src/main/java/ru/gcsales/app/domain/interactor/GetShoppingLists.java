@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Single;
+import io.reactivex.Observable;
 import ru.gcsales.app.domain.executor.PostExecutionThread;
 import ru.gcsales.app.domain.model.ShoppingList;
 import ru.gcsales.app.domain.repository.ShoppingListRepository;
@@ -27,7 +27,7 @@ public class GetShoppingLists extends UseCase<List<ShoppingList>, Void> {
     }
 
     @Override
-    Single<List<ShoppingList>> buildSingle(Void params) {
+    Observable<List<ShoppingList>> buildObservable(Void params) {
         return mShoppingListRepository.getShoppingLists();
     }
 }

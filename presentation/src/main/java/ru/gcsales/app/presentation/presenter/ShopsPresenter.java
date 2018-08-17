@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.observers.DisposableSingleObserver;
 import ru.gcsales.app.presentation.AppApplication;
 import ru.gcsales.app.domain.interactor.GetShops;
@@ -43,11 +44,10 @@ public class ShopsPresenter extends MvpPresenter<ShopsView> {
         mGetShops.dispose();
     }
 
-    private final class ShopsObserver extends DisposableSingleObserver<List<Shop>> {
+    private final class ShopsObserver extends DisposableObserver<List<Shop>> {
 
         @Override
-        public void onSuccess(List<Shop> shops) {
-            getViewState().hideProgress();
+        public void onNext(List<Shop> shops) {
             getViewState().setShops(shops);
         }
 
@@ -55,6 +55,11 @@ public class ShopsPresenter extends MvpPresenter<ShopsView> {
         public void onError(Throwable e) {
             getViewState().hideProgress();
             getViewState().showError("Network error.");
+        }
+
+        @Override
+        public void onComplete() {
+            getViewState().hideProgress();
         }
     }
 }
