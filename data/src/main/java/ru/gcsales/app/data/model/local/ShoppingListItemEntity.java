@@ -11,28 +11,28 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
  * @author Maxim Surovtsev
  * Created on 8/13/18
  */
-@Entity(tableName = "shopping_list_product",
+@Entity(tableName = "shopping_list_item",
         foreignKeys = {
                 @ForeignKey(entity = ShoppingListEntity.class, parentColumns = "id", childColumns = "shopping_list_id", onDelete = CASCADE),
-                @ForeignKey(entity = ItemEntity.class, parentColumns = "id", childColumns = "product_id", onDelete = CASCADE)
+                @ForeignKey(entity = ItemEntity.class, parentColumns = "id", childColumns = "item_id", onDelete = CASCADE)
         },
-        primaryKeys = {"shopping_list_id", "product_id"})
-public class ShoppingListProductEntity {
+        primaryKeys = {"shopping_list_id", "item_id"})
+public class ShoppingListItemEntity {
 
     @ColumnInfo(name = "shopping_list_id")
     private long mShoppingListId;
-    @ColumnInfo(name = "product_id")
-    private long mProductId;
+    @ColumnInfo(name = "item_id")
+    private long mItemId;
 
     private int quantity;
 
-    public ShoppingListProductEntity() {
+    public ShoppingListItemEntity() {
     }
 
     @Ignore
-    public ShoppingListProductEntity(long shoppingListId, long productId) {
+    public ShoppingListItemEntity(long shoppingListId, long itemId) {
         mShoppingListId = shoppingListId;
-        mProductId = productId;
+        mItemId = itemId;
     }
 
     public long getShoppingListId() {
@@ -43,12 +43,12 @@ public class ShoppingListProductEntity {
         mShoppingListId = shoppingListId;
     }
 
-    public long getProductId() {
-        return mProductId;
+    public long getItemId() {
+        return mItemId;
     }
 
-    public void setProductId(long productId) {
-        mProductId = productId;
+    public void setItemId(long itemId) {
+        mItemId = itemId;
     }
 
     public int getQuantity() {

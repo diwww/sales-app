@@ -2,18 +2,12 @@ package ru.gcsales.app.data.repository;
 
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import ru.gcsales.app.data.AppDatabase;
-import ru.gcsales.app.data.ItemDAO;
 import ru.gcsales.app.data.ShopDAO;
-import ru.gcsales.app.data.model.local.ItemWithShop;
 import ru.gcsales.app.data.model.local.ShopEntity;
-import ru.gcsales.app.data.model.mapper.ItemMapper;
 import ru.gcsales.app.data.model.mapper.ShopMapper;
-import ru.gcsales.app.domain.model.Item;
 import ru.gcsales.app.domain.model.Shop;
 import ru.gcsales.app.data.service.ShopService;
 import ru.gcsales.app.domain.repository.ShopRepository;
@@ -47,17 +41,20 @@ public class ShopRepositoryImpl implements ShopRepository {
 
     @Override
     public Observable<List<Shop>> getShops() {
-        Observable<List<ShopEntity>> remoteObservable = mShopService.getShops()
+        // 1. Network scenario
+        Single<List<ShopEntity>> remote = mShopService.getShops()
                 .flatMap(responseList -> {
-                    // Write fresh data from network to db
+                    // Clear old local data
                     mShopDAO.clearTable();
+                    // Insert new data from remote source
                     mShopDAO.insert(mShopMapper.transformResponse(responseList));
-                    // Get written data from db
-                    return mShopDAO.getShops().toObservable();
+                    return mShopDAO.getShops();
                 });
 
-        return remoteObservable
-                .onErrorResumeNext(mShopDAO.getShops().toObservable())
+        // 2. Db scenario
+        Single<List<ShopEntity>> local = mShopDAO.getShops();
+
+        return Observable.concatArray(local.toObservable(), remote.toObservable())
                 .map(mShopMapper::transformEntity);
     }
 }

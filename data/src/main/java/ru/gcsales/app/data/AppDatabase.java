@@ -6,13 +6,13 @@ import android.arch.persistence.room.RoomDatabase;
 import ru.gcsales.app.data.model.local.ItemEntity;
 import ru.gcsales.app.data.model.local.ShopEntity;
 import ru.gcsales.app.data.model.local.ShoppingListEntity;
-import ru.gcsales.app.data.model.local.ShoppingListProductEntity;
+import ru.gcsales.app.data.model.local.ShoppingListItemEntity;
 
 /**
  * @author Maxim Surovtsev
  * Created on 8/11/18
  */
-@Database(entities = {ShopEntity.class, ItemEntity.class, ShoppingListEntity.class, ShoppingListProductEntity.class}, version = 3)
+@Database(entities = {ShopEntity.class, ItemEntity.class, ShoppingListEntity.class, ShoppingListItemEntity.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ShopDAO getShopDAO();
 

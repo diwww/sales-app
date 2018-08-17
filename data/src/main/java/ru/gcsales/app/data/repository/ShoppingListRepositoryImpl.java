@@ -5,16 +5,14 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import ru.gcsales.app.data.AppDatabase;
 import ru.gcsales.app.data.ItemDAO;
 import ru.gcsales.app.data.ShoppingListDAO;
 import ru.gcsales.app.data.model.local.ItemWithShop;
 import ru.gcsales.app.data.model.local.ShoppingListEntity;
-import ru.gcsales.app.data.model.local.ShoppingListProductEntity;
+import ru.gcsales.app.data.model.local.ShoppingListItemEntity;
 import ru.gcsales.app.data.model.mapper.ItemMapper;
 import ru.gcsales.app.data.model.mapper.ShoppingListMapper;
 import ru.gcsales.app.data.model.remote.ItemResponse;
@@ -24,6 +22,18 @@ import ru.gcsales.app.domain.model.ShoppingList;
 import ru.gcsales.app.domain.repository.ShoppingListRepository;
 
 /**
+ * Implementation of {@link ShoppingListRepository},
+ * which gets data from internet and saves to database.
+ * <p>
+ * There are two scenarios:
+ * <ol>
+ * <li>If an internet connection is not available, then the data is fetched from a database
+ * and returned.</li>
+ * <li>If an internet connection is available, then the data is fetched from an internet, then
+ * it is written to a database and finally it is fetched from a database and returned.</li>
+ * </ol>
+ * </p>
+ *
  * @author Maxim Surovtsev
  * Created on 8/8/18
  */
@@ -47,55 +57,56 @@ public class ShoppingListRepositoryImpl extends TokenRepositoryImpl implements S
 
     @Override
     public Observable<List<ShoppingList>> getShoppingLists() {
-        Observable<List<ShoppingListEntity>> remote = mShoppingListService.getShoppingLists(getAuthHeader())
-                .toObservable()
-                .flatMap(response -> {
-                    // FIXME: очищаются все шоплисты, и поэтому удаляются связи
-                    // (хотя это мб нормально, т.к. все загружается заново)
+        // 1. Network scenario
+        Single<List<ShoppingListEntity>> remote = mShoppingListService.getShoppingLists(getAuthHeader())
+                .flatMap(responseList -> {
+                    // Clear old local data
                     mShoppingListDAO.clearShoppingListTable();
-                    mShoppingListDAO.addShoppingLists(mShoppingListMapper.transformResponse(response));
-                    return mShoppingListDAO.getShoppingLists().toObservable();
+                    // Insert new data from remote source
+                    mShoppingListDAO.addShoppingLists(mShoppingListMapper.transformResponse(responseList));
+                    return mShoppingListDAO.getShoppingLists();
                 });
 
-        return remote
-                .onErrorResumeNext(mShoppingListDAO.getShoppingLists().toObservable())
+        // 2. Db scenario
+        Single<List<ShoppingListEntity>> local = mShoppingListDAO.getShoppingLists();
+
+        return Observable.concatArray(local.toObservable(), remote.toObservable())
                 .map(mShoppingListMapper::transformEntity);
     }
 
-
     @Override
     public Observable<ShoppingList> getShoppingList(long id) {
-        Observable<List<ItemWithShop>> remote = mShoppingListService.getShoppingList(getAuthHeader(), id)
-                .toObservable()
+        // 1. Network scenario
+        Single<List<ItemWithShop>> remote = mShoppingListService.getShoppingList(getAuthHeader(), id)
                 .flatMap(response -> {
-                    // FIXME: очищаются все шоплисты, вместо одного
-                    // Clears old local data
-                    mShoppingListDAO.clearShoppingListProductTable(id);
-                    // Insert mProductItems from remote shopping list in db
+                    // Clear old local data
+                    mShoppingListDAO.clearShoppingListItemTable(id);
+                    // Insert items from remote shopping list into item table
+                    // to satisfy foreign key constraints
                     mItemDAO.insert(mItemMapper.transformResponse(response.getItems()));
-
-                    // Register mProductItems within shopping list
-                    List<ShoppingListProductEntity> list = new ArrayList<>();
-                    for (ItemResponse p : response.getItems()) {
-                        list.add(new ShoppingListProductEntity(id, p.getId()));
+                    // Associate items with shopping list
+                    List<ShoppingListItemEntity> list = new ArrayList<>();
+                    for (ItemResponse i : response.getItems()) {
+                        list.add(new ShoppingListItemEntity(id, i.getId()));
                     }
-
-                    // Establish many-to-many relation (shopping lists with mProductItems)
-                    mShoppingListDAO.addShoppingListProducts(list);
-                    return mShoppingListDAO.getShoppingListProducts(id).toObservable();
+                    // Add associations to db
+                    mShoppingListDAO.addShoppingListItems(list);
+                    return mShoppingListDAO.getShoppingListItems(id);
                 });
 
-        return remote
-                .onErrorResumeNext(mShoppingListDAO.getShoppingListProducts(id).toObservable())
-                .map(data -> {
-                    // TODO: брать имя списка и другую инфу из бд, а не создавать объект
-                    ShoppingList shoppingList = new ShoppingList();
-                    shoppingList.setId(id);
+        // 2. Db scenario
+        Single<List<ItemWithShop>> local = mShoppingListDAO.getShoppingListItems(id);
+
+        return Observable.concatArray(local.toObservable(), remote.toObservable())
+                .map(itemsWithShops -> {
+                    ShoppingList shoppingList = mShoppingListMapper
+                            .transformEntity(mShoppingListDAO.getShoppingList(id));
 
                     List<Item> items = new ArrayList<>();
-                    for (ItemWithShop entity : data) {
+                    for (ItemWithShop entity : itemsWithShops) {
                         items.add(mItemMapper.transformEntity(entity));
                     }
+
                     shoppingList.setItems(items);
 
                     return shoppingList;
@@ -104,27 +115,38 @@ public class ShoppingListRepositoryImpl extends TokenRepositoryImpl implements S
 
     @Override
     public Observable<ShoppingList> addShoppingList(String name) {
-        return mShoppingListService.addShoppingList(getAuthHeader(),
-                new ShoppingListService.ShoppingListBody(name))
-                .map(response -> {
-                    long id = mShoppingListDAO.addShoppingList(mShoppingListMapper.transformResponse(response));
-                    return mShoppingListDAO.getShoppingList(id);
+        ShoppingListService.ShoppingListBody body = new ShoppingListService.ShoppingListBody(name);
+        return mShoppingListService.addShoppingList(getAuthHeader(), body)
+                .map(res -> {
+                    long id = mShoppingListDAO
+                            .addShoppingList(mShoppingListMapper.transformResponse(res));
+                    return mShoppingListMapper
+                            .transformEntity(mShoppingListDAO.getShoppingList(id));
                 })
-                .map(mShoppingListMapper::transformEntity).toObservable();
+                .toObservable();
     }
 
     @Override
     public Observable<String> deleteShoppingList(long id) {
-        return mShoppingListService.removeShoppingList(getAuthHeader(), id).toObservable();
+        return mShoppingListService.removeShoppingList(getAuthHeader(), id)
+                .doOnSuccess(res -> mShoppingListDAO.deleteShoppingList(id))
+                .toObservable();
     }
 
     @Override
     public Observable<String> addItem(long shoppingListId, long itemId) {
-        return mShoppingListService.addItem(getAuthHeader(), shoppingListId, itemId).toObservable();
+        return mShoppingListService.addItem(getAuthHeader(), shoppingListId, itemId)
+                .doOnSuccess(res -> {
+                    ShoppingListItemEntity entity = new ShoppingListItemEntity(shoppingListId, itemId);
+                    mShoppingListDAO.addShoppingListItem(entity);
+                })
+                .toObservable();
     }
 
     @Override
     public Observable<String> deleteItem(long shoppingListId, long itemId) {
-        return mShoppingListService.deleteItem(getAuthHeader(), shoppingListId, itemId).toObservable();
+        return mShoppingListService.deleteItem(getAuthHeader(), shoppingListId, itemId)
+                .doOnSuccess(res -> mShoppingListDAO.deleteShoppingListItem(shoppingListId, itemId))
+                .toObservable();
     }
 }

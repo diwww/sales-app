@@ -40,6 +40,7 @@ public class HomeActivity extends MvpAppCompatActivity implements HomeView {
             ShoppingListsFragment fragment = (ShoppingListsFragment) mViewPagerAdapter.getRegisteredFragment(1);
             fragment.addShoppingList();
         });
+        mViewPager.setCurrentItem(1);
     }
 
     private void initTabs() {
