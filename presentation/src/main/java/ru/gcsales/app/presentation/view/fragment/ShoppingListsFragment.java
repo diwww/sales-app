@@ -51,7 +51,7 @@ public class ShoppingListsFragment extends MvpAppCompatFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_shopping_list_preview, container, false);
+        View root = inflater.inflate(R.layout.fragment_shopping_lists, container, false);
         ButterKnife.bind(this, root);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));

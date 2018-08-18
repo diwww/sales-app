@@ -1,6 +1,7 @@
 package ru.gcsales.app.domain.interactor;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import io.reactivex.Observable;
 import ru.gcsales.app.domain.executor.PostExecutionThread;

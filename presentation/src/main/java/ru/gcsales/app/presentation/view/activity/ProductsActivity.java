@@ -55,7 +55,7 @@ public class ProductsActivity extends MvpAppCompatActivity implements ProductsVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_list);
+        setContentView(R.layout.activity_items);
         ButterKnife.bind(this);
 
         setSupportActionBar(mToolbar);
