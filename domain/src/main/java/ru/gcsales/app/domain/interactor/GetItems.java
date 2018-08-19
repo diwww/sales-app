@@ -10,18 +10,15 @@ import ru.gcsales.app.domain.model.Item;
 import ru.gcsales.app.domain.repository.ItemRepository;
 
 /**
- * Use case for getting Products for given shop and category.
- *
  * @author Maxim Surovtsev
- * Created on 7/27/18
+ * Created on 8/18/18
  */
-public class GetProducts extends UseCase<List<Item>, GetProducts.Params> {
+public class GetItems extends UseCase<List<Item>, GetItems.Params> {
 
     private ItemRepository mItemRepository;
 
     @Inject
-    public GetProducts(ItemRepository itemRepository,
-                       PostExecutionThread postExecutionThread) {
+    public GetItems(PostExecutionThread postExecutionThread, ItemRepository itemRepository) {
         super(postExecutionThread);
         mItemRepository = itemRepository;
     }
@@ -31,30 +28,19 @@ public class GetProducts extends UseCase<List<Item>, GetProducts.Params> {
         return mItemRepository.getItems(params.mShopId, params.mCategory, params.mPage);
     }
 
-    /**
-     * Class for passing parameters to a use case.
-     */
     public static class Params {
 
         private long mShopId;
-        private int mPage;
         private String mCategory;
+        private int mPage;
 
         public Params(long shopId, String category, int page) {
             mShopId = shopId;
-            mPage = page;
             mCategory = category;
+            mPage = page;
         }
 
-        /**
-         * Gets params instance.
-         *
-         * @param shopId   shop id
-         * @param category category name
-         * @param page     pagination page
-         * @return new params instance
-         */
-        public static Params forShop(long shopId, String category, int page) {
+        public static Params get(long shopId, String category, int page) {
             return new Params(shopId, category, page);
         }
     }

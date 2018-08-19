@@ -1,15 +1,15 @@
 package ru.gcsales.app.presentation.view.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -22,19 +22,21 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
-import ru.gcsales.app.domain.model.Item;
-import ru.gcsales.app.presentation.presenter.ProductsPresenter;
-import ru.gcsales.app.presentation.view.ProductsView;
+import ru.gcsales.app.presentation.model.ShoppingListViewModel;
+import ru.gcsales.app.presentation.presenter.ItemsPresenter;
+import ru.gcsales.app.presentation.view.ItemsView;
+import ru.gcsales.app.presentation.model.ItemViewModel;
 import ru.gcsales.app.presentation.view.adapter.ItemsAdapter.OnButtonClickListener;
 import ru.gcsales.app.presentation.view.adapter.ItemsAdapter;
 
-public class ProductsActivity extends MvpAppCompatActivity implements ProductsView, OnButtonClickListener {
+public class ItemsActivity extends MvpAppCompatActivity implements ItemsView, OnButtonClickListener {
 
     public static final String EXTRA_SHOP_ID = "EXTRA_SHOP_ID";
     public static final String EXTRA_SHOP_NAME = "EXTRA_SHOP_NAME";
+    public static final String EXTRA_CATEGORY = "EXTRA_CATEGORY";
 
     @InjectPresenter
-    ProductsPresenter mProductsPresenter;
+    ItemsPresenter mItemsPresenter;
 
     // ProductItem list views
     @BindView(R.id.toolbar) Toolbar mToolbar;
@@ -43,13 +45,13 @@ public class ProductsActivity extends MvpAppCompatActivity implements ProductsVi
 
     ItemsAdapter mItemsAdapter;
     LinearLayoutManager mLinearLayoutManager;
-
-    private AlertDialog mAlertDialog;
+    List<ShoppingListViewModel> mShoppingListViewModels;
 
     @ProvidePresenter
-    ProductsPresenter provideProductListPresenter() {
+    ItemsPresenter provideProductListPresenter() {
         long shopId = getIntent().getLongExtra(EXTRA_SHOP_ID, 0);
-        return new ProductsPresenter(shopId);
+        String category = getIntent().getStringExtra(EXTRA_CATEGORY);
+        return new ItemsPresenter(shopId, category);
     }
 
     @Override
@@ -65,25 +67,12 @@ public class ProductsActivity extends MvpAppCompatActivity implements ProductsVi
         mToolbar.setOnClickListener(v -> mRecyclerView.smoothScrollToPosition(0));
         mLinearLayoutManager = new LinearLayoutManager(mRecyclerView.getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mItemsAdapter = new ItemsAdapter(ItemsAdapter.ActionButtonIcon.ADD, this);
+        mItemsAdapter = new ItemsAdapter(this);
         mRecyclerView.setAdapter(mItemsAdapter);
         setOnScrollListener();
 
-        mProductsPresenter.loadUnfiltered();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_product_list, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_select_category) {
-            mAlertDialog.show();
-        }
-        return true;
+        mItemsPresenter.loadShoppingLists();
+        mItemsPresenter.loadNextPageProducts();
     }
 
     @Override
@@ -97,13 +86,23 @@ public class ProductsActivity extends MvpAppCompatActivity implements ProductsVi
     }
 
     @Override
-    public void showProgress() {
+    public void showInitialProgress() {
         mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void hideProgress() {
+    public void hideInitialProgress() {
         mProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showPageProgress() {
+        mItemsAdapter.showProgress();
+    }
+
+    @Override
+    public void hidePageProgress() {
+        mItemsAdapter.hideProgress();
     }
 
     @Override
@@ -112,13 +111,23 @@ public class ProductsActivity extends MvpAppCompatActivity implements ProductsVi
     }
 
     @Override
-    public void addProducts(List<Item> items) {
+    public void showItemAdded(long shoppingListId, String shoppingListName) {
+        Snackbar.make(mRecyclerView, getString(R.string.item_added_text, shoppingListName), Snackbar.LENGTH_SHORT)
+                .setAction(R.string.open_text, v -> {
+                    startActivity(ShoppingListActivity.newIntent(ItemsActivity.this, shoppingListId));
+
+                })
+                .show();
+    }
+
+    @Override
+    public void addItems(List<ItemViewModel> items) {
         mItemsAdapter.addData(items);
         Toast.makeText(this, "Count: " + mItemsAdapter.getItemCount(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void setProducts(List<Item> items) {
+    public void setItems(List<ItemViewModel> items) {
         mItemsAdapter.setData(items);
     }
 
@@ -127,17 +136,26 @@ public class ProductsActivity extends MvpAppCompatActivity implements ProductsVi
         mItemsAdapter.clear();
     }
 
-    private void initAlertDialog(String[] items) {
-        mAlertDialog = new AlertDialog.Builder(this)
-                .setTitle(R.string.select_category_text)
-                .setItems(items, (dialog, which) -> {
-                    if (which == 0) {
-                        mProductsPresenter.loadCategory(null);
-                    } else {
-                        mProductsPresenter.loadCategory(items[which]);
-                    }
-                })
-                .create();
+    @Override
+    public void setShoppingLists(List<ShoppingListViewModel> shoppingListViewModels) {
+        mShoppingListViewModels = shoppingListViewModels;
+    }
+
+    @Override
+    public void onButtonClicked(ItemViewModel itemViewModel) {
+        showAddDialog(itemViewModel);
+    }
+
+    private void showAddDialog(ItemViewModel itemViewModel) {
+        ArrayAdapter<ShoppingListViewModel> adapter = new ArrayAdapter<>(this,
+                R.layout.item_shopping_list_dialog, mShoppingListViewModels);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setAdapter(adapter, (dialog, which) -> {
+                    mItemsPresenter.addItem(itemViewModel, adapter.getItem(which));
+                });
+
+        builder.create().show();
     }
 
     private void setOnScrollListener() {
@@ -146,21 +164,16 @@ public class ProductsActivity extends MvpAppCompatActivity implements ProductsVi
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 int totalItems = mLinearLayoutManager.getItemCount();
                 int lastVisibleItemIndex = mLinearLayoutManager.findLastVisibleItemPosition();
-                mProductsPresenter.onScrolled(totalItems, lastVisibleItemIndex);
+                mItemsPresenter.onScrolled(totalItems, lastVisibleItemIndex);
             }
         });
     }
 
-    public static Intent newIntent(Context context, long id, String name) {
-        Intent intent = new Intent(context, ProductsActivity.class);
-        intent.putExtra(EXTRA_SHOP_ID, id);
-        intent.putExtra(EXTRA_SHOP_NAME, name);
+    public static Intent newIntent(Context context, long shopId, String shopName, String category) {
+        Intent intent = new Intent(context, ItemsActivity.class);
+        intent.putExtra(EXTRA_SHOP_ID, shopId);
+        intent.putExtra(EXTRA_SHOP_NAME, shopName);
+        intent.putExtra(EXTRA_CATEGORY, category);
         return intent;
-    }
-
-    @Override
-    public void onButtonClicked(Item item) {
-        // TODO: show dialog
-        mProductsPresenter.addItem(88, item.getId());
     }
 }

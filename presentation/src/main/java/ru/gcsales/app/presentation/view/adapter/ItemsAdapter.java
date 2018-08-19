@@ -21,40 +21,64 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
 import ru.gcsales.app.domain.model.Item;
+import ru.gcsales.app.presentation.model.BaseItem;
+import ru.gcsales.app.presentation.model.ItemViewModel;
+import ru.gcsales.app.presentation.model.ProgressViewModel;
 
-public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHolder> {
+public class ItemsAdapter extends RecyclerView.Adapter {
 
-    public enum ActionButtonIcon {ADD, REMOVE}
-
-    private ActionButtonIcon mActionButtonIcon;
-    private List<Item> mItems = new ArrayList<>();
+    private List<BaseItem> mItems = new ArrayList<>();
     private OnButtonClickListener mButtonClickListener;
+    private final ProgressViewModel mProgressViewModel = new ProgressViewModel();
 
-    public ItemsAdapter(ActionButtonIcon actionButtonIcon, OnButtonClickListener listener) {
-        mActionButtonIcon = actionButtonIcon;
+    public ItemsAdapter(OnButtonClickListener listener) {
         mButtonClickListener = listener;
     }
 
     @NonNull
     @Override
-    public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return new ItemViewHolder(inflater.inflate(R.layout.item_item, parent, false));
+        switch (viewType) {
+            case ItemViewModel.TYPE:
+                return new ItemViewHolder(inflater.inflate(R.layout.item_item, parent, false));
+            case ProgressViewModel.TYPE:
+                return new ProgressViewHolder(inflater.inflate(R.layout.item_progress, parent, false));
+            default:
+                return null;
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        Item item = mItems.get(position);
-        holder.bind(item, mActionButtonIcon, mButtonClickListener);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        BaseItem item = mItems.get(position);
+        if (item.getType() == ItemViewModel.TYPE) {
+            ((ItemViewHolder) holder).bind((ItemViewModel) item, mButtonClickListener);
+        }
     }
 
-    public void setData(List<? extends Item> data) {
+    @Override
+    public int getItemViewType(int position) {
+        return mItems.get(position).getType();
+    }
+
+    public void showProgress() {
+        mItems.add(mProgressViewModel);
+        notifyDataSetChanged();
+    }
+
+    public void hideProgress() {
+        mItems.remove(mProgressViewModel);
+        notifyDataSetChanged();
+    }
+
+    public void setData(List<? extends BaseItem> data) {
         mItems.clear();
         mItems.addAll(data);
         notifyDataSetChanged();
     }
 
-    public void addData(List<? extends Item> data) {
+    public void addData(List<? extends BaseItem> data) {
         mItems.addAll(data);
         notifyDataSetChanged();
     }
@@ -74,6 +98,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
         return mItems.size();
     }
 
+    /**
+     * Item view holder.
+     */
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.image) ImageView mImageView;
@@ -88,8 +115,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(Item item, ActionButtonIcon actionButtonIcon,
-                         OnButtonClickListener buttonClickListener) {
+        public void bind(ItemViewModel item, OnButtonClickListener buttonClickListener) {
             final Context context = itemView.getContext();
             mNameTextView.setText(item.getName());
             mCategoryTextView.setText(item.getCategory());
@@ -101,21 +127,22 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
                     .load(item.getImageUrl())
                     .into(mImageView);
 
-            switch (actionButtonIcon) {
-                case ADD:
-                    mActionButton.setImageResource(R.drawable.ic_add_black_24dp);
-                    break;
-                case REMOVE:
-                    mActionButton.setImageResource(R.drawable.ic_remove_black_24dp);
-                    break;
-            }
-            mActionButton.setOnClickListener(v -> {
-                buttonClickListener.onButtonClicked(item);
-            });
+            mActionButton.setImageResource(R.drawable.ic_add_black_24dp);
+            mActionButton.setOnClickListener(v -> buttonClickListener.onButtonClicked(item));
+        }
+    }
+
+    /**
+     * Progress bar view holder.
+     */
+    public static class ProgressViewHolder extends RecyclerView.ViewHolder {
+
+        public ProgressViewHolder(View itemView) {
+            super(itemView);
         }
     }
 
     public interface OnButtonClickListener {
-        void onButtonClicked(Item item);
+        void onButtonClicked(ItemViewModel item);
     }
 }
