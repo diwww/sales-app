@@ -6,13 +6,14 @@ import com.arellomobile.mvp.MvpPresenter;
 import javax.inject.Inject;
 
 import io.reactivex.observers.DisposableObserver;
-import io.reactivex.observers.DisposableSingleObserver;
-import ru.gcsales.app.domain.model.Item;
 import ru.gcsales.app.presentation.AppApplication;
 import ru.gcsales.app.domain.interactor.DeleteItem;
 import ru.gcsales.app.domain.interactor.GetShoppingList;
 import ru.gcsales.app.domain.model.ShoppingList;
+import ru.gcsales.app.presentation.model.ShoppingListViewModel;
+import ru.gcsales.app.presentation.model.mapper.ShoppingListViewModelMapper;
 import ru.gcsales.app.presentation.view.ShoppingListView;
+import ru.gcsales.app.presentation.model.ItemViewModel;
 
 /**
  * @author Maxim Surovtsev
@@ -28,6 +29,7 @@ public class ShoppingListPresenter extends MvpPresenter<ShoppingListView> {
     DeleteItem mDeleteItem;
 
     private long mShoppingListId;
+    private ShoppingListViewModelMapper mMapper = new ShoppingListViewModelMapper();
 
     public ShoppingListPresenter(long shoppingListId) {
         mShoppingListId = shoppingListId;
@@ -35,38 +37,19 @@ public class ShoppingListPresenter extends MvpPresenter<ShoppingListView> {
     }
 
     public void loadData() {
-        mGetShoppingList.execute(new ShoppingListObserver(), GetShoppingList.Params.forShoppingList(mShoppingListId));
+        mGetShoppingList.execute(new GetShoppingListObserver(), GetShoppingList.Params.forShoppingList(mShoppingListId));
     }
 
-    public void deleteItem(Item item) {
-        // FIXME: mock observer
-        mDeleteItem.execute(new DisposableObserver<String>() {
-
-            @Override
-            public void onNext(String s) {
-                System.out.println(s);
-                getViewState().deleteItem(item);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-
-        }, DeleteItem.Params.get(mShoppingListId, item.getId()));
+    public void deleteItem(ItemViewModel itemViewModel) {
+        mDeleteItem.execute(new DeleteItemObserver(itemViewModel), DeleteItem.Params.get(mShoppingListId, itemViewModel.getId()));
 
     }
 
-    private final class ShoppingListObserver extends DisposableObserver<ShoppingList> {
+    private final class GetShoppingListObserver extends DisposableObserver<ShoppingList> {
 
         @Override
         public void onNext(ShoppingList shoppingList) {
-            getViewState().setData(shoppingList);
+            getViewState().setData(mMapper.transform(shoppingList));
         }
 
         @Override
@@ -78,5 +61,30 @@ public class ShoppingListPresenter extends MvpPresenter<ShoppingListView> {
         public void onComplete() {
 
         }
+    }
+
+    private final class DeleteItemObserver extends DisposableObserver<String> {
+
+        private ItemViewModel mItemViewModel;
+
+        public DeleteItemObserver(ItemViewModel itemViewModel) {
+            mItemViewModel = itemViewModel;
+        }
+
+        @Override
+        public void onNext(String s) {
+            getViewState().deleteItem(mItemViewModel);
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            e.printStackTrace();
+        }
+
+        @Override
+        public void onComplete() {
+
+        }
+
     }
 }

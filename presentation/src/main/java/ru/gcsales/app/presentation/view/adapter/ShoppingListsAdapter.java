@@ -13,11 +13,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
-import ru.gcsales.app.domain.model.ShoppingList;
+import ru.gcsales.app.presentation.model.ShoppingListViewModel;
 
 public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdapter.ShoppingListViewHolder> {
 
-    private List<ShoppingList> mShoppingLists = new ArrayList<>();
+    private List<ShoppingListViewModel> mShoppingListViewModels = new ArrayList<>();
     private OnItemClickListener mClickListener;
     private OnItemLongClickListener mLongClickListener;
 
@@ -36,29 +36,29 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
 
     @Override
     public void onBindViewHolder(@NonNull ShoppingListViewHolder holder, int position) {
-        ShoppingList preview = mShoppingLists.get(position);
-        holder.bind(preview, mClickListener, mLongClickListener);
+        ShoppingListViewModel model = mShoppingListViewModels.get(position);
+        holder.bind(model, mClickListener, mLongClickListener);
     }
 
     @Override
     public int getItemCount() {
-        return mShoppingLists.size();
+        return mShoppingListViewModels.size();
     }
 
-    public void setData(List<ShoppingList> data) {
-        mShoppingLists.clear();
-        mShoppingLists.addAll(data);
+    public void setData(List<ShoppingListViewModel> data) {
+        mShoppingListViewModels.clear();
+        mShoppingListViewModels.addAll(data);
         notifyDataSetChanged();
     }
 
-    public void addItem(ShoppingList preview) {
-        mShoppingLists.add(preview);
+    public void addItem(ShoppingListViewModel model) {
+        mShoppingListViewModels.add(model);
         notifyDataSetChanged();
     }
 
-    public void removeItem(ShoppingList preview) {
-        int i = mShoppingLists.indexOf(preview);
-        mShoppingLists.remove(i);
+    public void removeItem(ShoppingListViewModel model) {
+        int i = mShoppingListViewModels.indexOf(model);
+        mShoppingListViewModels.remove(i);
         notifyItemRemoved(i);
     }
 
@@ -71,21 +71,21 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(ShoppingList preview, OnItemClickListener clickListener, OnItemLongClickListener longClickListener) {
-            mNameTextView.setText(preview.getName());
-            itemView.setOnClickListener(v -> clickListener.onClick(preview));
+        public void bind(ShoppingListViewModel model, OnItemClickListener clickListener, OnItemLongClickListener longClickListener) {
+            mNameTextView.setText(model.getName());
+            itemView.setOnClickListener(v -> clickListener.onClick(model));
             itemView.setOnLongClickListener(v -> {
-                longClickListener.onLongClick(preview);
+                longClickListener.onLongClick(model);
                 return true;
             });
         }
     }
 
     public interface OnItemClickListener {
-        void onClick(ShoppingList preview);
+        void onClick(ShoppingListViewModel model);
     }
 
     public interface OnItemLongClickListener {
-        void onLongClick(ShoppingList preview);
+        void onLongClick(ShoppingListViewModel model);
     }
 }

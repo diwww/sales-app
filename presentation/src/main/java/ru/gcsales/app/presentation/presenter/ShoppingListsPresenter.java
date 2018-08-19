@@ -8,12 +8,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.observers.DisposableObserver;
-import io.reactivex.observers.DisposableSingleObserver;
 import ru.gcsales.app.presentation.AppApplication;
 import ru.gcsales.app.domain.interactor.AddShoppingList;
 import ru.gcsales.app.domain.interactor.GetShoppingLists;
 import ru.gcsales.app.domain.interactor.DeleteShoppingList;
 import ru.gcsales.app.domain.model.ShoppingList;
+import ru.gcsales.app.presentation.model.ShoppingListViewModel;
+import ru.gcsales.app.presentation.model.mapper.ShoppingListViewModelMapper;
 import ru.gcsales.app.presentation.view.ShoppingListsView;
 
 /**
@@ -30,30 +31,32 @@ public class ShoppingListsPresenter extends MvpPresenter<ShoppingListsView> {
     @Inject
     DeleteShoppingList mDeleteShoppingList;
 
+    ShoppingListViewModelMapper mShoppingListViewModelMapper = new ShoppingListViewModelMapper();
+
     public ShoppingListsPresenter() {
         AppApplication.getApplicationComponent().inject(this);
     }
 
     public void loadData() {
         getViewState().showProgress();
-        mGetShoppingLists.execute(new GetShoppingListPreviewsObserver(), null);
+        mGetShoppingLists.execute(new GetShoppingListsObserver(), null);
     }
 
     public void addShoppingList(String name) {
         mAddShoppingList.execute(new AddShoppingListObserver(), AddShoppingList.Params.get(name));
     }
 
-    public void removeShoppingList(ShoppingList preview) {
-        getViewState().removeItem(preview);
+    public void removeShoppingList(ShoppingListViewModel shoppingListViewModel) {
+        getViewState().removeItem(shoppingListViewModel);
         mDeleteShoppingList.execute(new RemoveShoppingListObserver(),
-                DeleteShoppingList.Params.forShoppingList(preview.getId()));
+                DeleteShoppingList.Params.get(shoppingListViewModel.getId()));
     }
 
-    private final class GetShoppingListPreviewsObserver extends DisposableObserver<List<ShoppingList>> {
+    private final class GetShoppingListsObserver extends DisposableObserver<List<ShoppingList>> {
 
         @Override
         public void onNext(List<ShoppingList> shoppingLists) {
-            getViewState().setData(shoppingLists);
+            getViewState().setData(mShoppingListViewModelMapper.transform(shoppingLists));
         }
 
         @Override
@@ -72,7 +75,7 @@ public class ShoppingListsPresenter extends MvpPresenter<ShoppingListsView> {
 
         @Override
         public void onNext(ShoppingList shoppingList) {
-            getViewState().addItem(shoppingList);
+            getViewState().addItem(mShoppingListViewModelMapper.transform(shoppingList));
         }
 
         @Override

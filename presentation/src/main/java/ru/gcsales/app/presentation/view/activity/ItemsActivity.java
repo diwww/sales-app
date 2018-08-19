@@ -67,7 +67,7 @@ public class ItemsActivity extends MvpAppCompatActivity implements ItemsView, On
         mToolbar.setOnClickListener(v -> mRecyclerView.smoothScrollToPosition(0));
         mLinearLayoutManager = new LinearLayoutManager(mRecyclerView.getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mItemsAdapter = new ItemsAdapter(this);
+        mItemsAdapter = new ItemsAdapter(this, R.drawable.ic_add_black_24dp);
         mRecyclerView.setAdapter(mItemsAdapter);
         setOnScrollListener();
 
@@ -113,10 +113,10 @@ public class ItemsActivity extends MvpAppCompatActivity implements ItemsView, On
     @Override
     public void showItemAdded(long shoppingListId, String shoppingListName) {
         Snackbar.make(mRecyclerView, getString(R.string.item_added_text, shoppingListName), Snackbar.LENGTH_SHORT)
-                .setAction(R.string.open_text, v -> {
-                    startActivity(ShoppingListActivity.newIntent(ItemsActivity.this, shoppingListId));
-
-                })
+                .setAction(R.string.open_text, v ->
+                        startActivity(ShoppingListActivity.newIntent(ItemsActivity.this,
+                                shoppingListId, shoppingListName))
+                )
                 .show();
     }
 

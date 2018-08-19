@@ -44,7 +44,7 @@ public class DeleteShoppingList extends UseCase<String, DeleteShoppingList.Param
          * @param id shopping list id
          * @return new params instance
          */
-        public static Params forShoppingList(long id) {
+        public static Params get(long id) {
             return new Params(id);
         }
     }

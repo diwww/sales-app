@@ -9,15 +9,19 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.FrameLayout.LayoutParams;
 
@@ -30,6 +34,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
 import ru.gcsales.app.domain.model.ShoppingList;
+import ru.gcsales.app.presentation.model.ShoppingListViewModel;
 import ru.gcsales.app.presentation.presenter.ShoppingListsPresenter;
 import ru.gcsales.app.presentation.view.ShoppingListsView;
 import ru.gcsales.app.presentation.view.activity.ShoppingListActivity;
@@ -78,17 +83,17 @@ public class ShoppingListsFragment extends MvpAppCompatFragment
     }
 
     @Override
-    public void setData(List<ShoppingList> data) {
+    public void setData(List<ShoppingListViewModel> data) {
         mShoppingListsAdapter.setData(data);
     }
 
     @Override
-    public void addItem(ShoppingList data) {
-        mShoppingListsAdapter.addItem(data);
+    public void addItem(ShoppingListViewModel item) {
+        mShoppingListsAdapter.addItem(item);
     }
 
     @Override
-    public void removeItem(ShoppingList item) {
+    public void removeItem(ShoppingListViewModel item) {
         mShoppingListsAdapter.removeItem(item);
     }
 
@@ -108,13 +113,13 @@ public class ShoppingListsFragment extends MvpAppCompatFragment
     }
 
     @Override
-    public void onClick(ShoppingList preview) {
-        startActivity(ShoppingListActivity.newIntent(getActivity(), preview.getId()));
+    public void onClick(ShoppingListViewModel model) {
+        startActivity(ShoppingListActivity.newIntent(getActivity(), model.getId(), model.getName()));
     }
 
     @Override
-    public void onLongClick(ShoppingList preview) {
-        showRemoveDialog(preview);
+    public void onLongClick(ShoppingListViewModel model) {
+        showRemoveDialog(model);
     }
 
     private void showAddDialog() {
@@ -123,7 +128,9 @@ public class ShoppingListsFragment extends MvpAppCompatFragment
         EditText editText = new EditText(context);
         editText.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
         editText.setHint(R.string.shopping_list_name_hint);
+        editText.setInputType(InputType.TYPE_CLASS_TEXT);
         editText.setMaxLines(1);
+        editText.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
         FrameLayout frameLayout = new FrameLayout(context);
         // Set 16dp padding
@@ -160,17 +167,27 @@ public class ShoppingListsFragment extends MvpAppCompatFragment
             }
         });
 
+        editText.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE && v.getText().length() > 0) {
+                dialog.getButton(DialogInterface.BUTTON_POSITIVE).performClick();
+            } else {
+                dialog.dismiss();
+            }
+            return false;
+        });
+
+
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         dialog.show();
         dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
     }
 
-    private void showRemoveDialog(ShoppingList preview) {
+    private void showRemoveDialog(ShoppingListViewModel model) {
         AlertDialog dialog = new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.delete_shopping_list_prompt)
                 .setNegativeButton(R.string.cancel_button_text, null)
                 .setPositiveButton(R.string.delete_button_text, (d, w) -> {
-                    mShoppingListsPresenter.removeShoppingList(preview);
+                    mShoppingListsPresenter.removeShoppingList(model);
                 })
                 .create();
         dialog.show();

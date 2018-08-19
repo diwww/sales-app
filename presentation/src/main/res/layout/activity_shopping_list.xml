@@ -22,15 +22,15 @@
             android:id="@+id/text_total_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ccc"
-            android:padding="4dp"
+            android:background="#fff"
             android:maxLines="1"
-            android:text="@string/undefined_text"
+            android:padding="4dp"
             android:textColor="#777" />
 
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="4dp"
         android:id="@+id/recycler_view_items"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

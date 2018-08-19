@@ -20,7 +20,6 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
-import ru.gcsales.app.domain.model.Item;
 import ru.gcsales.app.presentation.model.BaseItem;
 import ru.gcsales.app.presentation.model.ItemViewModel;
 import ru.gcsales.app.presentation.model.ProgressViewModel;
@@ -30,9 +29,11 @@ public class ItemsAdapter extends RecyclerView.Adapter {
     private List<BaseItem> mItems = new ArrayList<>();
     private OnButtonClickListener mButtonClickListener;
     private final ProgressViewModel mProgressViewModel = new ProgressViewModel();
+    private int mActionButtonIconId;
 
-    public ItemsAdapter(OnButtonClickListener listener) {
-        mButtonClickListener = listener;
+    public ItemsAdapter(OnButtonClickListener buttonClickListener, int iconId) {
+        mButtonClickListener = buttonClickListener;
+        mActionButtonIconId = iconId;
     }
 
     @NonNull
@@ -53,13 +54,18 @@ public class ItemsAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         BaseItem item = mItems.get(position);
         if (item.getType() == ItemViewModel.TYPE) {
-            ((ItemViewHolder) holder).bind((ItemViewModel) item, mButtonClickListener);
+            ((ItemViewHolder) holder).bind((ItemViewModel) item, mActionButtonIconId, mButtonClickListener);
         }
     }
 
     @Override
     public int getItemViewType(int position) {
         return mItems.get(position).getType();
+    }
+
+    @Override
+    public int getItemCount() {
+        return mItems.size();
     }
 
     public void showProgress() {
@@ -83,7 +89,7 @@ public class ItemsAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
-    public void deleteItem(Item item) {
+    public void deleteItem(BaseItem item) {
         mItems.remove(item);
         notifyDataSetChanged();
     }
@@ -93,9 +99,14 @@ public class ItemsAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
-    @Override
-    public int getItemCount() {
-        return mItems.size();
+    public double getTotalPrice() {
+        double totalPrice = 0;
+        for (BaseItem item : mItems) {
+            if (item.getType() == ItemViewModel.TYPE) {
+                totalPrice += ((ItemViewModel) item).getNewPrice();
+            }
+        }
+        return totalPrice;
     }
 
     /**
@@ -115,7 +126,7 @@ public class ItemsAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(ItemViewModel item, OnButtonClickListener buttonClickListener) {
+        public void bind(ItemViewModel item, int iconId, OnButtonClickListener buttonClickListener) {
             final Context context = itemView.getContext();
             mNameTextView.setText(item.getName());
             mCategoryTextView.setText(item.getCategory());
@@ -127,7 +138,7 @@ public class ItemsAdapter extends RecyclerView.Adapter {
                     .load(item.getImageUrl())
                     .into(mImageView);
 
-            mActionButton.setImageResource(R.drawable.ic_add_black_24dp);
+            mActionButton.setImageResource(iconId);
             mActionButton.setOnClickListener(v -> buttonClickListener.onButtonClicked(item));
         }
     }
@@ -135,7 +146,7 @@ public class ItemsAdapter extends RecyclerView.Adapter {
     /**
      * Progress bar view holder.
      */
-    public static class ProgressViewHolder extends RecyclerView.ViewHolder {
+    public class ProgressViewHolder extends RecyclerView.ViewHolder {
 
         public ProgressViewHolder(View itemView) {
             super(itemView);

@@ -5,6 +5,7 @@ import com.arellomobile.mvp.MvpView;
 import java.util.List;
 
 import ru.gcsales.app.domain.model.ShoppingList;
+import ru.gcsales.app.presentation.model.ShoppingListViewModel;
 
 /**
  * @author Maxim Surovtsev
@@ -12,11 +13,11 @@ import ru.gcsales.app.domain.model.ShoppingList;
  */
 public interface ShoppingListsView extends MvpView {
 
-    void setData(List<ShoppingList> data);
+    void setData(List<ShoppingListViewModel> data);
 
-    void addItem(ShoppingList item);
+    void addItem(ShoppingListViewModel item);
 
-    void removeItem(ShoppingList item);
+    void removeItem(ShoppingListViewModel item);
 
     void showProgress();
 

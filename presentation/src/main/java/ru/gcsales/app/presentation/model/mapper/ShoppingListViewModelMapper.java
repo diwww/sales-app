@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import ru.gcsales.app.domain.model.ShoppingList;
+import ru.gcsales.app.presentation.model.ItemViewModel;
 import ru.gcsales.app.presentation.model.ShoppingListViewModel;
 
 /**
@@ -13,6 +14,8 @@ import ru.gcsales.app.presentation.model.ShoppingListViewModel;
  */
 public class ShoppingListViewModelMapper {
 
+    ItemViewModelMapper mMapper = new ItemViewModelMapper();
+
     public ShoppingListViewModel transform(ShoppingList shoppingList) {
         ShoppingListViewModel shoppingListViewModel = null;
 
@@ -20,6 +23,7 @@ public class ShoppingListViewModelMapper {
             shoppingListViewModel = new ShoppingListViewModel();
             shoppingListViewModel.setId(shoppingList.getId());
             shoppingListViewModel.setName(shoppingList.getName());
+            shoppingListViewModel.setItems(mMapper.transform(shoppingList.getItems()));
         }
 
         return shoppingListViewModel;
