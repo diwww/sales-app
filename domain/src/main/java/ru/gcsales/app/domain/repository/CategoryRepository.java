@@ -5,10 +5,18 @@ import java.util.List;
 import io.reactivex.Observable;
 
 /**
+ * Repository for getting categories for given shop.
+ *
  * @author Maxim Surovtsev
  * Created on 8/20/18
  */
 public interface CategoryRepository {
 
+    /**
+     * Gets available categories.
+     *
+     * @param shopId shop id
+     * @return {@link List} of categories
+     */
     Observable<List<String>> getCategories(long shopId);
 }

@@ -3,14 +3,12 @@ package ru.gcsales.app.domain.interactor;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Function;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
 import ru.gcsales.app.domain.executor.PostExecutionThread;
 import ru.gcsales.app.domain.repository.AuthRepository;
-import sun.reflect.generics.tree.VoidDescriptor;
 
 /**
+ * Use case for logging out.
+ *
  * @author Maxim Surovtsev
  * Created on 8/19/18
  */

@@ -7,6 +7,8 @@ import ru.gcsales.app.domain.executor.PostExecutionThread;
 import ru.gcsales.app.domain.repository.AuthRepository;
 
 /**
+ * Use case for checking if the user is logged in.
+ *
  * @author Maxim Surovtsev
  * Created on 8/19/18
  */

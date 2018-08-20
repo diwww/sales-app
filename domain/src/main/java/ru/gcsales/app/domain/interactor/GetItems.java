@@ -10,6 +10,8 @@ import ru.gcsales.app.domain.model.Item;
 import ru.gcsales.app.domain.repository.ItemRepository;
 
 /**
+ * Use case for getting items for given shop and category.
+ *
  * @author Maxim Surovtsev
  * Created on 8/18/18
  */
@@ -28,6 +30,9 @@ public class GetItems extends UseCase<List<Item>, GetItems.Params> {
         return mItemRepository.getItems(params.mShopId, params.mCategory, params.mPage);
     }
 
+    /**
+     * Class for passing parameters to a use case.
+     */
     public static class Params {
 
         private long mShopId;
@@ -40,6 +45,13 @@ public class GetItems extends UseCase<List<Item>, GetItems.Params> {
             mPage = page;
         }
 
+        /**
+         * Gets params instance.
+         * @param shopId shop id
+         * @param category category
+         * @param page pagination page
+         * @return new params instance
+         */
         public static Params get(long shopId, String category, int page) {
             return new Params(shopId, category, page);
         }

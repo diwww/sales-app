@@ -32,10 +32,7 @@ public class Login extends UseCase<String, Login.Params> {
         try {
             String hashedPassword = sha256(params.password);
             return mAuthRepository.login(params.username, hashedPassword)
-                    .doOnNext(res -> {
-                        // TODO: нормально ли записывать токен в doOnNext?
-                        mAuthRepository.setToken(res);
-                    });
+                    .doOnNext(res -> mAuthRepository.setToken(res));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
