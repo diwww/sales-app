@@ -5,7 +5,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import ru.gcsales.app.data.AppDatabase;
-import ru.gcsales.app.data.ShopDAO;
+import ru.gcsales.app.data.dao.ShopDAO;
 import ru.gcsales.app.data.model.local.ShopEntity;
 import ru.gcsales.app.data.model.mapper.ShopMapper;
 import ru.gcsales.app.domain.model.Shop;

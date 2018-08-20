@@ -1,4 +1,4 @@
-package ru.gcsales.app.data;
+package ru.gcsales.app.data.dao;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;

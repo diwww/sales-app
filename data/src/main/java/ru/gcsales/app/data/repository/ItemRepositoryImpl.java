@@ -2,13 +2,10 @@ package ru.gcsales.app.data.repository;
 
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import ru.gcsales.app.data.AppDatabase;
-import ru.gcsales.app.data.ItemDAO;
+import ru.gcsales.app.data.dao.ItemDAO;
 import ru.gcsales.app.data.model.local.ItemWithShop;
 import ru.gcsales.app.data.model.mapper.ItemMapper;
 import ru.gcsales.app.data.service.ItemService;

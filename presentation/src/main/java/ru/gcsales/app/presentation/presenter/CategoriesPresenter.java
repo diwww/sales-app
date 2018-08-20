@@ -43,6 +43,7 @@ public class CategoriesPresenter extends MvpPresenter<CategoriesView> {
 
         @Override
         public void onError(Throwable e) {
+            getViewState().hideProgress();
             getViewState().showError(e.getMessage());
         }
 
