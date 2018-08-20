@@ -37,6 +37,13 @@ public class ShoppingListsPresenter extends MvpPresenter<ShoppingListsView> {
         AppApplication.getApplicationComponent().inject(this);
     }
 
+    @Override
+    public void onDestroy() {
+        mGetShoppingLists.dispose();
+        mAddShoppingList.dispose();
+        mDeleteShoppingList.dispose();
+    }
+
     public void loadData() {
         getViewState().showProgress();
         mGetShoppingLists.execute(new GetShoppingListsObserver(), null);

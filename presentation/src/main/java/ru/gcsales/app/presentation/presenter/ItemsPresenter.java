@@ -58,6 +58,8 @@ public class ItemsPresenter extends MvpPresenter<ItemsView> {
     @Override
     public void onDestroy() {
         mGetItems.dispose();
+        mAddItem.dispose();
+        mGetShoppingLists.dispose();
     }
 
 

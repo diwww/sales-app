@@ -11,4 +11,5 @@ import com.arellomobile.mvp.MvpView;
  * Created on 7/24/18
  */
 public interface HomeView extends MvpView {
+    void openLoginActivity();
 }

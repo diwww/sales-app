@@ -4,6 +4,7 @@
     <string name="login_password_hint">Password</string>
     <string name="action_login">Login</string>
     <string name="action_register">Register</string>
+    <string name="action_log_out">Log out</string>
     <string name="undefined_text">undefined</string>
     <string name="shops_tab_title">Shops</string>
     <string name="shopping_lists_tab_title">Shopping lists</string>

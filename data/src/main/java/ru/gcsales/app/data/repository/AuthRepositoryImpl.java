@@ -3,9 +3,6 @@ package ru.gcsales.app.data.repository;
 
 import android.content.Context;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import io.reactivex.Observable;
 import ru.gcsales.app.data.service.AuthService;
 import ru.gcsales.app.domain.repository.AuthRepository;
@@ -33,12 +30,13 @@ public class AuthRepositoryImpl extends TokenRepositoryImpl implements AuthRepos
     }
 
     @Override
-    public void logout() {
-
+    public Observable<String> logout() {
+        return Observable.just("Success log out!")
+                .doOnNext(s -> removeToken());
     }
 
     @Override
-    public boolean checkLogin() {
-        return false;
+    public Observable<Boolean> checkLogin() {
+        return Observable.just(getToken() != null);
     }
 }

@@ -1,6 +1,8 @@
 package ru.gcsales.app.domain.repository;
 
 
+import io.reactivex.Completable;
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 
 /**
@@ -14,7 +16,7 @@ public interface AuthRepository extends TokenRepository {
 
     void register(String username, String password);
 
-    void logout();
+    Observable<String> logout();
 
-    boolean checkLogin();
+    Observable<Boolean> checkLogin();
 }

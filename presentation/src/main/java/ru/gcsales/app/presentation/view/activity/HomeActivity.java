@@ -1,10 +1,15 @@
 package ru.gcsales.app.presentation.view.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -33,6 +38,7 @@ public class HomeActivity extends MvpAppCompatActivity implements HomeView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        mHomePresenter.checkLogin();
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
         initTabs();
@@ -40,8 +46,32 @@ public class HomeActivity extends MvpAppCompatActivity implements HomeView {
             ShoppingListsFragment fragment = (ShoppingListsFragment) mViewPagerAdapter.getRegisteredFragment(1);
             fragment.addShoppingList();
         });
-        mViewPager.setCurrentItem(1);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_home, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.log_out:
+                mHomePresenter.logOut();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void openLoginActivity() {
+        startActivity(LoginActivity.newIntent(this));
+        finish();
+    }
+
 
     private void initTabs() {
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -73,5 +103,9 @@ public class HomeActivity extends MvpAppCompatActivity implements HomeView {
         @Override
         public void onTabReselected(TabLayout.Tab tab) {
         }
+    }
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, HomeActivity.class);
     }
 }

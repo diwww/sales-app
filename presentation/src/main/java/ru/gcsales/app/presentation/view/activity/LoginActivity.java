@@ -51,16 +51,6 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginView {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
     public void showError(String error) {
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
@@ -82,6 +72,7 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginView {
 
     @Override
     public void onSuccessLogin() {
+        startActivity(HomeActivity.newIntent(this));
         finish();
     }
 
