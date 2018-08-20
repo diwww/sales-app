@@ -31,9 +31,9 @@ import ru.gcsales.app.presentation.view.adapter.ItemsAdapter;
 
 public class ItemsActivity extends MvpAppCompatActivity implements ItemsView, OnButtonClickListener {
 
-    public static final String EXTRA_SHOP_ID = "EXTRA_SHOP_ID";
-    public static final String EXTRA_SHOP_NAME = "EXTRA_SHOP_NAME";
-    public static final String EXTRA_CATEGORY = "EXTRA_CATEGORY";
+    private static final String EXTRA_SHOP_ID = "EXTRA_SHOP_ID";
+    private static final String EXTRA_SHOP_NAME = "EXTRA_SHOP_NAME";
+    private static final String EXTRA_CATEGORY = "EXTRA_CATEGORY";
 
     @InjectPresenter
     ItemsPresenter mItemsPresenter;
@@ -43,9 +43,9 @@ public class ItemsActivity extends MvpAppCompatActivity implements ItemsView, On
     @BindView(R.id.recycler_view_products) RecyclerView mRecyclerView;
     @BindView(R.id.progress_bar) ProgressBar mProgressBar;
 
-    ItemsAdapter mItemsAdapter;
-    LinearLayoutManager mLinearLayoutManager;
-    List<ShoppingListViewModel> mShoppingListViewModels;
+    private ItemsAdapter mItemsAdapter;
+    private LinearLayoutManager mLinearLayoutManager;
+    private List<ShoppingListViewModel> mShoppingListViewModels;
 
     @ProvidePresenter
     ItemsPresenter provideProductListPresenter() {
@@ -73,16 +73,6 @@ public class ItemsActivity extends MvpAppCompatActivity implements ItemsView, On
 
         mItemsPresenter.loadShoppingLists();
         mItemsPresenter.loadNextPageProducts();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
     }
 
     @Override

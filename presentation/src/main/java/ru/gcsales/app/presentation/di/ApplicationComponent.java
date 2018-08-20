@@ -6,6 +6,7 @@ import dagger.Component;
 import ru.gcsales.app.data.di.DatabaseModule;
 import ru.gcsales.app.data.di.NetworkModule;
 import ru.gcsales.app.data.di.RepositoryModule;
+import ru.gcsales.app.presentation.presenter.CategoriesPresenter;
 import ru.gcsales.app.presentation.presenter.HomePresenter;
 import ru.gcsales.app.presentation.presenter.LoginPresenter;
 import ru.gcsales.app.presentation.presenter.ItemsPresenter;
@@ -28,4 +29,6 @@ public interface ApplicationComponent {
     void inject(ShoppingListPresenter presenter);
 
     void inject(HomePresenter presenter);
+
+    void inject(CategoriesPresenter presenter);
 }

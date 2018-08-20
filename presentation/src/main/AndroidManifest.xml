@@ -24,7 +24,8 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".presentation.view.activity.ItemsActivity" />
-        <activity android:name=".presentation.view.activity.ShoppingListActivity"></activity>
+        <activity android:name=".presentation.view.activity.ShoppingListActivity" />
+        <activity android:name=".presentation.view.activity.CategoriesActivity"></activity>
     </application>
 
 </manifest>

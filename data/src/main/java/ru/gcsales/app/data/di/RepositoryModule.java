@@ -8,12 +8,15 @@ import dagger.Module;
 import dagger.Provides;
 import ru.gcsales.app.data.AppDatabase;
 import ru.gcsales.app.data.repository.AuthRepositoryImpl;
+import ru.gcsales.app.data.repository.CategoryRepositoryImpl;
 import ru.gcsales.app.data.repository.ItemRepositoryImpl;
 import ru.gcsales.app.data.repository.ShoppingListRepositoryImpl;
 import ru.gcsales.app.data.service.AuthService;
+import ru.gcsales.app.data.service.CategoryService;
 import ru.gcsales.app.data.service.ItemService;
 import ru.gcsales.app.data.service.ShoppingListService;
 import ru.gcsales.app.domain.repository.AuthRepository;
+import ru.gcsales.app.domain.repository.CategoryRepository;
 import ru.gcsales.app.domain.repository.ItemRepository;
 import ru.gcsales.app.domain.repository.ShoppingListRepository;
 import ru.gcsales.app.data.repository.ShopRepositoryImpl;
@@ -47,5 +50,12 @@ public class RepositoryModule {
                                                                 ShoppingListService service,
                                                                 AppDatabase database) {
         return new ShoppingListRepositoryImpl(context, service, database);
+    }
+
+    @Provides
+    @Singleton
+    public CategoryRepository provideCategoryRepository(CategoryService service,
+                                                        AppDatabase database) {
+        return new CategoryRepositoryImpl(service, database);
     }
 }

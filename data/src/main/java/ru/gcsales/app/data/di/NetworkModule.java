@@ -11,6 +11,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.gcsales.app.data.service.AuthService;
+import ru.gcsales.app.data.service.CategoryService;
 import ru.gcsales.app.data.service.ItemService;
 import ru.gcsales.app.data.service.ShopService;
 import ru.gcsales.app.data.service.ShoppingListService;
@@ -49,5 +50,11 @@ public class NetworkModule {
     @Singleton
     public ShoppingListService provideShoppingListService() {
         return builder.baseUrl(API_BASE_URL).build().create(ShoppingListService.class);
+    }
+
+    @Provides
+    @Singleton
+    public CategoryService provideCategoryService() {
+        return builder.baseUrl(API_BASE_URL).build().create(CategoryService.class);
     }
 }
