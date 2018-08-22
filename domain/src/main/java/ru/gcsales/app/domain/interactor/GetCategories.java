@@ -1,12 +1,12 @@
 package ru.gcsales.app.domain.interactor;
 
-import java.awt.print.PrinterAbortException;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import ru.gcsales.app.domain.executor.PostExecutionThread;
+import ru.gcsales.app.domain.model.Category;
 import ru.gcsales.app.domain.repository.CategoryRepository;
 
 /**
@@ -15,7 +15,7 @@ import ru.gcsales.app.domain.repository.CategoryRepository;
  * @author Maxim Surovtsev
  * Created on 8/20/18
  */
-public class GetCategories extends UseCase<List<String>, GetCategories.Params> {
+public class GetCategories extends UseCase<List<Category>, GetCategories.Params> {
 
     private CategoryRepository mCategoryRepository;
 
@@ -27,7 +27,7 @@ public class GetCategories extends UseCase<List<String>, GetCategories.Params> {
     }
 
     @Override
-    Observable<List<String>> buildObservable(Params params) {
+    Observable<List<Category>> buildObservable(Params params) {
         return mCategoryRepository.getCategories(params.mShopId);
     }
 

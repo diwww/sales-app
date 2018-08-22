@@ -3,6 +3,7 @@ package ru.gcsales.app.domain.repository;
 import java.util.List;
 
 import io.reactivex.Observable;
+import ru.gcsales.app.domain.model.Category;
 
 /**
  * Repository for getting categories for given shop.
@@ -18,5 +19,5 @@ public interface CategoryRepository {
      * @param shopId shop id
      * @return {@link List} of categories
      */
-    Observable<List<String>> getCategories(long shopId);
+    Observable<List<Category>> getCategories(long shopId);
 }
