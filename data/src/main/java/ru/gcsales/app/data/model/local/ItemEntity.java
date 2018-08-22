@@ -9,6 +9,8 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 
 /**
+ * Item entity.
+ *
  * @author Maxim Surovtsev
  * Created on 8/12/18
  */

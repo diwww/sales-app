@@ -19,6 +19,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
+import ru.gcsales.app.presentation.model.CategoryViewModel;
 import ru.gcsales.app.presentation.presenter.CategoriesPresenter;
 import ru.gcsales.app.presentation.view.CategoriesView;
 import ru.gcsales.app.presentation.view.adapter.CategoriesAdapter;
@@ -79,7 +80,7 @@ public class CategoriesActivity extends MvpAppCompatActivity implements Categori
     }
 
     @Override
-    public void setData(List<String> data) {
+    public void setData(List<CategoryViewModel> data) {
         mCategoriesAdapter.setData(data);
     }
 
@@ -89,8 +90,8 @@ public class CategoriesActivity extends MvpAppCompatActivity implements Categori
     }
 
     @Override
-    public void onClick(String category) {
-        startActivity(ItemsActivity.newIntent(this, mShopId, mShopName, category));
+    public void onClick(CategoryViewModel category) {
+        startActivity(ItemsActivity.newIntent(this, mShopId, mShopName, category.getName()));
     }
 
     public static Intent newIntent(Context context, long shopId, String shopName) {

@@ -8,6 +8,9 @@ import ru.gcsales.app.data.service.AuthService;
 import ru.gcsales.app.domain.repository.AuthRepository;
 
 /**
+ * Implementation of {@link AuthRepository},
+ * which gets a token from service and saves it Shared prefs.
+ *
  * @author Maxim Surovtsev
  * Created on 8/7/18
  */
@@ -20,6 +23,13 @@ public class AuthRepositoryImpl extends TokenRepositoryImpl implements AuthRepos
         mAuthService = authService;
     }
 
+    /**
+     * Performs a login.
+     *
+     * @param username username username
+     * @param password password password
+     * @return {@link Observable} of JWT token string
+     */
     public Observable<String> login(String username, String password) {
         return mAuthService.login(new AuthService.UserInfo(username, password)).toObservable();
     }

@@ -5,62 +5,84 @@ import java.util.Collections;
 import java.util.List;
 
 import ru.gcsales.app.data.model.local.CategoryEntity;
+import ru.gcsales.app.domain.model.Category;
 
 /**
+ * Category mapper.
+ *
  * @author Maxim Surovtsev
  * Created on 8/20/18
  */
 public class CategoryMapper {
 
-    public CategoryEntity transform(String categoryResponse, long shopId) {
+    /**
+     * Transforms network response to db entity.
+     *
+     * @param response network response
+     * @param shopId   shop id
+     * @return {@link CategoryEntity} object
+     */
+    public CategoryEntity transform(String response, long shopId) {
         CategoryEntity entity = null;
 
-        if (categoryResponse != null) {
+        if (response != null) {
             entity = new CategoryEntity();
-            entity.setName(categoryResponse);
+            entity.setName(response);
             entity.setShopId(shopId);
         }
 
         return entity;
     }
 
-    public List<CategoryEntity> transform(List<String> categoryResponseList, long shopId) {
-        List<CategoryEntity> entityList;
+    /**
+     * Transforms a list of network responses to a list of db entities.
+     *
+     * @param responses list of db responses
+     * @param shopId    shop id
+     * @return list of {@link CategoryEntity} objects
+     */
+    public List<CategoryEntity> transform(List<String> responses, long shopId) {
+        List<CategoryEntity> entities;
 
-        if (categoryResponseList != null && !categoryResponseList.isEmpty()) {
-            entityList = new ArrayList<>();
-            for (String response : categoryResponseList) {
-                entityList.add(transform(response, shopId));
+        if (responses != null && !responses.isEmpty()) {
+            entities = new ArrayList<>();
+            for (String response : responses) {
+                entities.add(transform(response, shopId));
             }
         } else {
             return Collections.emptyList();
         }
 
-        return entityList;
+        return entities;
     }
 
-    public String transform(CategoryEntity entity) {
-        String categoryString = null;
+    /**
+     * Transform
+     * @param entity
+     * @return
+     */
+    public Category transform(CategoryEntity entity) {
+        Category category = null;
 
         if (entity != null) {
-            categoryString = entity.getName();
+            category = new Category(entity.getName());
         }
 
-        return categoryString;
+        return category;
     }
 
-    public List<String> transform(List<CategoryEntity> categoryEntityList) {
-        List<String> categoryStringList;
+    public List<Category> transform(List<CategoryEntity> entities) {
+        List<Category> categories;
 
-        if (categoryEntityList != null && !categoryEntityList.isEmpty()) {
-            categoryStringList = new ArrayList<>();
-            for (CategoryEntity entity : categoryEntityList) {
-                categoryStringList.add(transform(entity));
+        if (entities != null && !entities.isEmpty()) {
+            categories = new ArrayList<>();
+            for (CategoryEntity entity : entities) {
+                categories.add(transform(entity));
             }
         } else {
             return Collections.emptyList();
         }
 
-        return categoryStringList;
+        return categories;
     }
 }

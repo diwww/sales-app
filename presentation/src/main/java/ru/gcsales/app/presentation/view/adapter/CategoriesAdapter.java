@@ -13,6 +13,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
+import ru.gcsales.app.presentation.model.CategoryViewModel;
 
 /**
  * @author Maxim Surovtsev
@@ -20,7 +21,7 @@ import ru.gcsales.app.R;
  */
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder> {
 
-    private List<String> mCategories = new ArrayList<>();
+    private List<CategoryViewModel> mCategories = new ArrayList<>();
     private OnItemClickListener mClickListener;
 
     public CategoriesAdapter(OnItemClickListener clickListener) {
@@ -37,7 +38,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
-        String category = mCategories.get(position);
+        CategoryViewModel category = mCategories.get(position);
         holder.bind(category, mClickListener);
     }
 
@@ -46,7 +47,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         return mCategories.size();
     }
 
-    public void setData(List<String> data) {
+    public void setData(List<CategoryViewModel> data) {
         mCategories.clear();
         mCategories.addAll(data);
         notifyDataSetChanged();
@@ -62,13 +63,13 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(String category, OnItemClickListener listener) {
-            mNameTextView.setText(category);
+        public void bind(CategoryViewModel category, OnItemClickListener listener) {
+            mNameTextView.setText(category.getName());
             itemView.setOnClickListener(v -> listener.onClick(category));
         }
     }
 
     public interface OnItemClickListener {
-        void onClick(String category);
+        void onClick(CategoryViewModel category);
     }
 }

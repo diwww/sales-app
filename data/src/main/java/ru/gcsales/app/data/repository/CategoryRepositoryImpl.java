@@ -1,6 +1,5 @@
 package ru.gcsales.app.data.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -10,6 +9,7 @@ import ru.gcsales.app.data.dao.CategoryDAO;
 import ru.gcsales.app.data.model.local.CategoryEntity;
 import ru.gcsales.app.data.model.mapper.CategoryMapper;
 import ru.gcsales.app.data.service.CategoryService;
+import ru.gcsales.app.domain.model.Category;
 import ru.gcsales.app.domain.repository.CategoryRepository;
 
 /**
@@ -28,7 +28,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     }
 
     @Override
-    public Observable<List<String>> getCategories(long shopId) {
+    public Observable<List<Category>> getCategories(long shopId) {
         // 1. Network scenario
         Single<List<CategoryEntity>> remote = mCategoryService.getCategories(shopId)
                 .flatMap(responseList -> {
@@ -36,11 +36,11 @@ public class CategoryRepositoryImpl implements CategoryRepository {
                     mCategoryDAO.clearTable();
                     // Insert fresh data from network to db
                     mCategoryDAO.insert(mCategoryMapper.transform(responseList, shopId));
-                    return mCategoryDAO.getCategories(shopId);
+                    return mCategoryDAO.get(shopId);
                 });
 
         // 2. Db scenario
-        Single<List<CategoryEntity>> local = mCategoryDAO.getCategories(shopId);
+        Single<List<CategoryEntity>> local = mCategoryDAO.get(shopId);
 
         return Observable.concatArray(local.toObservable(), remote.toObservable())
                 .map(mCategoryMapper::transform);

@@ -64,9 +64,9 @@ public class ItemRepositoryImpl implements ItemRepository {
         Single<List<ItemWithShop>> single;
 
         if (category == null) {
-            single = mItemDAO.getItems(shopId, page);
+            single = mItemDAO.get(shopId, page);
         } else {
-            single = mItemDAO.getItems(shopId, category, page);
+            single = mItemDAO.get(shopId, category, page);
         }
 
         return single;

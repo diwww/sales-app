@@ -26,19 +26,19 @@ public class ShoppingListMapper {
         return entity;
     }
 
-    public List<ShoppingListEntity> transformResponse(List<ShoppingListResponse> responseList) {
-        List<ShoppingListEntity> entityList;
+    public List<ShoppingListEntity> transformResponse(List<ShoppingListResponse> responses) {
+        List<ShoppingListEntity> entities;
 
-        if (responseList != null && !responseList.isEmpty()) {
-            entityList = new ArrayList<>();
-            for (ShoppingListResponse response : responseList) {
-                entityList.add(transformResponse(response));
+        if (responses != null && !responses.isEmpty()) {
+            entities = new ArrayList<>();
+            for (ShoppingListResponse response : responses) {
+                entities.add(transformResponse(response));
             }
         } else {
             return Collections.emptyList();
         }
 
-        return entityList;
+        return entities;
     }
 
     public ShoppingList transformEntity(ShoppingListEntity entity) {
@@ -53,12 +53,12 @@ public class ShoppingListMapper {
         return shoppingList;
     }
 
-    public List<ShoppingList> transformEntity(List<ShoppingListEntity> entityList) {
+    public List<ShoppingList> transformEntity(List<ShoppingListEntity> entities) {
         List<ShoppingList> shoppingLists;
 
-        if (entityList != null && !entityList.isEmpty()) {
+        if (entities != null && !entities.isEmpty()) {
             shoppingLists = new ArrayList<>();
-            for (ShoppingListEntity entity : entityList) {
+            for (ShoppingListEntity entity : entities) {
                 shoppingLists.add(transformEntity(entity));
             }
         } else {

@@ -7,7 +7,7 @@ import retrofit2.http.Query;
 import ru.gcsales.app.data.model.remote.ItemsInfoResponse;
 
 /**
- * API requests to get items.
+ * Retrofit service for getting items items.
  *
  * @author Maxim Surovtsev
  * Created on 8/16/18

@@ -12,18 +12,34 @@ import ru.gcsales.app.data.model.local.CategoryEntity;
 
 
 /**
+ * Category DAO.
+ *
  * @author Maxim Surovtsev
  * Created on 8/20/18
  */
 @Dao
 public interface CategoryDAO {
 
+    /**
+     * Gets all categories for given shop.
+     *
+     * @param shopId shop id
+     * @return {@link Single} list of {@link CategoryEntity} objects
+     */
     @Query("SELECT * FROM category WHERE shop_id = :shopId")
-    Single<List<CategoryEntity>> getCategories(long shopId);
+    Single<List<CategoryEntity>> get(long shopId);
 
+    /**
+     * Inserts categories into db.
+     *
+     * @param entities list of categories to insertShoppingLists
+     */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long[] insert(List<CategoryEntity> categoryEntities);
+    void insert(List<CategoryEntity> entities);
 
+    /**
+     * Clears categories table.
+     */
     @Query("DELETE FROM category")
     void clearTable();
 }

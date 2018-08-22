@@ -4,6 +4,8 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Embedded;
 
 /**
+ * Result of joining item entity with shop entity.
+ *
  * @author Maxim Surovtsev
  * Created on 8/13/18
  */

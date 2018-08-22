@@ -9,7 +9,9 @@ import javax.inject.Inject;
 
 import io.reactivex.observers.DisposableObserver;
 import ru.gcsales.app.domain.interactor.GetCategories;
+import ru.gcsales.app.domain.model.Category;
 import ru.gcsales.app.presentation.AppApplication;
+import ru.gcsales.app.presentation.model.mapper.CategoryViewModelMapper;
 import ru.gcsales.app.presentation.view.CategoriesView;
 
 /**
@@ -24,6 +26,8 @@ public class CategoriesPresenter extends MvpPresenter<CategoriesView> {
 
     private long mShopId;
 
+    private CategoryViewModelMapper mMapper = new CategoryViewModelMapper();
+
     public CategoriesPresenter(long shopId) {
         AppApplication.getApplicationComponent().inject(this);
         mShopId = shopId;
@@ -34,11 +38,11 @@ public class CategoriesPresenter extends MvpPresenter<CategoriesView> {
         mGetCategories.execute(new GetCategoriesObserver(), GetCategories.Params.get(mShopId));
     }
 
-    private final class GetCategoriesObserver extends DisposableObserver<List<String>> {
+    private final class GetCategoriesObserver extends DisposableObserver<List<Category>> {
 
         @Override
-        public void onNext(List<String> categories) {
-            getViewState().setData(categories);
+        public void onNext(List<Category> categories) {
+            getViewState().setData(mMapper.transform(categories));
         }
 
         @Override

@@ -48,11 +48,11 @@ public class ShopRepositoryImpl implements ShopRepository {
                     mShopDAO.clearTable();
                     // Insert new data from remote source
                     mShopDAO.insert(mShopMapper.transformResponse(responseList));
-                    return mShopDAO.getShops();
+                    return mShopDAO.get();
                 });
 
         // 2. Db scenario
-        Single<List<ShopEntity>> local = mShopDAO.getShops();
+        Single<List<ShopEntity>> local = mShopDAO.get();
 
         return Observable.concatArray(local.toObservable(), remote.toObservable())
                 .map(mShopMapper::transformEntity);

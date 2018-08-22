@@ -8,7 +8,7 @@ import retrofit2.http.GET;
 import ru.gcsales.app.data.model.remote.ShopResponse;
 
 /**
- * API requests to get shops.
+ * Retrofit service for getting shops.
  *
  * @author Maxim Surovtsev
  * Created on 7/24/18

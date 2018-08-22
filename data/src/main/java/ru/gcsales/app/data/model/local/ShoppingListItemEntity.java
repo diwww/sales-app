@@ -8,6 +8,8 @@ import android.arch.persistence.room.Ignore;
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 /**
+ * Shopping list item many-to-many relation.
+ *
  * @author Maxim Surovtsev
  * Created on 8/13/18
  */

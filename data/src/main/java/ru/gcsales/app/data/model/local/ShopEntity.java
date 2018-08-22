@@ -5,6 +5,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
+ * Shop entity.
+ *
  * @author Maxim Surovtsev
  * Created on 8/12/18
  */

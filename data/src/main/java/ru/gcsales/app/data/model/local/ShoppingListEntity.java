@@ -5,6 +5,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
+ * Shopping list entity.
+ *
  * @author Maxim Surovtsev
  * Created on 8/13/18
  */
