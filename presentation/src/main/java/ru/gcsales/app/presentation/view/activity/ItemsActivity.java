@@ -38,7 +38,6 @@ public class ItemsActivity extends MvpAppCompatActivity implements ItemsView, On
     @InjectPresenter
     ItemsPresenter mItemsPresenter;
 
-    // ProductItem list views
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.recycler_view_products) RecyclerView mRecyclerView;
     @BindView(R.id.progress_bar) ProgressBar mProgressBar;
@@ -113,7 +112,6 @@ public class ItemsActivity extends MvpAppCompatActivity implements ItemsView, On
     @Override
     public void addItems(List<ItemViewModel> items) {
         mItemsAdapter.addData(items);
-        Toast.makeText(this, "Count: " + mItemsAdapter.getItemCount(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

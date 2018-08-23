@@ -7,7 +7,6 @@ import com.arellomobile.mvp.MvpPresenter;
 import javax.inject.Inject;
 
 import io.reactivex.observers.DisposableObserver;
-import io.reactivex.observers.DisposableSingleObserver;
 import ru.gcsales.app.presentation.AppApplication;
 import ru.gcsales.app.domain.interactor.Login;
 import ru.gcsales.app.presentation.view.LoginView;
@@ -40,19 +39,18 @@ public class LoginPresenter extends MvpPresenter<LoginView> {
 
         @Override
         public void onNext(String s) {
-            // TODO: пофиксить (может не работать)
-            getViewState().showToken(s);
             getViewState().onSuccessLogin();
         }
 
         @Override
         public void onError(Throwable e) {
+            getViewState().hideProgress();
             getViewState().showError(e.getMessage());
         }
 
         @Override
         public void onComplete() {
-
+            getViewState().hideProgress();
         }
     }
 }

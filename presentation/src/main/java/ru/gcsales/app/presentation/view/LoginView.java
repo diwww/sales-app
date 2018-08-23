@@ -14,7 +14,5 @@ public interface LoginView extends MvpView {
 
     void hideProgress();
 
-    void showToken(String token);
-
     void onSuccessLogin();
 }

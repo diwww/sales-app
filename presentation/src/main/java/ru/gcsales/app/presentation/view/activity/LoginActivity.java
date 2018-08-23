@@ -4,8 +4,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
@@ -22,13 +24,11 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginView {
     @InjectPresenter
     LoginPresenter mLoginPresenter;
 
-    // FIXME: temporary
-    private ProgressDialog mProgressDialog;
-
     @BindView(R.id.button_login) Button mLoginButton;
     @BindView(R.id.button_register) Button mRegisterButton;
     @BindView(R.id.edit_text_username) EditText mUsernameEditText;
     @BindView(R.id.edit_text_password) EditText mPasswordEditText;
+    @BindView(R.id.progress_bar) ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +45,6 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginView {
         mRegisterButton.setOnClickListener(v -> {
             // TODO: start RegisterActivity
         });
-
-        mProgressDialog = new ProgressDialog(this);
-        mProgressDialog.setTitle(getString(R.string.login_progress_text));
     }
 
     @Override
@@ -57,17 +54,18 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginView {
 
     @Override
     public void showProgress() {
-        mProgressDialog.show();
+        mProgressBar.setVisibility(View.VISIBLE);
+        mLoginButton.setVisibility(View.GONE);
+        mUsernameEditText.setEnabled(false);
+        mPasswordEditText.setEnabled(false);
     }
 
     @Override
     public void hideProgress() {
-        mProgressDialog.hide();
-    }
-
-    @Override
-    public void showToken(String token) {
-        Toast.makeText(this, token, Toast.LENGTH_SHORT).show();
+        mProgressBar.setVisibility(View.GONE);
+        mLoginButton.setVisibility(View.VISIBLE);
+        mUsernameEditText.setEnabled(true);
+        mPasswordEditText.setEnabled(true);
     }
 
     @Override
