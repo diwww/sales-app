@@ -33,7 +33,7 @@ dependencies {
     implementation presentationDependencies.rxAndroid
 
     implementation presentationDependencies.appCompat
-    implementation presentationDependencies.supportV4
+//    implementation presentationDependencies.supportV4
     implementation presentationDependencies.constraintLayout
     implementation presentationDependencies.recyclerView
     implementation presentationDependencies.cardView

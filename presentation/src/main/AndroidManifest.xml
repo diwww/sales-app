@@ -25,7 +25,7 @@
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".presentation.view.activity.ItemsActivity" />
         <activity android:name=".presentation.view.activity.ShoppingListActivity" />
-        <activity android:name=".presentation.view.activity.CategoriesActivity"></activity>
+        <activity android:name=".presentation.view.activity.CategoriesActivity" />
     </application>
 
 </manifest>

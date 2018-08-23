@@ -13,6 +13,10 @@ import ru.gcsales.app.presentation.model.ShoppingListViewModel;
  */
 public interface ShoppingListView extends MvpView {
 
+    void showProgress();
+
+    void hideProgress();
+
     void setData(ShoppingListViewModel shoppingList);
 
     void deleteItem(ItemViewModel item);

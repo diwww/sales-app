@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
@@ -35,6 +37,7 @@ public class ShoppingListActivity extends MvpAppCompatActivity
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.text_total_price) TextView mTotalPriceTextView;
     @BindView(R.id.recycler_view_items) RecyclerView mRecyclerView;
+    @BindView(R.id.progress_bar) ProgressBar mProgressBar;
 
     LinearLayoutManager mLinearLayoutManager;
     ItemsAdapter mItemsAdapter;
@@ -64,6 +67,16 @@ public class ShoppingListActivity extends MvpAppCompatActivity
         mShoppingListPresenter.loadData();
     }
 
+
+    @Override
+    public void showProgress() {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        mProgressBar.setVisibility(View.GONE);
+    }
 
     @Override
     public void setData(ShoppingListViewModel shoppingList) {

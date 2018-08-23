@@ -6,6 +6,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--Base styles-->
+
     <style name="Toolbar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
@@ -13,59 +15,9 @@
         <item name="android:background">?attr/colorPrimary</item>
     </style>
 
-    <style name="CardProductItem" parent="CardView">
-        <item name="android:layout_marginStart">8dp</item>
-        <item name="android:layout_marginTop">4dp</item>
-        <item name="android:layout_marginBottom">4dp</item>
-        <item name="android:layout_marginEnd">8dp</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">144dp</item>
-        <item name="cardCornerRadius">4dp</item>
-        <item name="contentPadding">8dp</item>
-    </style>
-
-    <style name="CardCustomItem" parent="CardView">
-        <item name="android:layout_marginStart">8dp</item>
-        <item name="android:layout_marginTop">4dp</item>
-        <item name="android:layout_marginBottom">4dp</item>
-        <item name="android:layout_marginEnd">8dp</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">144dp</item>
-        <item name="cardCornerRadius">4dp</item>
-        <item name="contentPadding">8dp</item>
-    </style>
-
-    <style name="CardShoppingListPreview" parent="CardView">
-        <item name="android:layout_marginStart">8dp</item>
-        <item name="android:layout_marginTop">4dp</item>
-        <item name="android:layout_marginBottom">4dp</item>
-        <item name="android:layout_marginEnd">8dp</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">96dp</item>
-        <item name="cardCornerRadius">4dp</item>
-        <item name="contentPadding">16dp</item>
-    </style>
-
-    <style name="CardShop" parent="CardView">
-        <item name="android:layout_marginStart">4dp</item>
-        <item name="android:layout_marginTop">4dp</item>
-        <item name="android:layout_marginBottom">4dp</item>
-        <item name="android:layout_marginEnd">4dp</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">200dp</item>
-        <item name="cardCornerRadius">4dp</item>
-        <item name="contentPadding">16dp</item>
-    </style>
-
-    <style name="CardCategory" parent="CardView">
-        <item name="android:layout_marginStart">4dp</item>
-        <item name="android:layout_marginTop">4dp</item>
-        <item name="android:layout_marginBottom">4dp</item>
-        <item name="android:layout_marginEnd">4dp</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">72dp</item>
-        <item name="cardCornerRadius">4dp</item>
-        <item name="contentPadding">16dp</item>
+    <style name="TextView">
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
     </style>
 
     <style name="ProgressBar" parent="Widget.AppCompat.ProgressBar">
@@ -73,34 +25,122 @@
         <item name="android:layout_height">48dp</item>
     </style>
 
-    <!--TODO: разобраться с цветами текста и где их объявлять-->
-    <!--Font size styles-->
-    <style name="TextProductName">
-        <item name="android:textSize">16sp</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:text">@string/undefined_text</item>
+    <style name="Card" parent="CardView">
+        <item name="cardCornerRadius">4dp</item>
     </style>
 
-    <style name="TextProductCategory">
-        <item name="android:textSize">14sp</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:text">@string/undefined_text</item>
+    <!--Item styles-->
+
+    <style name="Card.Item">
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">144dp</item>
+        <item name="contentPadding">8dp</item>
     </style>
 
-    <style name="TextShoppingListPreviewName">
-        <item name="android:ellipsize">end</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:text">@string/undefined_text</item>
-        <item name="android:textSize">24sp</item>
+    <style name="TextView.Item" />
+
+    <style name="TextView.Item.Name">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Subhead</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
     </style>
 
-    <style name="TextShopName">
-        <item name="android:textSize">16sp</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:text">@string/undefined_text</item>
+    <style name="TextView.Item.Category">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <style name="TextView.Item.OldPrice">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <style name="TextView.Item.NewPrice">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body2</item>
+        <item name="android:textColor">@color/textColorAccent</item>
+    </style>
+
+    <style name="TextView.Item.Date">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Caption</item>
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <!--Shop styles-->
+
+    <style name="Card.Shop">
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:layout_marginEnd">4dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">200dp</item>
+        <item name="contentPadding">16dp</item>
+    </style>
+
+    <style name="TextView.Shop" />
+
+    <style name="TextView.Shop.Name">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Subhead</item>
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <!--Category styles-->
+
+    <style name="Card.Category">
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">96dp</item>
+        <item name="contentPadding">16dp</item>
+    </style>
+
+    <style name="TextView.Category" />
+
+    <style name="TextView.Category.Name">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+        <item name="android:fontFamily">"sans-serif"</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textColor">@color/textColorSecondary</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!--Shopping list styles-->
+
+    <style name="Card.ShoppingList">
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">96dp</item>
+        <item name="contentPadding">16dp</item>
+    </style>
+
+    <style name="TextView.ShoppingList" />
+
+    <style name="TextView.ShoppingList.Name">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+        <item name="android:fontFamily">"sans-serif"</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textColor">@color/textColorSecondary</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TextView.ShoppingList.Total">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body2</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="TextView.ShoppingList.Picker">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+        <item name="android:textColor">@color/textColorSecondary</item>
+        <item name="android:fontFamily">"sans-serif"</item>
+        <item name="android:padding">8dp</item>
     </style>
 
 </resources>

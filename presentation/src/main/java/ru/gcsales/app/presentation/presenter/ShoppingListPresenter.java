@@ -43,6 +43,7 @@ public class ShoppingListPresenter extends MvpPresenter<ShoppingListView> {
     }
 
     public void loadData() {
+        getViewState().showProgress();
         mGetShoppingList.execute(new GetShoppingListObserver(), GetShoppingList.Params.forShoppingList(mShoppingListId));
     }
 
@@ -65,7 +66,7 @@ public class ShoppingListPresenter extends MvpPresenter<ShoppingListView> {
 
         @Override
         public void onComplete() {
-
+            getViewState().hideProgress();
         }
     }
 

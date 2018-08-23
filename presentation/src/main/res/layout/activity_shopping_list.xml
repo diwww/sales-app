@@ -7,7 +7,6 @@
     android:fitsSystemWindows="true"
     tools:context=".presentation.view.activity.ShoppingListActivity">
 
-
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,20 +19,23 @@
 
         <TextView
             android:id="@+id/text_total_price"
+            style="@style/TextView.ShoppingList.Total"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#fff"
-            android:maxLines="1"
-            android:padding="4dp"
-            android:textColor="#777" />
+            android:layout_height="wrap_content" />
 
     </android.support.design.widget.AppBarLayout>
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/ProgressBar"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="4dp"
         android:id="@+id/recycler_view_items"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="4dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </android.support.design.widget.CoordinatorLayout>
