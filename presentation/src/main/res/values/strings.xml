@@ -1,14 +1,13 @@
 <resources>
     <string name="app_name">gcSales</string>
-    <string name="login_username_hint">Username</string>
-    <string name="login_password_hint">Password</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
     <string name="action_login">Login</string>
     <string name="action_register">Register</string>
     <string name="action_log_out">Log out</string>
     <string name="undefined_text">undefined</string>
     <string name="shops_tab_title">Shops</string>
     <string name="shopping_lists_tab_title">Shopping lists</string>
-    <string name="hundred_text">100</string>
     <string name="login_progress_text">Logging in</string>
     <string name="new_shopping_list_text">New Shopping List</string>
     <string name="shopping_list_name_hint">Name</string>
