@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import ru.gcsales.app.domain.model.ShoppingList;
-import ru.gcsales.app.presentation.model.ItemViewModel;
 import ru.gcsales.app.presentation.model.ShoppingListViewModel;
 
 /**
@@ -14,8 +13,14 @@ import ru.gcsales.app.presentation.model.ShoppingListViewModel;
  */
 public class ShoppingListViewModelMapper {
 
-    ItemViewModelMapper mMapper = new ItemViewModelMapper();
+    private ItemViewModelMapper mMapper = new ItemViewModelMapper();
 
+    /**
+     * Transforms a single model.
+     *
+     * @param shoppingList domain model
+     * @return view model
+     */
     public ShoppingListViewModel transform(ShoppingList shoppingList) {
         ShoppingListViewModel shoppingListViewModel = null;
 
@@ -29,6 +34,12 @@ public class ShoppingListViewModelMapper {
         return shoppingListViewModel;
     }
 
+    /**
+     * Transforms a list of models.
+     *
+     * @param shoppingLists domain model list
+     * @return view model list
+     */
     public List<ShoppingListViewModel> transform(List<ShoppingList> shoppingLists) {
         List<ShoppingListViewModel> shoppingListViewModels;
 

@@ -119,6 +119,7 @@ public class ItemsAdapter extends RecyclerView.Adapter {
         @BindView(R.id.text_category) TextView mCategoryTextView;
         @BindView(R.id.text_old_price) TextView mOldPriceTextView;
         @BindView(R.id.text_new_price) TextView mNewPriceTextView;
+        @BindView(R.id.text_date) TextView mDateTextView;
         @BindView(R.id.button_action) ImageButton mActionButton;
 
         public ItemViewHolder(View itemView) {
@@ -134,6 +135,7 @@ public class ItemsAdapter extends RecyclerView.Adapter {
             mOldPriceTextView.setPaintFlags(mOldPriceTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             mOldPriceTextView.setText(String.format(Locale.getDefault(), "%.2f", item.getOldPrice()));
             mNewPriceTextView.setText(String.format(Locale.getDefault(), "%.2f", item.getNewPrice()));
+            mDateTextView.setText(context.getString(R.string.date_till, item.getDateOut()));
             Glide.with(context)
                     .load(item.getImageUrl())
                     .into(mImageView);

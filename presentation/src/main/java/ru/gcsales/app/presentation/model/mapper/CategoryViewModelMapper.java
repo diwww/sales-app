@@ -8,11 +8,19 @@ import ru.gcsales.app.domain.model.Category;
 import ru.gcsales.app.presentation.model.CategoryViewModel;
 
 /**
+ * Mapper from category domain model to category view model.
+ *
  * @author Maxim Surovtsev
  * Created on 8/22/18
  */
 public class CategoryViewModelMapper {
 
+    /**
+     * Transforms a single model.
+     *
+     * @param category domain model
+     * @return view model
+     */
     public CategoryViewModel transform(Category category) {
         CategoryViewModel categoryViewModel = null;
 
@@ -23,6 +31,12 @@ public class CategoryViewModelMapper {
         return categoryViewModel;
     }
 
+    /**
+     * Transforms a list of models.
+     *
+     * @param categories domain model list
+     * @return view model list
+     */
     public List<CategoryViewModel> transform(List<Category> categories) {
 
         List<CategoryViewModel> categoryViewModels;

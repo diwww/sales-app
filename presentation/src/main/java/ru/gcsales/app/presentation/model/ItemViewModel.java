@@ -1,6 +1,8 @@
 package ru.gcsales.app.presentation.model;
 
 /**
+ * Item view model.
+ *
  * @author Maxim Surovtsev
  * Created on 8/18/18
  */

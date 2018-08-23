@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import io.reactivex.observers.DisposableObserver;
 import ru.gcsales.app.domain.interactor.CheckLogin;
 import ru.gcsales.app.domain.interactor.Logout;
-import ru.gcsales.app.domain.repository.AuthRepository;
 import ru.gcsales.app.presentation.AppApplication;
 import ru.gcsales.app.presentation.view.HomeView;
 

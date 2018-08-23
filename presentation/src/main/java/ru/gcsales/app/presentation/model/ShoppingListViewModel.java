@@ -3,6 +3,8 @@ package ru.gcsales.app.presentation.model;
 import java.util.List;
 
 /**
+ * Shopping list view model.
+ *
  * @author Maxim Surovtsev
  * Created on 8/19/18
  */

@@ -1,6 +1,7 @@
 package ru.gcsales.app.presentation.model;
 
 /**
+ * Progress view model.
  * Class which indicates that progress bar is inserted
  * into recycler view.
  *

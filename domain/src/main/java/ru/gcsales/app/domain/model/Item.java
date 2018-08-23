@@ -1,6 +1,8 @@
 package ru.gcsales.app.domain.model;
 
 
+import java.util.Date;
+
 /**
  * Item domain model.
  *
@@ -14,8 +16,8 @@ public class Item {
     private String category;
     private double oldPrice;
     private double newPrice;
-    private String dateIn;
-    private String dateOut;
+    private Date dateIn;
+    private Date dateOut;
     private String crawlDate;
     private String condition;
     private String imageUrl;
@@ -62,19 +64,19 @@ public class Item {
         this.newPrice = newPrice;
     }
 
-    public String getDateIn() {
+    public Date getDateIn() {
         return dateIn;
     }
 
-    public void setDateIn(String dateIn) {
+    public void setDateIn(Date dateIn) {
         this.dateIn = dateIn;
     }
 
-    public String getDateOut() {
+    public Date getDateOut() {
         return dateOut;
     }
 
-    public void setDateOut(String dateOut) {
+    public void setDateOut(Date dateOut) {
         this.dateOut = dateOut;
     }
 

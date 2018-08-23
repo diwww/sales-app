@@ -1,6 +1,8 @@
 package ru.gcsales.app.presentation.model;
 
 /**
+ * Category view model.
+ *
  * @author Maxim Surovtsev
  * Created on 8/22/18
  */

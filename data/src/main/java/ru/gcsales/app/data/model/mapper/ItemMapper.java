@@ -1,8 +1,13 @@
 package ru.gcsales.app.data.model.mapper;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import ru.gcsales.app.data.model.local.ItemEntity;
 import ru.gcsales.app.data.model.local.ItemWithShop;
@@ -64,12 +69,22 @@ public class ItemMapper {
             item.setImageUrl(itemWithShop.getItemEntity().getImageUrl());
             item.setCondition(itemWithShop.getItemEntity().getCondition());
             item.setCrawlDate(itemWithShop.getItemEntity().getCrawlDate());
-            item.setDateIn(itemWithShop.getItemEntity().getDateIn());
-            item.setDateOut(itemWithShop.getItemEntity().getDateOut());
             item.setDiscount(itemWithShop.getItemEntity().getDiscount());
             item.setOldPrice(itemWithShop.getItemEntity().getOldPrice());
             item.setNewPrice(itemWithShop.getItemEntity().getNewPrice());
 
+            // Cast string to date using date format
+            try {
+                DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+                Date dateIn = format.parse(itemWithShop.getItemEntity().getDateIn());
+                Date dateOut = format.parse(itemWithShop.getItemEntity().getDateOut());
+                item.setDateIn(dateIn);
+                item.setDateOut(dateOut);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            // Set shop
             Shop shop = new Shop();
             shop.setId(itemWithShop.getItemEntity().getShopId());
             shop.setName(itemWithShop.getShopName());
