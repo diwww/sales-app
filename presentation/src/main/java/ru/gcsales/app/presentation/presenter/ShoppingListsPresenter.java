@@ -31,10 +31,15 @@ public class ShoppingListsPresenter extends MvpPresenter<ShoppingListsView> {
     @Inject
     DeleteShoppingList mDeleteShoppingList;
 
-    ShoppingListViewModelMapper mShoppingListViewModelMapper = new ShoppingListViewModelMapper();
+    private ShoppingListViewModelMapper mShoppingListViewModelMapper = new ShoppingListViewModelMapper();
 
     public ShoppingListsPresenter() {
         AppApplication.getApplicationComponent().inject(this);
+    }
+
+    @Override
+    protected void onFirstViewAttach() {
+        loadData();
     }
 
     @Override

@@ -30,6 +30,11 @@ public class HomePresenter extends MvpPresenter<HomeView> {
     }
 
     @Override
+    protected void onFirstViewAttach() {
+        checkLogin();
+    }
+
+    @Override
     public void onDestroy() {
         mLogout.dispose();
         mCheckLogin.dispose();

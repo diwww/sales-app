@@ -24,7 +24,6 @@ public class ShoppingListPresenter extends MvpPresenter<ShoppingListView> {
 
     @Inject
     GetShoppingList mGetShoppingList;
-
     @Inject
     DeleteItem mDeleteItem;
 
@@ -34,6 +33,11 @@ public class ShoppingListPresenter extends MvpPresenter<ShoppingListView> {
     public ShoppingListPresenter(long shoppingListId) {
         mShoppingListId = shoppingListId;
         AppApplication.getApplicationComponent().inject(this);
+    }
+
+    @Override
+    protected void onFirstViewAttach() {
+        loadData();
     }
 
     @Override
@@ -92,6 +96,5 @@ public class ShoppingListPresenter extends MvpPresenter<ShoppingListView> {
         public void onComplete() {
 
         }
-
     }
 }

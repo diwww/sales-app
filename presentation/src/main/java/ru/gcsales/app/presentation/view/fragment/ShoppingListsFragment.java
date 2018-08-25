@@ -77,12 +77,6 @@ public class ShoppingListsFragment extends MvpAppCompatFragment
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mShoppingListsPresenter.loadData();
-    }
-
-    @Override
     public void setData(List<ShoppingListViewModel> data) {
         mShoppingListsAdapter.setData(data);
     }

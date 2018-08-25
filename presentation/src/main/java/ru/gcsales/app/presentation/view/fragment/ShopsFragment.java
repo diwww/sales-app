@@ -51,12 +51,6 @@ public class ShopsFragment extends MvpAppCompatFragment implements ShopsView {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mShopsPresenter.loadShops();
-    }
-
-    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mShopsPresenter.loadShops();

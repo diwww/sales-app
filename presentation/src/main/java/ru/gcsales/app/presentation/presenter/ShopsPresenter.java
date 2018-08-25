@@ -31,17 +31,22 @@ public class ShopsPresenter extends MvpPresenter<ShopsView> {
         AppApplication.getApplicationComponent().inject(this);
     }
 
+    @Override
+    protected void onFirstViewAttach() {
+        loadShops();
+    }
+
+    @Override
+    public void onDestroy() {
+        mGetShops.dispose();
+    }
+
     /**
      * Downloads shops from repository.
      */
     public void loadShops() {
         getViewState().showProgress();
         mGetShops.execute(new ShopsObserver(), null);
-    }
-
-    @Override
-    public void onDestroy() {
-        mGetShops.dispose();
     }
 
     private final class ShopsObserver extends DisposableObserver<List<Shop>> {

@@ -65,8 +65,6 @@ public class CategoriesActivity extends MvpAppCompatActivity implements Categori
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mCategoriesAdapter = new CategoriesAdapter(this);
         mRecyclerView.setAdapter(mCategoriesAdapter);
-
-        mCategoriesPresenter.loadCategories();
     }
 
     @Override

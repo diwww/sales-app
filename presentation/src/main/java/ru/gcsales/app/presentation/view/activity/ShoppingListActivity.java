@@ -63,8 +63,6 @@ public class ShoppingListActivity extends MvpAppCompatActivity
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mItemsAdapter = new ItemsAdapter(this, R.drawable.ic_remove_black_24dp);
         mRecyclerView.setAdapter(mItemsAdapter);
-
-        mShoppingListPresenter.loadData();
     }
 
 

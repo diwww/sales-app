@@ -45,7 +45,6 @@ public class ItemsPresenter extends MvpPresenter<ItemsView> {
     private boolean mLoading = false;
     // If the last page is loaded
     private boolean mEnd = false;
-
     private ItemViewModelMapper mItemViewModelMapper = new ItemViewModelMapper();
     private ShoppingListViewModelMapper mShoppingListViewModelMapper = new ShoppingListViewModelMapper();
 
@@ -56,12 +55,17 @@ public class ItemsPresenter extends MvpPresenter<ItemsView> {
     }
 
     @Override
+    protected void onFirstViewAttach() {
+        loadNextPageProducts();
+        loadShoppingLists();
+    }
+
+    @Override
     public void onDestroy() {
         mGetItems.dispose();
         mAddItem.dispose();
         mGetShoppingLists.dispose();
     }
-
 
     /**
      * Downloads shopping lists.

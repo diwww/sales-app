@@ -25,12 +25,21 @@ public class CategoriesPresenter extends MvpPresenter<CategoriesView> {
     GetCategories mGetCategories;
 
     private long mShopId;
-
     private CategoryViewModelMapper mMapper = new CategoryViewModelMapper();
 
     public CategoriesPresenter(long shopId) {
         AppApplication.getApplicationComponent().inject(this);
         mShopId = shopId;
+    }
+
+    @Override
+    protected void onFirstViewAttach() {
+        loadCategories();
+    }
+
+    @Override
+    public void onDestroy() {
+        mGetCategories.dispose();
     }
 
     public void loadCategories() {

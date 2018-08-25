@@ -38,7 +38,6 @@ public class HomeActivity extends MvpAppCompatActivity implements HomeView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        mHomePresenter.checkLogin();
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
         initTabs();

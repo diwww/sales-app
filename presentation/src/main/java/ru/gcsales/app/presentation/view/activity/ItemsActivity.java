@@ -69,9 +69,6 @@ public class ItemsActivity extends MvpAppCompatActivity implements ItemsView, On
         mItemsAdapter = new ItemsAdapter(this, R.drawable.ic_add_black_24dp);
         mRecyclerView.setAdapter(mItemsAdapter);
         setOnScrollListener();
-
-        mItemsPresenter.loadShoppingLists();
-        mItemsPresenter.loadNextPageProducts();
     }
 
     @Override
