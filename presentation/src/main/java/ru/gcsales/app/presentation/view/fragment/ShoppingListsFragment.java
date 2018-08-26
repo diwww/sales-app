@@ -1,29 +1,17 @@
 package ru.gcsales.app.presentation.view.fragment;
 
 
-import android.content.Context;
-import android.content.DialogInterface;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.InputType;
-import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.FrameLayout.LayoutParams;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -33,18 +21,19 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
-import ru.gcsales.app.domain.model.ShoppingList;
 import ru.gcsales.app.presentation.model.ShoppingListViewModel;
 import ru.gcsales.app.presentation.presenter.ShoppingListsPresenter;
 import ru.gcsales.app.presentation.view.ShoppingListsView;
 import ru.gcsales.app.presentation.view.activity.ShoppingListActivity;
 import ru.gcsales.app.presentation.view.adapter.ShoppingListsAdapter;
 import ru.gcsales.app.presentation.view.adapter.ShoppingListsAdapter.*;
+import ru.gcsales.app.presentation.view.fragment.dialog.CreateShoppingListDialog;
 
 
 public class ShoppingListsFragment extends MvpAppCompatFragment
         implements ShoppingListsView, OnItemClickListener, OnItemLongClickListener {
 
+    public static final int REQUEST_NAME = 1;
     @InjectPresenter
     ShoppingListsPresenter mShoppingListsPresenter;
 
@@ -67,13 +56,11 @@ public class ShoppingListsFragment extends MvpAppCompatFragment
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_NAME) {
+            String name = data.getStringExtra(CreateShoppingListDialog.EXTRA_NAME);
+            mShoppingListsPresenter.addShoppingList(name);
+        }
     }
 
     @Override
@@ -113,70 +100,7 @@ public class ShoppingListsFragment extends MvpAppCompatFragment
 
     @Override
     public void onLongClick(ShoppingListViewModel model) {
-        showRemoveDialog(model);
-    }
-
-    private void showAddDialog() {
-        Context context = getActivity();
-
-        EditText editText = new EditText(context);
-        editText.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-        editText.setHint(R.string.shopping_list_name_hint);
-        editText.setInputType(InputType.TYPE_CLASS_TEXT);
-        editText.setMaxLines(1);
-        editText.setImeOptions(EditorInfo.IME_ACTION_DONE);
-
-        FrameLayout frameLayout = new FrameLayout(context);
-        // Set 16dp padding
-        float scale = getResources().getDisplayMetrics().density;
-        int padding16dp = (int) (16 * scale + 0.5f);
-        frameLayout.setPadding(padding16dp, padding16dp, padding16dp, padding16dp);
-        // Add editText to layout
-        frameLayout.addView(editText);
-
-        AlertDialog dialog = new AlertDialog.Builder(context)
-                .setTitle(R.string.new_shopping_list_text)
-                .setView(frameLayout)
-                .setPositiveButton(R.string.ok_button_text, (d, w) -> {
-                    mShoppingListsPresenter.addShoppingList(editText.getText().toString());
-                })
-                .create();
-
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (TextUtils.isEmpty(s)) {
-                    dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
-                } else {
-                    dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(true);
-                }
-            }
-        });
-
-        editText.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE && v.getText().length() > 0) {
-                dialog.getButton(DialogInterface.BUTTON_POSITIVE).performClick();
-            } else {
-                dialog.dismiss();
-            }
-            return false;
-        });
-
-
-        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        dialog.show();
-        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(false);
-    }
-
-    private void showRemoveDialog(ShoppingListViewModel model) {
+        // Build and show "remove confirmation" dialog
         AlertDialog dialog = new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.delete_shopping_list_prompt)
                 .setNegativeButton(R.string.cancel_button_text, null)
@@ -187,8 +111,14 @@ public class ShoppingListsFragment extends MvpAppCompatFragment
         dialog.show();
     }
 
-    public void addShoppingList() {
-        showAddDialog();
+    /**
+     * Invokes "create shopping list" dialog
+     */
+    public void createShoppingList() {
+        // Show "create new shopping list" dialog
+        CreateShoppingListDialog fragment = CreateShoppingListDialog.newInstance();
+        fragment.setTargetFragment(this, REQUEST_NAME);
+        fragment.show(getFragmentManager(), "add-dialog");
     }
 
     /**

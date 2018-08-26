@@ -43,7 +43,7 @@ public class HomeActivity extends MvpAppCompatActivity implements HomeView {
         initTabs();
         mFloatingActionButton.setOnClickListener(v -> {
             ShoppingListsFragment fragment = (ShoppingListsFragment) mViewPagerAdapter.getRegisteredFragment(1);
-            fragment.addShoppingList();
+            fragment.createShoppingList();
         });
     }
 

@@ -106,7 +106,6 @@ public class ShoppingListsPresenter extends MvpPresenter<ShoppingListsView> {
 
         @Override
         public void onNext(String s) {
-
         }
 
         @Override
