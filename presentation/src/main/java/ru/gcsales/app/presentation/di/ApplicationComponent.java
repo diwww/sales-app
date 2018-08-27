@@ -10,6 +10,7 @@ import ru.gcsales.app.presentation.presenter.CategoriesPresenter;
 import ru.gcsales.app.presentation.presenter.HomePresenter;
 import ru.gcsales.app.presentation.presenter.LoginPresenter;
 import ru.gcsales.app.presentation.presenter.ItemsPresenter;
+import ru.gcsales.app.presentation.presenter.RegisterPresenter;
 import ru.gcsales.app.presentation.presenter.ShoppingListPresenter;
 import ru.gcsales.app.presentation.presenter.ShoppingListsPresenter;
 import ru.gcsales.app.presentation.presenter.ShopsPresenter;
@@ -18,11 +19,14 @@ import ru.gcsales.app.presentation.presenter.ShopsPresenter;
 @Component(modules = {ApplicationModule.class, RepositoryModule.class,
         NetworkModule.class, DatabaseModule.class})
 public interface ApplicationComponent {
+
+    void inject(LoginPresenter presenter);
+
+    void inject(RegisterPresenter presenter);
+
     void inject(ShopsPresenter presenter);
 
     void inject(ItemsPresenter presenter);
-
-    void inject(LoginPresenter presenter);
 
     void inject(ShoppingListsPresenter presenter);
 

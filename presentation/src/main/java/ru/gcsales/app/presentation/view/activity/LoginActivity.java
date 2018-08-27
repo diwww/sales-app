@@ -43,7 +43,7 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginView {
             mLoginPresenter.login(username, password);
         });
         mRegisterButton.setOnClickListener(v -> {
-            // TODO: start RegisterActivity
+            startActivity(RegisterActivity.newIntent(this));
         });
     }
 
@@ -74,6 +74,12 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginView {
         finish();
     }
 
+    /**
+     * Creates new intent.
+     *
+     * @param context context
+     * @return new intent instance
+     */
     public static Intent newIntent(Context context) {
         return new Intent(context, LoginActivity.class);
     }

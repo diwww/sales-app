@@ -25,6 +25,15 @@ public interface AuthService {
     Single<String> login(@Body UserInfo userInfo);
 
     /**
+     * Performs register
+     *
+     * @param userInfo username and password body
+     * @return result, e.g. "OK"
+     */
+    @POST("register")
+    Single<String> register(@Body UserInfo userInfo);
+
+    /**
      * Request body to perform login and register.
      */
     class UserInfo {

@@ -1,36 +1,28 @@
 package ru.gcsales.app.domain.interactor;
 
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.Single;
 import ru.gcsales.app.domain.executor.PostExecutionThread;
 import ru.gcsales.app.domain.repository.AuthRepository;
 
 /**
- * Use case for logging in and getting auth token.
- *
  * @author Maxim Surovtsev
- * Created on 8/7/18
+ * Created on 8/27/18
  */
-public class Login extends UseCase<String, Login.Params> {
+public class Register extends UseCase<String, Register.Params> {
 
     private AuthRepository mAuthRepository;
 
     @Inject
-    public Login(AuthRepository authRepository, PostExecutionThread postExecutionThread) {
+    public Register(AuthRepository authRepository, PostExecutionThread postExecutionThread) {
         super(postExecutionThread);
         mAuthRepository = authRepository;
     }
 
     @Override
     Observable<String> buildObservable(Params params) {
-        return mAuthRepository.login(params.username, params.password)
-                .doOnNext(res -> mAuthRepository.setToken(res));
+        return mAuthRepository.register(params.username, params.password);
     }
 
     /**

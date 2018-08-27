@@ -21,10 +21,12 @@ public interface AuthRepository extends TokenRepository {
 
     /**
      * Performs register
+     *
      * @param username username
      * @param password password
+     * @return response, e.g. "OK"
      */
-    void register(String username, String password);
+    Observable<String> register(String username, String password);
 
     /**
      * Performs logout.

@@ -3,6 +3,9 @@ package ru.gcsales.app.data.repository;
 
 import android.content.Context;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import io.reactivex.Observable;
 import ru.gcsales.app.data.service.AuthService;
 import ru.gcsales.app.domain.repository.AuthRepository;
@@ -31,12 +34,24 @@ public class AuthRepositoryImpl extends TokenRepositoryImpl implements AuthRepos
      * @return {@link Observable} of JWT token string
      */
     public Observable<String> login(String username, String password) {
-        return mAuthService.login(new AuthService.UserInfo(username, password)).toObservable();
+        try {
+            String hashedPassword = sha256(password);
+            return mAuthService.login(new AuthService.UserInfo(username, hashedPassword)).toObservable();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return Observable.error(e);
+        }
     }
 
     @Override
-    public void register(String username, String password) {
-
+    public Observable<String> register(String username, String password) {
+        try {
+            String hashedPassword = sha256(password);
+            return mAuthService.register(new AuthService.UserInfo(username, hashedPassword)).toObservable();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return Observable.error(e);
+        }
     }
 
     @Override
@@ -48,5 +63,17 @@ public class AuthRepositoryImpl extends TokenRepositoryImpl implements AuthRepos
     @Override
     public Observable<Boolean> checkLogin() {
         return Observable.just(getToken() != null);
+    }
+
+
+    private String sha256(String input) throws NoSuchAlgorithmException {
+        MessageDigest mDigest = MessageDigest.getInstance("SHA256");
+        byte[] result = mDigest.digest(input.getBytes());
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < result.length; i++) {
+            sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
+        }
+
+        return sb.toString();
     }
 }

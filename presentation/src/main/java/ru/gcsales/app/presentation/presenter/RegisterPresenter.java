@@ -3,44 +3,39 @@ package ru.gcsales.app.presentation.presenter;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
-
 import javax.inject.Inject;
 
 import io.reactivex.observers.DisposableObserver;
+import ru.gcsales.app.domain.interactor.Register;
 import ru.gcsales.app.presentation.AppApplication;
-import ru.gcsales.app.domain.interactor.Login;
-import ru.gcsales.app.presentation.view.LoginView;
+import ru.gcsales.app.presentation.view.RegisterView;
 
 /**
- * Login presenter.
+ * Register presenter.
  *
  * @author Maxim Surovtsev
- * Created on 8/7/18
+ * Created on 8/27/18
  */
 @InjectViewState
-public class LoginPresenter extends MvpPresenter<LoginView> {
+public class RegisterPresenter extends MvpPresenter<RegisterView> {
 
     @Inject
-    Login mLogin;
+    Register mRegister;
 
-    public LoginPresenter() {
+    public RegisterPresenter() {
         AppApplication.getApplicationComponent().inject(this);
     }
 
-    @Override
-    public void onDestroy() {
-        mLogin.dispose();
-    }
-
-    public void login(String username, String password) {
+    public void register(String username, String password) {
         getViewState().showProgress();
-        mLogin.execute(new LoginObserver(), Login.Params.get(username, password));
+        mRegister.execute(new RegisterObserver(), Register.Params.get(username, password));
     }
 
-    private final class LoginObserver extends DisposableObserver<String> {
+    private class RegisterObserver extends DisposableObserver<String> {
 
         @Override
         public void onNext(String s) {
+
         }
 
         @Override
@@ -52,7 +47,7 @@ public class LoginPresenter extends MvpPresenter<LoginView> {
         @Override
         public void onComplete() {
             getViewState().hideProgress();
-            getViewState().onSuccessLogin();
+            getViewState().onSuccessRegister();
         }
     }
 }

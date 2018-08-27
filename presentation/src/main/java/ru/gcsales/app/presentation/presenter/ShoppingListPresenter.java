@@ -16,6 +16,8 @@ import ru.gcsales.app.presentation.view.ShoppingListView;
 import ru.gcsales.app.presentation.model.ItemViewModel;
 
 /**
+ * Shopping list presenter.
+ *
  * @author Maxim Surovtsev
  * Created on 8/14/18
  */

@@ -40,6 +40,7 @@ dependencies {
     implementation presentationDependencies.design
 
     implementation presentationDependencies.glide
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     annotationProcessor presentationDependencies.glideCompiler
 
     implementation presentationDependencies.moxy

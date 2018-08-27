@@ -18,6 +18,8 @@ import ru.gcsales.app.presentation.model.mapper.ShoppingListViewModelMapper;
 import ru.gcsales.app.presentation.view.ShoppingListsView;
 
 /**
+ * Shopping lists presenter.
+ *
  * @author Maxim Surovtsev
  * Created on 8/8/18
  */
