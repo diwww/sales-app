@@ -52,7 +52,11 @@ public abstract class UseCase<T, P> {
         addDisposable(observable.subscribeWith(observer));
     }
 
-    private void addDisposable(Disposable disposable) {
+    public PostExecutionThread getPostExecutionThread() {
+        return mPostExecutionThread;
+    }
+
+    protected void addDisposable(Disposable disposable) {
         mCompositeDisposable.add(disposable);
     }
 

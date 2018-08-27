@@ -40,6 +40,10 @@ public class HomeActivity extends MvpAppCompatActivity implements HomeView {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
+
+        // Check login before loading authorized data
+        mHomePresenter.checkLogin();
+
         initTabs();
         mFloatingActionButton.setOnClickListener(v -> {
             ShoppingListsFragment fragment = (ShoppingListsFragment) mViewPagerAdapter.getRegisteredFragment(1);

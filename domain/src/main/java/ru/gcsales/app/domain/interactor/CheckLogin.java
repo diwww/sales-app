@@ -1,8 +1,10 @@
 package ru.gcsales.app.domain.interactor;
 
+
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.reactivex.observers.DisposableObserver;
 import ru.gcsales.app.domain.executor.PostExecutionThread;
 import ru.gcsales.app.domain.repository.AuthRepository;
 
@@ -20,6 +22,13 @@ public class CheckLogin extends UseCase<Boolean, Void> {
     public CheckLogin(PostExecutionThread postExecutionThread, AuthRepository authRepository) {
         super(postExecutionThread);
         mAuthRepository = authRepository;
+    }
+
+    @Override
+    public void execute(DisposableObserver<Boolean> observer, Void params) {
+        // Override to perform synchronous login check
+        Observable<Boolean> observable = buildObservable(params);
+        addDisposable(observable.subscribeWith(observer));
     }
 
     @Override
