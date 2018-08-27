@@ -79,6 +79,7 @@ public class RegisterActivity extends MvpAppCompatActivity implements RegisterVi
 
     @Override
     public void onSuccessRegister() {
+        Toast.makeText(this, getString(R.string.success_registration_message), Toast.LENGTH_SHORT).show();
         finish();
     }
 

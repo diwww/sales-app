@@ -20,4 +20,5 @@
     <string name="open_text">Open</string>
     <string name="date_till">Till %s</string>
     <string name="num_characters">%d of %d</string>
+    <string name="success_registration_message">Success registration!</string>
 </resources>
