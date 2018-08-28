@@ -84,7 +84,7 @@ public class ShoppingListActivity extends MvpAppCompatActivity
 
     @Override
     public void deleteItem(ItemViewModel item) {
-        mItemsAdapter.deleteItem(item);
+        mItemsAdapter.removeItem(item);
         mTotalPriceTextView.setText(getString(R.string.total_price_text, mItemsAdapter.getTotalPrice()));
     }
 

@@ -49,7 +49,8 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ShopViewHold
     }
 
     public void setData(List<ShopViewModel> data) {
-        mShops = data;
+        mShops.clear();
+        mShops.addAll(data);
         notifyDataSetChanged();
     }
 

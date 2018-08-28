@@ -75,8 +75,9 @@ public class ItemsAdapter extends RecyclerView.Adapter {
     }
 
     public void hideProgress() {
-        mItems.remove(mProgressViewModel);
-        notifyDataSetChanged();
+        int index = mItems.indexOf(mProgressViewModel);
+        mItems.remove(index);
+        notifyItemRemoved(index);
     }
 
     public void setData(List<? extends BaseItem> data) {
@@ -86,13 +87,16 @@ public class ItemsAdapter extends RecyclerView.Adapter {
     }
 
     public void addData(List<? extends BaseItem> data) {
+        int positionStart = mItems.size();
+        int itemCount = data.size();
         mItems.addAll(data);
-        notifyDataSetChanged();
+        notifyItemRangeInserted(positionStart, itemCount);
     }
 
-    public void deleteItem(BaseItem item) {
-        mItems.remove(item);
-        notifyDataSetChanged();
+    public void removeItem(BaseItem item) {
+        int index = mItems.indexOf(item);
+        mItems.remove(index);
+        notifyItemRemoved(index);
     }
 
     public void clear() {

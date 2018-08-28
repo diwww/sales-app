@@ -52,14 +52,15 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
     }
 
     public void addItem(ShoppingListViewModel model) {
+        int index = mShoppingListViewModels.size();
         mShoppingListViewModels.add(model);
-        notifyDataSetChanged();
+        notifyItemInserted(index);
     }
 
     public void removeItem(ShoppingListViewModel model) {
-        int i = mShoppingListViewModels.indexOf(model);
-        mShoppingListViewModels.remove(i);
-        notifyItemRemoved(i);
+        int index = mShoppingListViewModels.indexOf(model);
+        mShoppingListViewModels.remove(index);
+        notifyItemRemoved(index);
     }
 
     public static class ShoppingListViewHolder extends RecyclerView.ViewHolder {
