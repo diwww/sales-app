@@ -6,6 +6,11 @@ allprojects {
 }
 
 ext {
+    // Android
+    compileSdkVersion = 27
+    minSdkVersion = 21
+    targetSdkVersion = 27
+
     // Libraries
     SUPPORT_LIB_VERSION = '27.1.1'
     CONSTRAINT_LAYOUT_VERSION = '1.1.2'
@@ -59,7 +64,7 @@ ext {
     presentationDependencies = [
             rxJava             : "io.reactivex.rxjava2:rxjava:${RX_VERSION}",
             rxAndroid          : "io.reactivex.rxjava2:rxandroid:${RX_ANDROID_VERSION}",
-            appCompat          : "com.android.support:appcompat-v7:${SUPPORT_LIB_VERSION}",
+            appCompatV7        : "com.android.support:appcompat-v7:${SUPPORT_LIB_VERSION}",
             supportV4          : "com.android.support:support-v4:${SUPPORT_LIB_VERSION}",
             constraintLayout   : "com.android.support.constraint:constraint-layout:${CONSTRAINT_LAYOUT_VERSION}",
             recyclerView       : "com.android.support:recyclerview-v7:${SUPPORT_LIB_VERSION}",

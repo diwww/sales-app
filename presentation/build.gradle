@@ -1,14 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    def globalConfiguration = rootProject.ext
+
+    compileSdkVersion globalConfiguration.compileSdkVersion
     defaultConfig {
-        applicationId "ru.gcsales.app"
-        minSdkVersion 21
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        applicationId globalConfiguration.applicationId
+        minSdkVersion globalConfiguration.minSdkVersion
+        targetSdkVersion globalConfiguration.targetSdkVersion
+        versionCode globalConfiguration.versionCode
+        versionName globalConfiguration.versionName
+        testInstrumentationRunner globalConfiguration.testInstrumentationRunner
     }
     buildTypes {
         release {
@@ -32,15 +34,14 @@ dependencies {
     implementation presentationDependencies.rxJava
     implementation presentationDependencies.rxAndroid
 
-    implementation presentationDependencies.appCompat
-//    implementation presentationDependencies.supportV4
+    implementation presentationDependencies.appCompatV7
+    implementation presentationDependencies.supportV4
     implementation presentationDependencies.constraintLayout
     implementation presentationDependencies.recyclerView
     implementation presentationDependencies.cardView
     implementation presentationDependencies.design
 
     implementation presentationDependencies.glide
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     annotationProcessor presentationDependencies.glideCompiler
 
     implementation presentationDependencies.moxy
