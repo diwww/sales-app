@@ -16,6 +16,12 @@ import ru.gcsales.app.data.service.ItemService;
 import ru.gcsales.app.data.service.ShopService;
 import ru.gcsales.app.data.service.ShoppingListService;
 
+/**
+ * Dagger module which provides Retrofit services.
+ *
+ * @author Maxim Surovtsev
+ * Created on 8/17/18
+ */
 @Module
 public class NetworkModule {
 

@@ -66,6 +66,13 @@ public class AuthRepositoryImpl extends TokenRepositoryImpl implements AuthRepos
     }
 
 
+    /**
+     * Hashes string with sha256 algorithm.
+     *
+     * @param input input string
+     * @return sha256 hash string
+     * @throws NoSuchAlgorithmException if no such algorithm
+     */
     private String sha256(String input) throws NoSuchAlgorithmException {
         MessageDigest mDigest = MessageDigest.getInstance("SHA256");
         byte[] result = mDigest.digest(input.getBytes());

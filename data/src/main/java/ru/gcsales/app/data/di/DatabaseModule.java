@@ -10,6 +10,8 @@ import dagger.Provides;
 import ru.gcsales.app.data.AppDatabase;
 
 /**
+ * Dagger module which provides Room database.
+ *
  * @author Maxim Surovtsev
  * Created on 8/17/18
  */

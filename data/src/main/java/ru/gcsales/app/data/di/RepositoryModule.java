@@ -23,6 +23,12 @@ import ru.gcsales.app.data.repository.ShopRepositoryImpl;
 import ru.gcsales.app.data.service.ShopService;
 import ru.gcsales.app.domain.repository.ShopRepository;
 
+/**
+ * Dagger module which provides repository implementations.
+ *
+ * @author Maxim Surovtsev
+ * Created on 8/17/18
+ */
 @Module
 public class RepositoryModule {
 

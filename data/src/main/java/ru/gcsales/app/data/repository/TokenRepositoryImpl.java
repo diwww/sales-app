@@ -7,7 +7,8 @@ import ru.gcsales.app.domain.repository.TokenRepository;
 
 
 /**
- * Must be subclassed by repositories working with authenticated requests.
+ * Implementation of {@link TokenRepository}.
+ * This must be subclassed by repositories working with authenticated requests.
  *
  * @author Maxim Surovtsev
  * Created on 8/7/18

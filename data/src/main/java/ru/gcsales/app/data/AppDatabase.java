@@ -14,6 +14,8 @@ import ru.gcsales.app.data.model.local.ShoppingListEntity;
 import ru.gcsales.app.data.model.local.ShoppingListItemEntity;
 
 /**
+ * Application's Room database.
+ *
  * @author Maxim Surovtsev
  * Created on 8/11/18
  */

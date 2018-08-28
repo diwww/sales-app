@@ -13,8 +13,10 @@ import ru.gcsales.app.data.dao.ShoppingListDAO;
 import ru.gcsales.app.data.model.local.ItemWithShop;
 import ru.gcsales.app.data.model.local.ShoppingListEntity;
 import ru.gcsales.app.data.model.local.ShoppingListItemEntity;
-import ru.gcsales.app.data.model.mapper.ItemMapper;
-import ru.gcsales.app.data.model.mapper.ShoppingListMapper;
+import ru.gcsales.app.data.model.mapper.ItemEntityMapper;
+import ru.gcsales.app.data.model.mapper.ItemResponseMapper;
+import ru.gcsales.app.data.model.mapper.ShoppingListEntityMapper;
+import ru.gcsales.app.data.model.mapper.ShoppingListResponseMapper;
 import ru.gcsales.app.data.model.remote.ItemResponse;
 import ru.gcsales.app.data.service.ShoppingListService;
 import ru.gcsales.app.domain.model.Item;
@@ -43,8 +45,10 @@ public class ShoppingListRepositoryImpl extends TokenRepositoryImpl implements S
     private ShoppingListDAO mShoppingListDAO;
     private ItemDAO mItemDAO;
 
-    private ShoppingListMapper mShoppingListMapper = new ShoppingListMapper();
-    private ItemMapper mItemMapper = new ItemMapper();
+    private ShoppingListResponseMapper mShoppingListResponseMapper = new ShoppingListResponseMapper();
+    private ShoppingListEntityMapper mShoppingListEntityMapper = new ShoppingListEntityMapper();
+    private ItemResponseMapper mItemResponseMapper = new ItemResponseMapper();
+    private ItemEntityMapper mItemEntityMapper = new ItemEntityMapper();
 
     public ShoppingListRepositoryImpl(Context context, ShoppingListService shoppingListService,
                                       AppDatabase database) {
@@ -62,7 +66,7 @@ public class ShoppingListRepositoryImpl extends TokenRepositoryImpl implements S
                     // Clear old local data
                     mShoppingListDAO.deleteAllShoppingLists();
                     // Insert new data from remote source
-                    mShoppingListDAO.insertShoppingLists(mShoppingListMapper.transformResponse(responseList));
+                    mShoppingListDAO.insertShoppingLists(mShoppingListResponseMapper.transform(responseList, null));
                     return mShoppingListDAO.getShoppingLists();
                 });
 
@@ -70,7 +74,7 @@ public class ShoppingListRepositoryImpl extends TokenRepositoryImpl implements S
         Single<List<ShoppingListEntity>> local = mShoppingListDAO.getShoppingLists();
 
         return Observable.concatArray(local.toObservable(), remote.toObservable())
-                .map(mShoppingListMapper::transformEntity);
+                .map(data -> mShoppingListEntityMapper.transform(data, null));
     }
 
     @Override
@@ -82,7 +86,7 @@ public class ShoppingListRepositoryImpl extends TokenRepositoryImpl implements S
                     mShoppingListDAO.clearShoppingListItemTable(id);
                     // Insert items from remote shopping list into item table
                     // to satisfy foreign key constraints
-                    mItemDAO.insert(mItemMapper.transformResponse(response.getItems()));
+                    mItemDAO.insert(mItemResponseMapper.transform(response.getItems(), null));
                     // Associate items with shopping list
                     List<ShoppingListItemEntity> list = new ArrayList<>();
                     for (ItemResponse i : response.getItems()) {
@@ -98,12 +102,12 @@ public class ShoppingListRepositoryImpl extends TokenRepositoryImpl implements S
 
         return Observable.concatArray(local.toObservable(), remote.toObservable())
                 .map(itemsWithShops -> {
-                    ShoppingList shoppingList = mShoppingListMapper
-                            .transformEntity(mShoppingListDAO.getShoppingList(id));
+                    ShoppingList shoppingList = mShoppingListEntityMapper
+                            .transform(mShoppingListDAO.getShoppingList(id), null);
 
                     List<Item> items = new ArrayList<>();
                     for (ItemWithShop entity : itemsWithShops) {
-                        items.add(mItemMapper.transformEntity(entity));
+                        items.add(mItemEntityMapper.transform(entity, null));
                     }
 
                     shoppingList.setItems(items);
@@ -118,9 +122,9 @@ public class ShoppingListRepositoryImpl extends TokenRepositoryImpl implements S
         return mShoppingListService.addShoppingList(getAuthHeader(), body)
                 .map(res -> {
                     long id = mShoppingListDAO
-                            .insertShoppingList(mShoppingListMapper.transformResponse(res));
-                    return mShoppingListMapper
-                            .transformEntity(mShoppingListDAO.getShoppingList(id));
+                            .insertShoppingList(mShoppingListResponseMapper.transform(res, null));
+                    return mShoppingListEntityMapper
+                            .transform(mShoppingListDAO.getShoppingList(id), null);
                 })
                 .toObservable();
     }

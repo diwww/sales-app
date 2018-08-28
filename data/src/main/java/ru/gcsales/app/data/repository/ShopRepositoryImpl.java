@@ -7,7 +7,8 @@ import io.reactivex.Single;
 import ru.gcsales.app.data.AppDatabase;
 import ru.gcsales.app.data.dao.ShopDAO;
 import ru.gcsales.app.data.model.local.ShopEntity;
-import ru.gcsales.app.data.model.mapper.ShopMapper;
+import ru.gcsales.app.data.model.mapper.ShopEntityMapper;
+import ru.gcsales.app.data.model.mapper.ShopResponseMapper;
 import ru.gcsales.app.domain.model.Shop;
 import ru.gcsales.app.data.service.ShopService;
 import ru.gcsales.app.domain.repository.ShopRepository;
@@ -32,7 +33,10 @@ public class ShopRepositoryImpl implements ShopRepository {
 
     private ShopService mShopService;
     private ShopDAO mShopDAO;
-    private ShopMapper mShopMapper = new ShopMapper();
+
+    private ShopResponseMapper mResponseMapper = new ShopResponseMapper();
+    private ShopEntityMapper mEntityMapper = new ShopEntityMapper();
+
 
     public ShopRepositoryImpl(ShopService shopService, AppDatabase database) {
         mShopService = shopService;
@@ -47,7 +51,7 @@ public class ShopRepositoryImpl implements ShopRepository {
                     // Clear old local data
                     mShopDAO.clearTable();
                     // Insert new data from remote source
-                    mShopDAO.insert(mShopMapper.transformResponse(responseList));
+                    mShopDAO.insert(mResponseMapper.transform(responseList, null));
                     return mShopDAO.get();
                 });
 
@@ -55,6 +59,6 @@ public class ShopRepositoryImpl implements ShopRepository {
         Single<List<ShopEntity>> local = mShopDAO.get();
 
         return Observable.concatArray(local.toObservable(), remote.toObservable())
-                .map(mShopMapper::transformEntity);
+                .map(data -> mEntityMapper.transform(data, null));
     }
 }

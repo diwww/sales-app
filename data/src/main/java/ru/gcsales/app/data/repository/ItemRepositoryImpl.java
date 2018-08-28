@@ -7,7 +7,8 @@ import io.reactivex.Single;
 import ru.gcsales.app.data.AppDatabase;
 import ru.gcsales.app.data.dao.ItemDAO;
 import ru.gcsales.app.data.model.local.ItemWithShop;
-import ru.gcsales.app.data.model.mapper.ItemMapper;
+import ru.gcsales.app.data.model.mapper.ItemEntityMapper;
+import ru.gcsales.app.data.model.mapper.ItemResponseMapper;
 import ru.gcsales.app.data.service.ItemService;
 import ru.gcsales.app.domain.model.Item;
 import ru.gcsales.app.domain.repository.ItemRepository;
@@ -32,7 +33,9 @@ public class ItemRepositoryImpl implements ItemRepository {
 
     private ItemService mItemService;
     private ItemDAO mItemDAO;
-    private ItemMapper mItemMapper = new ItemMapper();
+
+    private ItemResponseMapper mResponseMapper = new ItemResponseMapper();
+    private ItemEntityMapper mEntityMapper = new ItemEntityMapper();
 
     public ItemRepositoryImpl(ItemService itemService, AppDatabase appDatabase) {
         mItemService = itemService;
@@ -43,20 +46,19 @@ public class ItemRepositoryImpl implements ItemRepository {
     public Observable<List<Item>> getItems(long shopId, String category, int page) {
         Single<List<ItemWithShop>> remote = mItemService.getItems(shopId, category, page)
                 .flatMap(response -> {
-                    // Write fresh data from network to db
-                    // FIXME: таблица очищается при загрузке каждой страницы
-                    // (если сделать page == 1 то уже нет, но это решение корявое имхо)
+                    // Clear item table if new data arrives
                     if (page == 1) {
                         mItemDAO.clearTable();
                     }
-                    mItemDAO.insert(mItemMapper.transformResponse(response.getItemResponses()));
+                    // Write fresh data from network to db
+                    mItemDAO.insert(mResponseMapper.transform(response.getItemResponses(), null));
                     // Get written data from db
                     return createDbSingle(shopId, category, page);
                 });
 
         return remote
                 .onErrorResumeNext(createDbSingle(shopId, category, page))
-                .map(mItemMapper::transformEntity)
+                .map(data -> mEntityMapper.transform(data, null))
                 .toObservable();
     }
 
