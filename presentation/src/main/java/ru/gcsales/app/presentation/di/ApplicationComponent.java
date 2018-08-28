@@ -15,6 +15,9 @@ import ru.gcsales.app.presentation.presenter.ShoppingListPresenter;
 import ru.gcsales.app.presentation.presenter.ShoppingListsPresenter;
 import ru.gcsales.app.presentation.presenter.ShopsPresenter;
 
+/**
+ * Application dagger component.
+ */
 @Singleton
 @Component(modules = {ApplicationModule.class, RepositoryModule.class,
         NetworkModule.class, DatabaseModule.class})

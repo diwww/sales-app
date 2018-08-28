@@ -1,57 +1,28 @@
 package ru.gcsales.app.presentation.model.mapper;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import ru.gcsales.app.domain.model.ShoppingList;
+import ru.gcsales.app.domain.model.mapper.AbstractMapper;
 import ru.gcsales.app.presentation.model.ShoppingListViewModel;
 
 /**
  * @author Maxim Surovtsev
  * Created on 8/19/18
  */
-public class ShoppingListViewModelMapper {
+public class ShoppingListViewModelMapper extends AbstractMapper<ShoppingList, ShoppingListViewModel, Void> {
 
-    private ItemViewModelMapper mMapper = new ItemViewModelMapper();
+    private ItemViewModelMapper mItemViewModelMapper = new ItemViewModelMapper();
 
-    /**
-     * Transforms a single model.
-     *
-     * @param shoppingList domain model
-     * @return view model
-     */
-    public ShoppingListViewModel transform(ShoppingList shoppingList) {
+    @Override
+    public ShoppingListViewModel transform(ShoppingList input, Void params) {
         ShoppingListViewModel shoppingListViewModel = null;
 
-        if (shoppingList != null) {
+        if (input != null) {
             shoppingListViewModel = new ShoppingListViewModel();
-            shoppingListViewModel.setId(shoppingList.getId());
-            shoppingListViewModel.setName(shoppingList.getName());
-            shoppingListViewModel.setItems(mMapper.transform(shoppingList.getItems()));
+            shoppingListViewModel.setId(input.getId());
+            shoppingListViewModel.setName(input.getName());
+            shoppingListViewModel.setItems(mItemViewModelMapper.transform(input.getItems(), null));
         }
 
         return shoppingListViewModel;
-    }
-
-    /**
-     * Transforms a list of models.
-     *
-     * @param shoppingLists domain model list
-     * @return view model list
-     */
-    public List<ShoppingListViewModel> transform(List<ShoppingList> shoppingLists) {
-        List<ShoppingListViewModel> shoppingListViewModels;
-
-        if (shoppingLists != null && !shoppingLists.isEmpty()) {
-            shoppingListViewModels = new ArrayList<>();
-            for (ShoppingList shoppingList : shoppingLists) {
-                shoppingListViewModels.add(transform(shoppingList));
-            }
-        } else {
-            return Collections.emptyList();
-        }
-
-        return shoppingListViewModels;
     }
 }

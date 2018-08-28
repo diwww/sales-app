@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import ru.gcsales.app.domain.model.Category;
+import ru.gcsales.app.domain.model.mapper.AbstractMapper;
 import ru.gcsales.app.presentation.model.CategoryViewModel;
 
 /**
@@ -13,43 +14,16 @@ import ru.gcsales.app.presentation.model.CategoryViewModel;
  * @author Maxim Surovtsev
  * Created on 8/22/18
  */
-public class CategoryViewModelMapper {
+public class CategoryViewModelMapper extends AbstractMapper<Category, CategoryViewModel, Void> {
 
-    /**
-     * Transforms a single model.
-     *
-     * @param category domain model
-     * @return view model
-     */
-    public CategoryViewModel transform(Category category) {
+    @Override
+    public CategoryViewModel transform(Category input, Void params) {
         CategoryViewModel categoryViewModel = null;
 
-        if (category != null) {
-            categoryViewModel = new CategoryViewModel(category.getName());
+        if (input != null) {
+            categoryViewModel = new CategoryViewModel(input.getName());
         }
 
         return categoryViewModel;
-    }
-
-    /**
-     * Transforms a list of models.
-     *
-     * @param categories domain model list
-     * @return view model list
-     */
-    public List<CategoryViewModel> transform(List<Category> categories) {
-
-        List<CategoryViewModel> categoryViewModels;
-
-        if (categories != null && !categories.isEmpty()) {
-            categoryViewModels = new ArrayList<>();
-            for (Category category : categories) {
-                categoryViewModels.add(transform(category));
-            }
-        } else {
-            return Collections.emptyList();
-        }
-
-        return categoryViewModels;
     }
 }

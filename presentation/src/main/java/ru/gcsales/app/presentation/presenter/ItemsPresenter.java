@@ -133,7 +133,7 @@ public class ItemsPresenter extends MvpPresenter<ItemsView> {
             if (items.isEmpty()) {
                 mEnd = true;
             } else {
-                getViewState().addItems(mItemViewModelMapper.transform(items));
+                getViewState().addItems(mItemViewModelMapper.transform(items, null));
             }
         }
 
@@ -178,7 +178,7 @@ public class ItemsPresenter extends MvpPresenter<ItemsView> {
 
         @Override
         public void onNext(List<ShoppingList> shoppingLists) {
-            getViewState().setShoppingLists(mShoppingListViewModelMapper.transform(shoppingLists));
+            getViewState().setShoppingLists(mShoppingListViewModelMapper.transform(shoppingLists, null));
         }
 
         @Override

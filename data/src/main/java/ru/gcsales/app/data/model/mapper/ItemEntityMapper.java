@@ -9,6 +9,7 @@ import java.util.Locale;
 import ru.gcsales.app.data.model.local.ItemWithShop;
 import ru.gcsales.app.domain.model.Item;
 import ru.gcsales.app.domain.model.Shop;
+import ru.gcsales.app.domain.model.mapper.AbstractMapper;
 
 /**
  * Item entity mapper.

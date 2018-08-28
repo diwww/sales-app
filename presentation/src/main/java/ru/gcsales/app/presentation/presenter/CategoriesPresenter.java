@@ -51,7 +51,7 @@ public class CategoriesPresenter extends MvpPresenter<CategoriesView> {
 
         @Override
         public void onNext(List<Category> categories) {
-            getViewState().setData(mMapper.transform(categories));
+            getViewState().setData(mMapper.transform(categories, null));
         }
 
         @Override

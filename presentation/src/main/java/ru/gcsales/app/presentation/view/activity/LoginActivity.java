@@ -1,6 +1,5 @@
 package ru.gcsales.app.presentation.view.activity;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,6 +1,7 @@
 package ru.gcsales.app.data.model.mapper;
 
 import ru.gcsales.app.data.model.local.CategoryEntity;
+import ru.gcsales.app.domain.model.mapper.AbstractMapper;
 
 /**
  * Category response mapper.

@@ -2,6 +2,7 @@ package ru.gcsales.app.data.model.mapper;
 
 import ru.gcsales.app.data.model.local.ShoppingListEntity;
 import ru.gcsales.app.domain.model.ShoppingList;
+import ru.gcsales.app.domain.model.mapper.AbstractMapper;
 
 /**
  * Shopping list entity mapper.

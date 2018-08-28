@@ -70,7 +70,7 @@ public class ShoppingListsPresenter extends MvpPresenter<ShoppingListsView> {
 
         @Override
         public void onNext(List<ShoppingList> shoppingLists) {
-            getViewState().setData(mShoppingListViewModelMapper.transform(shoppingLists));
+            getViewState().setData(mShoppingListViewModelMapper.transform(shoppingLists, null));
         }
 
         @Override
@@ -89,7 +89,7 @@ public class ShoppingListsPresenter extends MvpPresenter<ShoppingListsView> {
 
         @Override
         public void onNext(ShoppingList shoppingList) {
-            getViewState().addItem(mShoppingListViewModelMapper.transform(shoppingList));
+            getViewState().addItem(mShoppingListViewModelMapper.transform(shoppingList, null));
         }
 
         @Override

@@ -13,6 +13,8 @@ import ru.gcsales.app.domain.executor.PostExecutionThread;
 import ru.gcsales.app.presentation.UIThread;
 
 /**
+ * Application dagger module, which provides {@link Context} and post execution thread.
+ *
  * @author Maxim Surovtsev
  * Created on 8/7/18
  */

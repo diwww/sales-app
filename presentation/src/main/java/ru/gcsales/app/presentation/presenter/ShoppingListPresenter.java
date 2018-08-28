@@ -62,7 +62,7 @@ public class ShoppingListPresenter extends MvpPresenter<ShoppingListView> {
 
         @Override
         public void onNext(ShoppingList shoppingList) {
-            getViewState().setData(mMapper.transform(shoppingList));
+            getViewState().setData(mMapper.transform(shoppingList, null));
         }
 
         @Override

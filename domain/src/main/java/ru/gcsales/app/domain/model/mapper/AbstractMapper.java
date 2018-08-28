@@ -1,4 +1,4 @@
-package ru.gcsales.app.data.model.mapper;
+package ru.gcsales.app.domain.model.mapper;
 
 import java.util.ArrayList;
 import java.util.Collections;
