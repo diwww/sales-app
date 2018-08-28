@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -137,6 +138,7 @@ public class ItemsAdapter extends RecyclerView.Adapter {
             mNewPriceTextView.setText(String.format(Locale.getDefault(), "%.2f", item.getNewPrice()));
             mDateTextView.setText(context.getString(R.string.date_till, item.getDateOut()));
             Glide.with(context)
+                    .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_item_placeholder_24dp))
                     .load(item.getImageUrl())
                     .into(mImageView);
 

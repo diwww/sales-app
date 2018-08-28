@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Abstract mapper
+ * Abstract mapper.
  *
  * @param <I> input data type
  * @param <O> output data type
@@ -15,8 +15,22 @@ import java.util.List;
  */
 public abstract class AbstractMapper<I, O, P> {
 
+    /**
+     * Transforms a single object
+     *
+     * @param input  input object
+     * @param params optional params
+     * @return transformed object
+     */
     public abstract O transform(I input, P params);
 
+    /**
+     * Transforms a list of objects.
+     *
+     * @param inputList list of input objects
+     * @param params    optional params
+     * @return transformed list
+     */
     public List<O> transform(List<I> inputList, P params) {
         List<O> outputList;
 

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,15 +18,15 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
-import ru.gcsales.app.domain.model.Shop;
-import ru.gcsales.app.presentation.view.activity.CategoriesActivity;
-import ru.gcsales.app.presentation.view.activity.ItemsActivity;
+import ru.gcsales.app.presentation.model.ShopViewModel;
 
 public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ShopViewHolder> {
 
-    private List<Shop> mShops = new ArrayList<>();
+    private List<ShopViewModel> mShops = new ArrayList<>();
+    private OnItemClickListener mClickListener;
 
-    public ShopsAdapter() {
+    public ShopsAdapter(OnItemClickListener clickListener) {
+        mClickListener = clickListener;
     }
 
     @NonNull
@@ -38,8 +39,8 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ShopViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ShopViewHolder holder, int position) {
-        Shop shop = mShops.get(position);
-        holder.bind(shop);
+        ShopViewModel shopViewModel = mShops.get(position);
+        holder.bind(shopViewModel, mClickListener);
     }
 
     @Override
@@ -47,13 +48,10 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ShopViewHold
         return mShops.size();
     }
 
-    public void setData(List<Shop> data) {
+    public void setData(List<ShopViewModel> data) {
         mShops = data;
         notifyDataSetChanged();
     }
-
-    // TODO: diffutils
-    // TODO: add shops to list method
 
     public static class ShopViewHolder extends RecyclerView.ViewHolder {
 
@@ -65,21 +63,19 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ShopViewHold
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final Shop shopModel) {
+        public void bind(ShopViewModel shopViewModel, OnItemClickListener listener) {
             final Context context = itemView.getContext();
-            mShopNameTextView.setText(shopModel.getName());
+            mShopNameTextView.setText(shopViewModel.getName());
             // Download image from url into image view
-            // TODO: image placeholder
             Glide.with(context)
-                    .load(shopModel.getImageUrl())
+                    .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_shop_placeholder_24dp))
+                    .load(shopViewModel.getImageUrl())
                     .into(mShopLogoImageView);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Start a new activity
-                    context.startActivity(CategoriesActivity.newIntent(context, shopModel.getId(), shopModel.getName()));
-                }
-            });
+            itemView.setOnClickListener(v -> listener.onClick(shopViewModel));
         }
+    }
+
+    public interface OnItemClickListener {
+        void onClick(ShopViewModel model);
     }
 }

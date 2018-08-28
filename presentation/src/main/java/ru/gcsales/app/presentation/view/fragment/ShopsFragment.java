@@ -18,15 +18,17 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
-import ru.gcsales.app.domain.model.Shop;
+import ru.gcsales.app.presentation.model.ShopViewModel;
 import ru.gcsales.app.presentation.presenter.ShopsPresenter;
 import ru.gcsales.app.presentation.view.ShopsView;
+import ru.gcsales.app.presentation.view.activity.CategoriesActivity;
 import ru.gcsales.app.presentation.view.adapter.ShopsAdapter;
+import ru.gcsales.app.presentation.view.adapter.ShopsAdapter.OnItemClickListener;
 
 /**
  * Fragment for displaying available shops.
  */
-public class ShopsFragment extends MvpAppCompatFragment implements ShopsView {
+public class ShopsFragment extends MvpAppCompatFragment implements ShopsView, OnItemClickListener {
 
     private static final int SPAN_COUNT = 2;
 
@@ -44,7 +46,7 @@ public class ShopsFragment extends MvpAppCompatFragment implements ShopsView {
         ButterKnife.bind(this, root);
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(mRecyclerView.getContext(), SPAN_COUNT));
-        mShopsAdapter = new ShopsAdapter();
+        mShopsAdapter = new ShopsAdapter(this);
         mRecyclerView.setAdapter(mShopsAdapter);
 
         return root;
@@ -67,13 +69,18 @@ public class ShopsFragment extends MvpAppCompatFragment implements ShopsView {
     }
 
     @Override
-    public void setShops(List<Shop> shops) {
-        mShopsAdapter.setData(shops);
+    public void setShops(List<ShopViewModel> shopViewModels) {
+        mShopsAdapter.setData(shopViewModels);
     }
 
     @Override
     public void showError(String error) {
         Toast.makeText(this.getContext(), error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(ShopViewModel model) {
+        startActivity(CategoriesActivity.newIntent(getActivity(), model.getId(), model.getName()));
     }
 
     /**

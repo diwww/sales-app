@@ -5,6 +5,8 @@ import ru.gcsales.app.domain.model.mapper.AbstractMapper;
 import ru.gcsales.app.presentation.model.ShoppingListViewModel;
 
 /**
+ * Mapper from shopping list domain model to shopping list view model.
+ *
  * @author Maxim Surovtsev
  * Created on 8/19/18
  */

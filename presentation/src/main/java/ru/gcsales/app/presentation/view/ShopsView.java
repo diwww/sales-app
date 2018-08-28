@@ -5,6 +5,7 @@ import com.arellomobile.mvp.MvpView;
 import java.util.List;
 
 import ru.gcsales.app.domain.model.Shop;
+import ru.gcsales.app.presentation.model.ShopViewModel;
 
 /**
  * Shops view.
@@ -27,12 +28,13 @@ public interface ShopsView extends MvpView {
     /**
      * Displays downloaded shops.
      *
-     * @param shops list of {@link Shop} models
+     * @param shopViewModels list of shop view models
      */
-    void setShops(List<Shop> shops);
+    void setShops(List<ShopViewModel> shopViewModels);
 
     /**
      * Shows an error message.
+     *
      * @param error error message
      */
     void showError(String error);
