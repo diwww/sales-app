@@ -136,6 +136,7 @@ public class ItemsActivity extends MvpAppCompatActivity implements ItemsView, On
                 R.layout.item_shopping_list_dialog, mShoppingListViewModels);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle(R.string.choose_shopping_list)
                 .setAdapter(adapter, (dialog, which) -> {
                     mItemsPresenter.addItem(itemViewModel, adapter.getItem(which));
                 });
