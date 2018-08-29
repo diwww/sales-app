@@ -90,7 +90,9 @@ public class ItemsPresenter extends MvpPresenter<ItemsView> {
      * @param lastVisibleItemIndex last visible item index in RecyclerView
      */
     public void onScrolled(int totalItems, int lastVisibleItemIndex) {
-        if (!mEnd && !mLoading && totalItems <= (lastVisibleItemIndex + VISIBLE_THRESHOLD)) {
+        if (!mEnd && !mLoading &&
+                totalItems > VISIBLE_THRESHOLD &&
+                totalItems <= (lastVisibleItemIndex + VISIBLE_THRESHOLD)) {
             loadNextPageProducts();
         }
     }
