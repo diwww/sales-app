@@ -23,7 +23,7 @@ import ru.gcsales.app.presentation.presenter.RegisterPresenter;
 import ru.gcsales.app.presentation.view.RegisterView;
 
 
-public class RegisterActivity extends MvpAppCompatActivity implements RegisterView {
+public class RegisterActivity extends BaseActivity implements RegisterView {
 
     public static final int NUM_CHARACTERS_USERNAME = 6;
     public static final int NUM_CHARACTERS_PASSWORD = 6;

@@ -25,7 +25,7 @@ import ru.gcsales.app.presentation.model.ItemViewModel;
 import ru.gcsales.app.presentation.view.adapter.ItemsAdapter;
 import ru.gcsales.app.presentation.view.adapter.ItemsAdapter.OnButtonClickListener;
 
-public class ShoppingListActivity extends MvpAppCompatActivity
+public class ShoppingListActivity extends BaseActivity
         implements ShoppingListView, OnButtonClickListener {
 
     public static final String EXTRA_SHOPPING_LIST_ID = "EXTRA_SHOPPING_LIST_ID";
@@ -34,7 +34,6 @@ public class ShoppingListActivity extends MvpAppCompatActivity
     @InjectPresenter
     ShoppingListPresenter mShoppingListPresenter;
 
-    @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.text_total_price) TextView mTotalPriceTextView;
     @BindView(R.id.recycler_view_items) RecyclerView mRecyclerView;
     @BindView(R.id.progress_bar) ProgressBar mProgressBar;
@@ -53,12 +52,8 @@ public class ShoppingListActivity extends MvpAppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list);
         ButterKnife.bind(this);
-
-        setSupportActionBar(mToolbar);
-        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-        mToolbar.setNavigationOnClickListener(v -> onBackPressed());
+        setToolbar(true);
         setTitle(getIntent().getStringExtra(EXTRA_SHOPPING_LIST_NAME));
-        mToolbar.setOnClickListener(v -> mRecyclerView.smoothScrollToPosition(0));
         mLinearLayoutManager = new LinearLayoutManager(mRecyclerView.getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mItemsAdapter = new ItemsAdapter(this, R.drawable.ic_remove_black_24dp);

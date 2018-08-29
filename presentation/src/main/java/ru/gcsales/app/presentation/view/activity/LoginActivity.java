@@ -18,7 +18,7 @@ import ru.gcsales.app.R;
 import ru.gcsales.app.presentation.presenter.LoginPresenter;
 import ru.gcsales.app.presentation.view.LoginView;
 
-public class LoginActivity extends MvpAppCompatActivity implements LoginView {
+public class LoginActivity extends BaseActivity implements LoginView {
 
     @InjectPresenter
     LoginPresenter mLoginPresenter;

@@ -33,8 +33,7 @@ public class ShopActivity extends BaseActivity implements ShowOrHideProgress {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
         ButterKnife.bind(this);
-
-        setToolbar();
+        setToolbar(true);
         setTitle(getIntent().getStringExtra(EXTRA_SHOP_NAME));
         setInitialFragment();
     }

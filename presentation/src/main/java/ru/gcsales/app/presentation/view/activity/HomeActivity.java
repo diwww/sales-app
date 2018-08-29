@@ -22,12 +22,11 @@ import ru.gcsales.app.presentation.view.HomeView;
 import ru.gcsales.app.presentation.view.fragment.ShoppingListsFragment;
 import ru.gcsales.app.presentation.view.fragment.ViewPagerAdapter;
 
-public class HomeActivity extends MvpAppCompatActivity implements HomeView {
+public class HomeActivity extends BaseActivity implements HomeView {
 
     @InjectPresenter
     HomePresenter mHomePresenter;
 
-    @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.view_pager) ViewPager mViewPager;
     @BindView(R.id.tab_layout) TabLayout mTabLayout;
     @BindView(R.id.fab) FloatingActionButton mFloatingActionButton;
@@ -39,7 +38,7 @@ public class HomeActivity extends MvpAppCompatActivity implements HomeView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
-        setSupportActionBar(mToolbar);
+        setToolbar(false);
 
         // Check login before loading authorized data
         mHomePresenter.checkLogin();

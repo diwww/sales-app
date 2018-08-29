@@ -21,11 +21,15 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
      * Sets up a toolbar.
      * Every child activity must have a toolbar with an id of R.id.toolbar
      * in its layout.
+     *
+     * @param showBackButton show back button flag
      */
-    public void setToolbar() {
+    public void setToolbar(boolean showBackButton) {
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-        mToolbar.setNavigationOnClickListener(v -> finish());
+        if (showBackButton) {
+            mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+            mToolbar.setNavigationOnClickListener(v -> finish());
+        }
     }
 }
