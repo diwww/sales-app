@@ -21,7 +21,7 @@ import ru.gcsales.app.R;
 import ru.gcsales.app.presentation.model.ShopViewModel;
 import ru.gcsales.app.presentation.presenter.ShopsPresenter;
 import ru.gcsales.app.presentation.view.ShopsView;
-import ru.gcsales.app.presentation.view.activity.CategoriesActivity;
+import ru.gcsales.app.presentation.view.activity.ShopActivity;
 import ru.gcsales.app.presentation.view.adapter.ShopsAdapter;
 import ru.gcsales.app.presentation.view.adapter.ShopsAdapter.OnItemClickListener;
 
@@ -80,7 +80,8 @@ public class ShopsFragment extends MvpAppCompatFragment implements ShopsView, On
 
     @Override
     public void onClick(ShopViewModel model) {
-        startActivity(CategoriesActivity.newIntent(getActivity(), model.getId(), model.getName()));
+//        startActivity(CategoriesActivity.newIntent(getActivity(), model.getId(), model.getName()));
+        startActivity(ShopActivity.newIntent(getActivity(), model.getId(), model.getName()));
     }
 
     /**

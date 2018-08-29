@@ -1,19 +1,20 @@
-package ru.gcsales.app.presentation.view.activity;
+package ru.gcsales.app.presentation.view.fragment;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.arellomobile.mvp.MvpAppCompatActivity;
+import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 
@@ -22,63 +23,69 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
+import ru.gcsales.app.presentation.model.ItemViewModel;
 import ru.gcsales.app.presentation.model.ShoppingListViewModel;
 import ru.gcsales.app.presentation.presenter.ItemsPresenter;
 import ru.gcsales.app.presentation.view.ItemsView;
-import ru.gcsales.app.presentation.model.ItemViewModel;
-import ru.gcsales.app.presentation.view.adapter.ItemsAdapter.OnButtonClickListener;
+import ru.gcsales.app.presentation.view.ShowOrHideProgress;
+import ru.gcsales.app.presentation.view.activity.ShoppingListActivity;
 import ru.gcsales.app.presentation.view.adapter.ItemsAdapter;
 
-public class ItemsActivity extends MvpAppCompatActivity implements ItemsView, OnButtonClickListener {
+
+/**
+ * Items fragment.
+ */
+public class ItemsFragment extends MvpAppCompatFragment implements ItemsView, ItemsAdapter.OnButtonClickListener {
 
     private static final String EXTRA_SHOP_ID = "EXTRA_SHOP_ID";
-    private static final String EXTRA_SHOP_NAME = "EXTRA_SHOP_NAME";
     private static final String EXTRA_CATEGORY = "EXTRA_CATEGORY";
 
     @InjectPresenter
     ItemsPresenter mItemsPresenter;
 
-    @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.recycler_view_products) RecyclerView mRecyclerView;
-    @BindView(R.id.progress_bar) ProgressBar mProgressBar;
 
     private ItemsAdapter mItemsAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     private List<ShoppingListViewModel> mShoppingListViewModels;
+    private ShowOrHideProgress mShowOrHideProgress;
 
     @ProvidePresenter
     ItemsPresenter provideProductListPresenter() {
-        long shopId = getIntent().getLongExtra(EXTRA_SHOP_ID, 0);
-        String category = getIntent().getStringExtra(EXTRA_CATEGORY);
+        long shopId = getArguments().getLong(EXTRA_SHOP_ID, 0);
+        String category = getArguments().getString(EXTRA_CATEGORY);
         return new ItemsPresenter(shopId, category);
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_items);
-        ButterKnife.bind(this);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mShowOrHideProgress = (ShowOrHideProgress) context;
+    }
 
-        setSupportActionBar(mToolbar);
-        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-        mToolbar.setNavigationOnClickListener(v -> onBackPressed());
-        setTitle(getIntent().getStringExtra(EXTRA_SHOP_NAME));
-        mToolbar.setOnClickListener(v -> mRecyclerView.smoothScrollToPosition(0));
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_items, container, false);
+        ButterKnife.bind(this, root);
+
         mLinearLayoutManager = new LinearLayoutManager(mRecyclerView.getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mItemsAdapter = new ItemsAdapter(this, R.drawable.ic_add_black_24dp);
         mRecyclerView.setAdapter(mItemsAdapter);
         setOnScrollListener();
+
+        return root;
     }
 
     @Override
     public void showInitialProgress() {
-        mProgressBar.setVisibility(View.VISIBLE);
+        mShowOrHideProgress.showProgress();
     }
 
     @Override
     public void hideInitialProgress() {
-        mProgressBar.setVisibility(View.GONE);
+        mShowOrHideProgress.hideProgress();
     }
 
     @Override
@@ -93,14 +100,14 @@ public class ItemsActivity extends MvpAppCompatActivity implements ItemsView, On
 
     @Override
     public void showError(String error) {
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showItemAdded(long shoppingListId, String shoppingListName) {
         Snackbar.make(mRecyclerView, getString(R.string.item_added_text, shoppingListName), Snackbar.LENGTH_SHORT)
                 .setAction(R.string.open_text, v ->
-                        startActivity(ShoppingListActivity.newIntent(ItemsActivity.this,
+                        startActivity(ShoppingListActivity.newIntent(getActivity(),
                                 shoppingListId, shoppingListName))
                 )
                 .show();
@@ -132,10 +139,10 @@ public class ItemsActivity extends MvpAppCompatActivity implements ItemsView, On
     }
 
     private void showAddDialog(ItemViewModel itemViewModel) {
-        ArrayAdapter<ShoppingListViewModel> adapter = new ArrayAdapter<>(this,
+        ArrayAdapter<ShoppingListViewModel> adapter = new ArrayAdapter<>(getActivity(),
                 R.layout.item_shopping_list_dialog, mShoppingListViewModels);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.choose_shopping_list)
                 .setAdapter(adapter, (dialog, which) -> {
                     mItemsPresenter.addItem(itemViewModel, adapter.getItem(which));
@@ -155,11 +162,21 @@ public class ItemsActivity extends MvpAppCompatActivity implements ItemsView, On
         });
     }
 
-    public static Intent newIntent(Context context, long shopId, String shopName, String category) {
-        Intent intent = new Intent(context, ItemsActivity.class);
-        intent.putExtra(EXTRA_SHOP_ID, shopId);
-        intent.putExtra(EXTRA_SHOP_NAME, shopName);
-        intent.putExtra(EXTRA_CATEGORY, category);
-        return intent;
+    /**
+     * Gets new fragment instance.
+     *
+     * @param shopId   shop id
+     * @param category category name
+     * @return new fragment instance
+     */
+    public static ItemsFragment newInstance(long shopId, String category) {
+        Bundle bundle = new Bundle();
+        bundle.putLong(EXTRA_SHOP_ID, shopId);
+        bundle.putString(EXTRA_CATEGORY, category);
+
+        ItemsFragment fragment = new ItemsFragment();
+        fragment.setArguments(bundle);
+
+        return fragment;
     }
 }
