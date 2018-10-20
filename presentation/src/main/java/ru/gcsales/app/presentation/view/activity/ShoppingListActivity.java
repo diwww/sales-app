@@ -5,13 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
-import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 
@@ -37,6 +35,7 @@ public class ShoppingListActivity extends BaseActivity
     @BindView(R.id.text_total_price) TextView mTotalPriceTextView;
     @BindView(R.id.recycler_view_items) RecyclerView mRecyclerView;
     @BindView(R.id.progress_bar) ProgressBar mProgressBar;
+    @BindView(R.id.text_stub) TextView mStubTextView;
 
     LinearLayoutManager mLinearLayoutManager;
     ItemsAdapter mItemsAdapter;
@@ -73,7 +72,12 @@ public class ShoppingListActivity extends BaseActivity
 
     @Override
     public void setData(ShoppingListViewModel shoppingList) {
-        mItemsAdapter.setData(shoppingList.getItems());
+        if (shoppingList.getItems().size() > 0) { // If there is data
+            mItemsAdapter.setData(shoppingList.getItems());
+            mStubTextView.setVisibility(View.INVISIBLE);
+        } else { // If there is no data
+            mStubTextView.setVisibility(View.VISIBLE);
+        }
         mTotalPriceTextView.setText(getString(R.string.total_price_text, mItemsAdapter.getTotalPrice()));
     }
 
@@ -81,6 +85,9 @@ public class ShoppingListActivity extends BaseActivity
     public void deleteItem(ItemViewModel item) {
         mItemsAdapter.removeItem(item);
         mTotalPriceTextView.setText(getString(R.string.total_price_text, mItemsAdapter.getTotalPrice()));
+        if (mItemsAdapter.getItemCount() == 0) { // Show stub if there are no items left
+            mStubTextView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

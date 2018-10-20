@@ -23,4 +23,5 @@
     <string name="success_registration_message">Успешная регистрация!</string>
     <string name="choose_shopping_list">Выберите список покупок</string>
     <string name="stub_shopping_list">Пока еще нет списков покупок. Вы можете создать свой первый.</string>
+    <string name="stub_no_items">Пока еще нет товаров.</string>
 </resources>
