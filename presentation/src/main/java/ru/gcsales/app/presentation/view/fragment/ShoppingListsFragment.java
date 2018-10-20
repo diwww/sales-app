@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
@@ -39,6 +40,7 @@ public class ShoppingListsFragment extends MvpAppCompatFragment
 
     @BindView(R.id.progress_bar) ProgressBar mProgressBar;
     @BindView(R.id.recycler_view_shopping_list_previews) RecyclerView mRecyclerView;
+    @BindView(R.id.text_stub) TextView mStubTextView;
 
     ShoppingListsAdapter mShoppingListsAdapter;
 
@@ -65,17 +67,28 @@ public class ShoppingListsFragment extends MvpAppCompatFragment
 
     @Override
     public void setData(List<ShoppingListViewModel> data) {
-        mShoppingListsAdapter.setData(data);
+        if (data.size() > 0) { // Set actual data
+            mShoppingListsAdapter.setData(data);
+            mStubTextView.setVisibility(View.INVISIBLE);
+        } else { // Show empty data stub
+            mStubTextView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void addItem(ShoppingListViewModel item) {
         mShoppingListsAdapter.addItem(item);
+        // Hide empty data stub
+        mStubTextView.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void removeItem(ShoppingListViewModel item) {
         mShoppingListsAdapter.removeItem(item);
+        if (mShoppingListsAdapter.getItemCount() == 0) {
+            // Show empty data stub
+            mStubTextView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
