@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Card.Category">
+
+    <TextView
+        android:id="@+id/text_name"
+        style="@style/TextView.Category.Name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</android.support.v7.widget.CardView>

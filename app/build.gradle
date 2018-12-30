@@ -1,0 +1,50 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+
+
+    defaultConfig {
+        applicationId "ru.gcsales.app"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation libs.rxJava
+    implementation libs.rxAndroid
+    implementation libs.retrofit
+    implementation libs.gson
+    implementation libs.retrofitGsonConverter
+    implementation libs.retrofitAdapterRxJava
+    implementation libs.dagger
+    annotationProcessor libs.daggerCompiler
+    implementation libs.roomRuntime
+    annotationProcessor libs.roomCompiler
+    implementation libs.roomRxJava
+    implementation libs.glide
+    annotationProcessor libs.glideCompiler
+    implementation libs.butterknife
+    annotationProcessor libs.butterknifeCompiler
+    implementation libs.moxy
+    implementation libs.moxyCompiler
+    implementation libs.moxyAppCompat
+    testImplementation libs.junit
+    androidTestImplementation androidSupport.testRunner
+    androidTestImplementation androidSupport.espresso
+}

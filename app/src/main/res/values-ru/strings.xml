@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">gcSales</string>
+    <string name="username_hint">Имя пользователя</string>
+    <string name="password_hint">Пароль</string>
+    <string name="action_login">Войти</string>
+    <string name="action_register">Зарегистрироваться</string>
+    <string name="shops_tab_title">Магазины</string>
+    <string name="shopping_lists_tab_title">Списки покупок</string>
+    <string name="new_shopping_list_text">Создать список покупок</string>
+    <string name="shopping_list_name_hint">Название</string>
+    <string name="ok_button_text">ОК</string>
+    <string name="delete_shopping_list_prompt">Удалить список покупок?</string>
+    <string name="cancel_button_text">Отмена</string>
+    <string name="login_progress_text">Вход</string>
+    <string name="delete_button_text">Удалить</string>
+    <string name="total_price_text">Всего: %.2f</string>
+    <string name="item_added_text">Товар добавлен в \"%s\".</string>
+    <string name="open_text">Открыть</string>
+    <string name="date_till">До %s</string>
+    <string name="action_log_out">Выйти</string>
+    <string name="num_characters">%d из %d</string>
+    <string name="success_registration_message">Успешная регистрация!</string>
+    <string name="choose_shopping_list">Выберите список покупок</string>
+    <string name="stub_shopping_list">Пока еще нет списков покупок. Вы можете создать свой первый.</string>
+    <string name="stub_no_items">Пока еще нет товаров.</string>
+</resources>

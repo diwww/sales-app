@@ -1,0 +1,33 @@
+package ru.gcsales.app.domain.interactor;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import io.reactivex.Observable;
+import ru.gcsales.app.domain.executor.PostExecutionThread;
+import ru.gcsales.app.domain.model.ShoppingList;
+import ru.gcsales.app.domain.repository.ShoppingListRepository;
+
+/**
+ * Use case for getting all shopping lists.
+ *
+ * @author Maxim Surovtsev
+ * Created on 8/8/18
+ */
+public class GetShoppingLists extends UseCase<List<ShoppingList>, Void> {
+
+    private ShoppingListRepository mShoppingListRepository;
+
+    @Inject
+    public GetShoppingLists(ShoppingListRepository shoppingListRepository,
+                            PostExecutionThread postExecutionThread) {
+        super(postExecutionThread);
+        mShoppingListRepository = shoppingListRepository;
+    }
+
+    @Override
+    Observable<List<ShoppingList>> buildObservable(Void params) {
+        return mShoppingListRepository.getShoppingLists();
+    }
+}
