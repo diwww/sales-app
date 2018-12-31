@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
-
+    compileSdkVersion COMPILE_SDK_VERSION
 
     defaultConfig {
+        minSdkVersion MIN_SDK_VERSION
+        targetSdkVersion TARGET_SDK_VERSION
+
         applicationId "ru.gcsales.app"
-        minSdkVersion 21
-        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
 
@@ -26,6 +26,13 @@ android {
 }
 
 dependencies {
+    implementation androidSupport.appCompatV7
+    implementation androidSupport.supportV4
+    implementation androidSupport.constraintLayout
+    implementation androidSupport.recyclerViewV7
+    implementation androidSupport.cardViewV7
+    implementation androidSupport.design
+
     implementation libs.rxJava
     implementation libs.rxAndroid
     implementation libs.retrofit
@@ -42,7 +49,7 @@ dependencies {
     implementation libs.butterknife
     annotationProcessor libs.butterknifeCompiler
     implementation libs.moxy
-    implementation libs.moxyCompiler
+    annotationProcessor libs.moxyCompiler
     implementation libs.moxyAppCompat
     testImplementation libs.junit
     androidTestImplementation androidSupport.testRunner

@@ -11,18 +11,9 @@ buildscript {
 }
 
 allprojects {
-    ext {
-        applicationId = "ru.gcsales.app"
-        versionCode = 1
-        versionName = "1.0"
-        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
-    }
-    configurations {
-        all {
-            resolutionStrategy {
-                force 'android.arch.core:runtime:1.1.1'
-            }
-        }
+    repositories {
+        google()
+        jcenter()
     }
 }
 

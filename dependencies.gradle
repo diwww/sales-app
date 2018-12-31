@@ -1,5 +1,5 @@
 //region "Android support versions"
-def SUPPORT_LIB_VERSION = '28.1.1'
+def SUPPORT_LIB_VERSION = '27.1.1'
 def CONSTRAINT_LAYOUT_VERSION = '1.1.2'
 //endregion
 
@@ -24,9 +24,9 @@ def ESPRESSO_VERSION = '3.0.2'
 
 ext {
     //region "Android SDK versions"
-    compileSdkVersion = 28
-    minSdkVersion = 21
-    targetSdkVersion = 28
+    COMPILE_SDK_VERSION = 27
+    MIN_SDK_VERSION = 21
+    TARGET_SDK_VERSION = 27
     //endregion
 
     androidSupport = [
