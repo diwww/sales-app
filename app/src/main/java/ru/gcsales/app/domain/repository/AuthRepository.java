@@ -10,8 +10,11 @@ import io.reactivex.Observable;
  * Created on 8/7/18
  */
 public interface AuthRepository extends TokenRepository {
+
+    // TODO: auth logic
+
     /**
-     * Performs login.
+     * Performs login
      *
      * @param username username
      * @param password password
@@ -29,14 +32,14 @@ public interface AuthRepository extends TokenRepository {
     Observable<String> register(String username, String password);
 
     /**
-     * Performs logout.
+     * Performs logout
      *
      * @return just empty string.
      */
     Observable<String> logout();
 
     /**
-     * Checks if user is logged in.
+     * Checks if user is logged in
      *
      * @return {@link Observable} of {@link Boolean} flag which shows login state
      */

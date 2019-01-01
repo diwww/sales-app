@@ -9,9 +9,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.observers.DisposableObserver;
-import io.reactivex.observers.DisposableSingleObserver;
-import ru.gcsales.app.presentation.AppApplication;
-import ru.gcsales.app.domain.interactor.GetShops;
+import ru.gcsales.app.AppApplication;
+import ru.gcsales.app.domain.interactor.usecase.GetShops;
 import ru.gcsales.app.domain.model.Shop;
 import ru.gcsales.app.presentation.model.mapper.ShopViewModelMapper;
 import ru.gcsales.app.presentation.view.ShopsView;

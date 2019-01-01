@@ -8,12 +8,12 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.observers.DisposableObserver;
-import ru.gcsales.app.domain.interactor.GetItems;
-import ru.gcsales.app.domain.interactor.GetShoppingLists;
+import ru.gcsales.app.domain.interactor.usecase.GetItems;
+import ru.gcsales.app.domain.interactor.usecase.GetShoppingLists;
 import ru.gcsales.app.domain.model.Item;
 import ru.gcsales.app.domain.model.ShoppingList;
-import ru.gcsales.app.presentation.AppApplication;
-import ru.gcsales.app.domain.interactor.AddItem;
+import ru.gcsales.app.AppApplication;
+import ru.gcsales.app.domain.interactor.usecase.AddItem;
 import ru.gcsales.app.presentation.model.ItemViewModel;
 import ru.gcsales.app.presentation.model.ShoppingListViewModel;
 import ru.gcsales.app.presentation.model.mapper.ShoppingListViewModelMapper;

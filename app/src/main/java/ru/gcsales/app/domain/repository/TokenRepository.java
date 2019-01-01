@@ -1,5 +1,8 @@
 package ru.gcsales.app.domain.repository;
 
+import io.reactivex.Completable;
+import io.reactivex.Single;
+
 /**
  * Repository for storing and getting auth token.
  * This interface should be extended by interfaces working with
@@ -15,24 +18,24 @@ public interface TokenRepository {
      *
      * @param token token to save
      */
-    void setToken(String token);
+    Completable setToken(String token);
 
     /**
      * Gets token.
      *
      * @return token string
      */
-    String getToken();
+    Single<String> getToken();
 
     /**
      * Removes token.
      */
-    void removeToken();
+    Completable removeToken();
 
     /**
      * Gets auth header (token concatenated with auth info)
      *
      * @return auth header
      */
-    String getAuthHeader();
+    Single<String> getAuthHeader();
 }

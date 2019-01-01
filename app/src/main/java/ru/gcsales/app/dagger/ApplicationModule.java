@@ -1,16 +1,13 @@
-package ru.gcsales.app.presentation.di;
+package ru.gcsales.app.dagger;
 
 import android.app.Application;
 import android.content.Context;
-
-import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import ru.gcsales.app.domain.executor.PostExecutionThread;
-import ru.gcsales.app.presentation.UIThread;
 
 /**
  * Application dagger module, which provides {@link Context} and post execution thread.

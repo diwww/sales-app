@@ -6,11 +6,10 @@ import com.arellomobile.mvp.MvpPresenter;
 import javax.inject.Inject;
 
 import io.reactivex.observers.DisposableObserver;
-import ru.gcsales.app.presentation.AppApplication;
-import ru.gcsales.app.domain.interactor.DeleteItem;
-import ru.gcsales.app.domain.interactor.GetShoppingList;
+import ru.gcsales.app.AppApplication;
+import ru.gcsales.app.domain.interactor.usecase.DeleteItem;
+import ru.gcsales.app.domain.interactor.usecase.GetShoppingList;
 import ru.gcsales.app.domain.model.ShoppingList;
-import ru.gcsales.app.presentation.model.ShoppingListViewModel;
 import ru.gcsales.app.presentation.model.mapper.ShoppingListViewModelMapper;
 import ru.gcsales.app.presentation.view.ShoppingListView;
 import ru.gcsales.app.presentation.model.ItemViewModel;

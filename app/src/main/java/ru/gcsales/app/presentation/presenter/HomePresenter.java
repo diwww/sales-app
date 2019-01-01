@@ -6,9 +6,9 @@ import com.arellomobile.mvp.MvpPresenter;
 import javax.inject.Inject;
 
 import io.reactivex.observers.DisposableObserver;
-import ru.gcsales.app.domain.interactor.CheckLogin;
-import ru.gcsales.app.domain.interactor.Logout;
-import ru.gcsales.app.presentation.AppApplication;
+import ru.gcsales.app.domain.interactor.usecase.CheckLogin;
+import ru.gcsales.app.domain.interactor.usecase.Logout;
+import ru.gcsales.app.AppApplication;
 import ru.gcsales.app.presentation.view.HomeView;
 
 /**

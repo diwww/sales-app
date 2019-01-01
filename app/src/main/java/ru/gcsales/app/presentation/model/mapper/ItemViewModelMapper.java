@@ -30,7 +30,7 @@ public class ItemViewModelMapper extends AbstractMapper<Item, ItemViewModel, Voi
             itemViewModel = new ItemViewModel();
             itemViewModel.setId(input.getId());
             itemViewModel.setName(input.getName());
-            itemViewModel.setCategory(input.getCategory());
+            itemViewModel.setCategory(input.getCategory().getName());
             itemViewModel.setImageUrl(input.getImageUrl());
             itemViewModel.setOldPrice(input.getOldPrice());
             itemViewModel.setNewPrice(input.getNewPrice());

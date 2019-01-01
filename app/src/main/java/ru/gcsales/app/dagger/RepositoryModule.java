@@ -1,4 +1,4 @@
-package ru.gcsales.app.data.di;
+package ru.gcsales.app.dagger;
 
 import android.content.Context;
 

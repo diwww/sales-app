@@ -1,11 +1,8 @@
-package ru.gcsales.app.presentation.di;
+package ru.gcsales.app.dagger;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
-import ru.gcsales.app.data.di.DatabaseModule;
-import ru.gcsales.app.data.di.NetworkModule;
-import ru.gcsales.app.data.di.RepositoryModule;
 import ru.gcsales.app.presentation.presenter.CategoriesPresenter;
 import ru.gcsales.app.presentation.presenter.HomePresenter;
 import ru.gcsales.app.presentation.presenter.LoginPresenter;

@@ -8,9 +8,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.observers.DisposableObserver;
-import ru.gcsales.app.domain.interactor.GetCategories;
+import ru.gcsales.app.domain.interactor.usecase.GetCategories;
 import ru.gcsales.app.domain.model.Category;
-import ru.gcsales.app.presentation.AppApplication;
+import ru.gcsales.app.AppApplication;
 import ru.gcsales.app.presentation.model.mapper.CategoryViewModelMapper;
 import ru.gcsales.app.presentation.view.CategoriesView;
 

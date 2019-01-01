@@ -26,7 +26,7 @@ public class ItemEntityMapper extends AbstractMapper<ItemWithShop, Item, Void> {
             item = new Item();
             item.setId(input.getItemEntity().getId());
             item.setName(input.getItemEntity().getName());
-            item.setCategory(input.getItemEntity().getCategory());
+//            item.setCategory(input.getItemEntity().getCategory());
             item.setImageUrl(input.getItemEntity().getImageUrl());
             item.setCondition(input.getItemEntity().getCondition());
             item.setCrawlDate(input.getItemEntity().getCrawlDate());

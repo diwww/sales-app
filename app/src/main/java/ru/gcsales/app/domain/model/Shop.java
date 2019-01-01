@@ -1,12 +1,15 @@
 package ru.gcsales.app.domain.model;
 
+import java.util.Objects;
+
 /**
- * Shop domain model.
+ * Shop
  *
  * @author Maxim Surovtsev
  * Created on 7/24/18
  */
 public class Shop {
+
     private long mId;
     private String mAlias;
     private String mName;
@@ -42,5 +45,32 @@ public class Shop {
 
     public void setImageUrl(String imageUrl) {
         this.mImageUrl = imageUrl;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Shop)) {
+            return false;
+        }
+        Shop shop = (Shop) o;
+        return mId == shop.mId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mId);
+    }
+
+    @Override
+    public String toString() {
+        return "Shop{" +
+                "mId=" + mId +
+                ", mAlias='" + mAlias + '\'' +
+                ", mName='" + mName + '\'' +
+                ", mImageUrl='" + mImageUrl + '\'' +
+                '}';
     }
 }

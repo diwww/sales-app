@@ -110,7 +110,7 @@ public class ShoppingListRepositoryImpl extends TokenRepositoryImpl implements S
                         items.add(mItemEntityMapper.transform(entity, null));
                     }
 
-                    shoppingList.setItems(items);
+                    shoppingList.setEntries(null);
 
                     return shoppingList;
                 });

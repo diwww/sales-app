@@ -1,12 +1,15 @@
 package ru.gcsales.app.domain.repository;
 
+
 import java.util.List;
 
-import io.reactivex.Observable;
-import ru.gcsales.app.domain.model.ShoppingList;
+import io.reactivex.Completable;
+import io.reactivex.Maybe;
+import ru.gcsales.app.domain.model.Item;
+import ru.gcsales.app.domain.model.ShoppingListEntry;
 
 /**
- * Repository for working with a shopping list data.
+ * Shopping list repository
  *
  * @author Maxim Surovtsev
  * Created on 8/8/18
@@ -14,51 +17,41 @@ import ru.gcsales.app.domain.model.ShoppingList;
 public interface ShoppingListRepository extends TokenRepository {
 
     /**
-     * Gets all shopping lists (their previews).
+     * Gets the shopping list
      *
-     * @return {@link Observable} list of shopping lists.
+     * @return {@link Maybe} with shopping list entries
      */
-    Observable<List<ShoppingList>> getShoppingLists();
+    Maybe<List<ShoppingListEntry>> getEntries();
 
     /**
-     * Gets a full version of the shopping list with the given id.
+     * Creates a new shopping list entry
      *
-     * @param id id of the shopping list to get
-     * @return {@link Observable} of retrieved shopping list
+     * @param item item to add to the shopping list
+     * @return {@link Maybe} with new shopping list entry
      */
-    Observable<ShoppingList> getShoppingList(long id);
+    Maybe<ShoppingListEntry> newEntry(Item item);
 
     /**
-     * Adds a new shopping list.
+     * Increments the quantity of the entry
      *
-     * @param name name of the shopping list
-     * @return {@link Observable} of newly added shopping list.
+     * @param entry shopping list entry
+     * @return {@link Completable} with the result of increment
      */
-    Observable<ShoppingList> addShoppingList(String name);
+    Completable incrementQuantity(ShoppingListEntry entry);
 
     /**
-     * Removes the shopping list with the given id.
+     * Decrements the quantity of the entry
      *
-     * @param id id of the shopping list to remove
-     * @return response message, e.g. "OK"
+     * @param entry shopping list entry
+     * @return {@link Completable} with the result of decrement
      */
-    Observable<String> deleteShoppingList(long id);
+    Completable decrementQuantity(ShoppingListEntry entry);
 
     /**
-     * Adds the item to the shopping list.
+     * Removes the entry from the shopping list
      *
-     * @param shoppingListId id of the shopping list
-     * @param itemId         id of the item
-     * @return response message, e.g. "OK"
+     * @param entry shopping list entry
+     * @return {@link Completable} with the result of removal
      */
-    Observable<String> addItem(long shoppingListId, long itemId);
-
-    /**
-     * Deletes the item from the shopping list.
-     *
-     * @param shoppingListId id of the shopping list
-     * @param itemId         id of the item
-     * @return response message, e.g. "OK"
-     */
-    Observable<String> deleteItem(long shoppingListId, long itemId);
+    Completable removeEntry(ShoppingListEntry entry);
 }

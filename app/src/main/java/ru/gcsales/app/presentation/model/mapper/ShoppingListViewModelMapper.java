@@ -22,7 +22,7 @@ public class ShoppingListViewModelMapper extends AbstractMapper<ShoppingList, Sh
             shoppingListViewModel = new ShoppingListViewModel();
             shoppingListViewModel.setId(input.getId());
             shoppingListViewModel.setName(input.getName());
-            shoppingListViewModel.setItems(mItemViewModelMapper.transform(input.getItems(), null));
+//            shoppingListViewModel.setItems(mItemViewModelMapper.transform(input.getEntries(), null));
         }
 
         return shoppingListViewModel;

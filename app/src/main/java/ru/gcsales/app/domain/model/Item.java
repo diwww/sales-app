@@ -2,114 +2,115 @@ package ru.gcsales.app.domain.model;
 
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
- * Item domain model.
+ * Item
  *
  * @author Maxim Surovtsev
  * Created on 7/26/18
  */
 public class Item {
 
-    private long id;
-    private String name;
-    private String category;
-    private double oldPrice;
-    private double newPrice;
-    private Date dateIn;
-    private Date dateOut;
-    private String crawlDate;
-    private String condition;
-    private String imageUrl;
-    private String discount;
+    private long mId;
+    private String mName;
+    private Category mCategory;
+    private double mOldPrice;
+    private double mNewPrice;
+    private Date mDateIn;
+    private Date mDateOut;
+    private String mCrawlDate;
+    private String mCondition;
+    private String mImageUrl;
+    private String mDiscount;
     private Shop mShop;
 
     public long getId() {
-        return id;
+        return mId;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.mId = id;
     }
 
     public String getName() {
-        return name;
+        return mName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.mName = name;
     }
 
-    public String getCategory() {
-        return category;
+    public Category getCategory() {
+        return mCategory;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategory(Category category) {
+        this.mCategory = category;
     }
 
     public double getOldPrice() {
-        return oldPrice;
+        return mOldPrice;
     }
 
     public void setOldPrice(double oldPrice) {
-        this.oldPrice = oldPrice;
+        this.mOldPrice = oldPrice;
     }
 
     public double getNewPrice() {
-        return newPrice;
+        return mNewPrice;
     }
 
     public void setNewPrice(double newPrice) {
-        this.newPrice = newPrice;
+        this.mNewPrice = newPrice;
     }
 
     public Date getDateIn() {
-        return dateIn;
+        return mDateIn;
     }
 
     public void setDateIn(Date dateIn) {
-        this.dateIn = dateIn;
+        this.mDateIn = dateIn;
     }
 
     public Date getDateOut() {
-        return dateOut;
+        return mDateOut;
     }
 
     public void setDateOut(Date dateOut) {
-        this.dateOut = dateOut;
+        this.mDateOut = dateOut;
     }
 
     public String getCrawlDate() {
-        return crawlDate;
+        return mCrawlDate;
     }
 
     public void setCrawlDate(String crawlDate) {
-        this.crawlDate = crawlDate;
+        this.mCrawlDate = crawlDate;
     }
 
     public String getCondition() {
-        return condition;
+        return mCondition;
     }
 
     public void setCondition(String condition) {
-        this.condition = condition;
+        this.mCondition = condition;
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return mImageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+        this.mImageUrl = imageUrl;
     }
 
     public String getDiscount() {
-        return discount;
+        return mDiscount;
     }
 
     public void setDiscount(String discount) {
-        this.discount = discount;
+        this.mDiscount = discount;
     }
 
     public Shop getShop() {
@@ -118,5 +119,40 @@ public class Item {
 
     public void setShop(Shop shop) {
         this.mShop = shop;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Item)) {
+            return false;
+        }
+        Item item = (Item) o;
+        return mId == item.mId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mId);
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "mId=" + mId +
+                ", mName='" + mName + '\'' +
+                ", mCategory=" + mCategory +
+                ", mOldPrice=" + mOldPrice +
+                ", mNewPrice=" + mNewPrice +
+                ", mDateIn=" + mDateIn +
+                ", mDateOut=" + mDateOut +
+                ", mCrawlDate='" + mCrawlDate + '\'' +
+                ", mCondition='" + mCondition + '\'' +
+                ", mImageUrl='" + mImageUrl + '\'' +
+                ", mDiscount='" + mDiscount + '\'' +
+                ", mShop=" + mShop +
+                '}';
     }
 }
