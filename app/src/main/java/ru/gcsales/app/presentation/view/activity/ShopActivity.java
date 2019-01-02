@@ -3,13 +3,12 @@ package ru.gcsales.app.presentation.view.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ProgressBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
-import ru.gcsales.app.presentation.view.ShowOrHideProgress;
+import ru.gcsales.app.presentation.ui.base.BaseActivity;
 import ru.gcsales.app.presentation.view.fragment.CategoriesFragment;
 import ru.gcsales.app.presentation.view.fragment.ItemsFragment;
 
@@ -21,7 +20,7 @@ import ru.gcsales.app.presentation.view.fragment.ItemsFragment;
  * <li>{@link ItemsFragment}</li>
  * </ol>
  */
-public class ShopActivity extends BaseActivity implements ShowOrHideProgress {
+public class ShopActivity extends BaseActivity {
 
     private static final String EXTRA_SHOP_ID = "ru.gcsales.EXTRA_SHOP_ID";
     private static final String EXTRA_SHOP_NAME = "ru.gcsales.EXTRA_SHOP_NAME";
@@ -45,16 +44,6 @@ public class ShopActivity extends BaseActivity implements ShowOrHideProgress {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit();
-    }
-
-    @Override
-    public void showProgress() {
-        mProgressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgress() {
-        mProgressBar.setVisibility(View.GONE);
     }
 
     /**

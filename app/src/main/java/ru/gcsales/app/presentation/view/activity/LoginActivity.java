@@ -3,25 +3,16 @@ package ru.gcsales.app.presentation.view.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-
-import com.arellomobile.mvp.MvpAppCompatActivity;
-import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
-import ru.gcsales.app.presentation.presenter.LoginPresenter;
-import ru.gcsales.app.presentation.view.LoginView;
+import ru.gcsales.app.presentation.ui.base.BaseActivity;
 
-public class LoginActivity extends BaseActivity implements LoginView {
-
-    @InjectPresenter
-    LoginPresenter mLoginPresenter;
+public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.button_login) Button mLoginButton;
     @BindView(R.id.button_register) Button mRegisterButton;
@@ -39,38 +30,11 @@ public class LoginActivity extends BaseActivity implements LoginView {
             String username = mUsernameEditText.getText().toString();
             String password = mPasswordEditText.getText().toString();
 
-            mLoginPresenter.login(username, password);
+            // TODO: perform login
         });
         mRegisterButton.setOnClickListener(v -> {
             startActivity(RegisterActivity.newIntent(this));
         });
-    }
-
-    @Override
-    public void showError(String error) {
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void showProgress() {
-        mProgressBar.setVisibility(View.VISIBLE);
-        mLoginButton.setVisibility(View.GONE);
-        mUsernameEditText.setEnabled(false);
-        mPasswordEditText.setEnabled(false);
-    }
-
-    @Override
-    public void hideProgress() {
-        mProgressBar.setVisibility(View.GONE);
-        mLoginButton.setVisibility(View.VISIBLE);
-        mUsernameEditText.setEnabled(true);
-        mPasswordEditText.setEnabled(true);
-    }
-
-    @Override
-    public void onSuccessLogin() {
-        startActivity(HomeActivity.newIntent(this));
-        finish();
     }
 
     /**

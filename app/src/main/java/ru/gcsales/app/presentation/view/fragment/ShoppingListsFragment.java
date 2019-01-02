@@ -12,31 +12,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
-import com.arellomobile.mvp.presenter.InjectPresenter;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
 import ru.gcsales.app.presentation.model.ShoppingListViewModel;
-import ru.gcsales.app.presentation.presenter.ShoppingListsPresenter;
-import ru.gcsales.app.presentation.view.ShoppingListsView;
 import ru.gcsales.app.presentation.view.activity.ShoppingListActivity;
 import ru.gcsales.app.presentation.view.adapter.ShoppingListsAdapter;
-import ru.gcsales.app.presentation.view.adapter.ShoppingListsAdapter.*;
-import ru.gcsales.app.presentation.view.fragment.dialog.CreateShoppingListDialog;
+import ru.gcsales.app.presentation.view.adapter.ShoppingListsAdapter.OnItemClickListener;
+import ru.gcsales.app.presentation.view.adapter.ShoppingListsAdapter.OnItemLongClickListener;
 
 
 public class ShoppingListsFragment extends MvpAppCompatFragment
-        implements ShoppingListsView, OnItemClickListener, OnItemLongClickListener {
+        implements  OnItemClickListener, OnItemLongClickListener {
 
     public static final int REQUEST_NAME = 1;
-    @InjectPresenter
-    ShoppingListsPresenter mShoppingListsPresenter;
 
     @BindView(R.id.progress_bar) ProgressBar mProgressBar;
     @BindView(R.id.recycler_view_shopping_list_previews) RecyclerView mRecyclerView;
@@ -60,50 +52,9 @@ public class ShoppingListsFragment extends MvpAppCompatFragment
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_NAME) {
-            String name = data.getStringExtra(CreateShoppingListDialog.EXTRA_NAME);
-            mShoppingListsPresenter.addShoppingList(name);
+//            String name = data.getStringExtra(CreateShoppingListDialog.EXTRA_NAME);
+//            mShoppingListsPresenter.addShoppingList(name);
         }
-    }
-
-    @Override
-    public void setData(List<ShoppingListViewModel> data) {
-        if (data.size() > 0) { // Set actual data
-            mShoppingListsAdapter.setData(data);
-            mStubTextView.setVisibility(View.INVISIBLE);
-        } else { // Show empty data stub
-            mStubTextView.setVisibility(View.VISIBLE);
-        }
-    }
-
-    @Override
-    public void addItem(ShoppingListViewModel item) {
-        mShoppingListsAdapter.addItem(item);
-        // Hide empty data stub
-        mStubTextView.setVisibility(View.INVISIBLE);
-    }
-
-    @Override
-    public void removeItem(ShoppingListViewModel item) {
-        mShoppingListsAdapter.removeItem(item);
-        if (mShoppingListsAdapter.getItemCount() == 0) {
-            // Show empty data stub
-            mStubTextView.setVisibility(View.VISIBLE);
-        }
-    }
-
-    @Override
-    public void showProgress() {
-        mProgressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgress() {
-        mProgressBar.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void showError(String error) {
-        Toast.makeText(this.getActivity(), error, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -118,20 +69,10 @@ public class ShoppingListsFragment extends MvpAppCompatFragment
                 .setTitle(R.string.delete_shopping_list_prompt)
                 .setNegativeButton(R.string.cancel_button_text, null)
                 .setPositiveButton(R.string.delete_button_text, (d, w) -> {
-                    mShoppingListsPresenter.removeShoppingList(model);
+//                    mShoppingListsPresenter.removeShoppingList(model);
                 })
                 .create();
         dialog.show();
-    }
-
-    /**
-     * Invokes "create shopping list" dialog
-     */
-    public void createShoppingList() {
-        // Show "create new shopping list" dialog
-        CreateShoppingListDialog fragment = CreateShoppingListDialog.newInstance();
-        fragment.setTargetFragment(this, REQUEST_NAME);
-        fragment.show(getFragmentManager(), "add-dialog");
     }
 
     /**

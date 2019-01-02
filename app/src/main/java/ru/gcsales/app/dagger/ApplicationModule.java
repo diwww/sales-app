@@ -7,7 +7,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import ru.gcsales.app.domain.executor.PostExecutionThread;
 
 /**
  * Application dagger module, which provides {@link Context} and post execution thread.
@@ -28,11 +27,5 @@ public class ApplicationModule {
     @Singleton
     Context provideContext() {
         return mApplication;
-    }
-
-    @Provides
-    @Singleton
-    PostExecutionThread providePostExecutionThread() {
-        return new UIThread();
     }
 }

@@ -5,31 +5,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.arellomobile.mvp.MvpAppCompatActivity;
-import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.functions.Consumer;
 import ru.gcsales.app.R;
-import ru.gcsales.app.presentation.presenter.RegisterPresenter;
-import ru.gcsales.app.presentation.view.RegisterView;
+import ru.gcsales.app.presentation.ui.base.BaseActivity;
 
 
-public class RegisterActivity extends BaseActivity implements RegisterView {
+public class RegisterActivity extends BaseActivity {
 
     public static final int NUM_CHARACTERS_USERNAME = 6;
     public static final int NUM_CHARACTERS_PASSWORD = 6;
-
-    @InjectPresenter
-    RegisterPresenter mRegisterPresenter;
 
     @BindView(R.id.edit_text_username) EditText mUsernameEditText;
     @BindView(R.id.edit_text_password) EditText mPasswordEditText;
@@ -56,33 +47,9 @@ public class RegisterActivity extends BaseActivity implements RegisterView {
         mRegisterButton.setOnClickListener(v -> {
             String username = mUsernameEditText.getText().toString();
             String password = mPasswordEditText.getText().toString();
-            mRegisterPresenter.register(username, password);
+            // TODO: perform register
         });
     }
-
-    @Override
-    public void showProgress() {
-        mProgressBar.setVisibility(View.VISIBLE);
-        mRegisterButton.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void hideProgress() {
-        mProgressBar.setVisibility(View.GONE);
-        mRegisterButton.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void showError(String error) {
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onSuccessRegister() {
-        Toast.makeText(this, getString(R.string.success_registration_message), Toast.LENGTH_SHORT).show();
-        finish();
-    }
-
 
     private void checkUsername(Editable username) {
         mUsernameNumCharactersTextView.setText(getString(R.string.num_characters, username.length(), NUM_CHARACTERS_USERNAME));

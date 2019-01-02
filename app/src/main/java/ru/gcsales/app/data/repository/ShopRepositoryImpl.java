@@ -1,64 +1,58 @@
 package ru.gcsales.app.data.repository;
 
+import com.google.gson.Gson;
+
+import java.util.Arrays;
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.Single;
-import ru.gcsales.app.data.AppDatabase;
-import ru.gcsales.app.data.dao.ShopDAO;
-import ru.gcsales.app.data.model.local.ShopEntity;
-import ru.gcsales.app.data.model.mapper.ShopEntityMapper;
-import ru.gcsales.app.data.model.mapper.ShopResponseMapper;
+import io.reactivex.Maybe;
+import ru.gcsales.app.domain.model.Category;
+import ru.gcsales.app.domain.model.Item;
 import ru.gcsales.app.domain.model.Shop;
-import ru.gcsales.app.data.service.ShopService;
 import ru.gcsales.app.domain.repository.ShopRepository;
 
 /**
- * Implementation of {@link ShopRepository},
- * which gets data from internet and saves to database.
- * <p>
- * There are two scenarios:
- * <ol>
- * <li>If an internet connection is not available, then the data is fetched from a database
- * and returned.</li>
- * <li>If an internet connection is available, then the data is fetched from an internet, then
- * it is written to a database and finally it is fetched from a database and returned.</li>
- * </ol>
- * </p>
+ * Implementation of {@link ShopRepository}
  *
  * @author Maxim Surovtsev
  * Created on 7/24/18
  */
 public class ShopRepositoryImpl implements ShopRepository {
 
-    private ShopService mShopService;
-    private ShopDAO mShopDAO;
 
-    private ShopResponseMapper mResponseMapper = new ShopResponseMapper();
-    private ShopEntityMapper mEntityMapper = new ShopEntityMapper();
-
-
-    public ShopRepositoryImpl(ShopService shopService, AppDatabase database) {
-        mShopService = shopService;
-        mShopDAO = database.getShopDAO();
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Maybe<List<Shop>> getShops() {
+        Shop shop = new Shop();
+        shop.setName("Дикси");
+        shop.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Dixi.gif/151px-Dixi.gif");
+        List<Shop> shops = Arrays.asList(shop, shop, shop);
+        return Maybe.just(shops);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Observable<List<Shop>> getShops() {
-        // 1. Network scenario
-        Single<List<ShopEntity>> remote = mShopService.getShops()
-                .flatMap(responseList -> {
-                    // Clear old local data
-                    mShopDAO.clearTable();
-                    // Insert new data from remote source
-                    mShopDAO.insert(mResponseMapper.transform(responseList, null));
-                    return mShopDAO.get();
-                });
+    public Maybe<List<Category>> getCategories(Shop shop) {
+        List<Category> categories = Arrays.asList(new Category("Мясо"), new Category("Овощи и фрукты"), new Category("Молоко"));
+        return Maybe.just(categories);
+    }
 
-        // 2. Db scenario
-        Single<List<ShopEntity>> local = mShopDAO.get();
-
-        return Observable.concatArray(local.toObservable(), remote.toObservable())
-                .map(data -> mEntityMapper.transform(data, null));
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Maybe<List<Item>> getItems(Shop shop, Category category, int page) {
+        Item item = new Item();
+        item.setCategory(new Category("Мясо"));
+        item.setName("Молоко");
+        item.setOldPrice(22);
+        item.setNewPrice(11);
+        item.setImageUrl("http://pngimg.com/uploads/sausage/sausage_PNG5176.png");
+        List<Item> items = Arrays.asList(item, item, item, item, item, item, item);
+        return Maybe.just(items);
     }
 }

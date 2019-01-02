@@ -6,26 +6,18 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.arellomobile.mvp.MvpAppCompatActivity;
-import com.arellomobile.mvp.presenter.InjectPresenter;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
-import ru.gcsales.app.presentation.presenter.HomePresenter;
-import ru.gcsales.app.presentation.view.HomeView;
+import ru.gcsales.app.presentation.ui.base.BaseActivity;
 import ru.gcsales.app.presentation.view.fragment.ShoppingListsFragment;
 import ru.gcsales.app.presentation.view.fragment.ViewPagerAdapter;
 
-public class HomeActivity extends BaseActivity implements HomeView {
-
-    @InjectPresenter
-    HomePresenter mHomePresenter;
+public class HomeActivity extends BaseActivity {
 
     @BindView(R.id.view_pager) ViewPager mViewPager;
     @BindView(R.id.tab_layout) TabLayout mTabLayout;
@@ -40,13 +32,10 @@ public class HomeActivity extends BaseActivity implements HomeView {
         ButterKnife.bind(this);
         setToolbar(false);
 
-        // Check login before loading authorized data
-        mHomePresenter.checkLogin();
-
         initTabs();
         mFloatingActionButton.setOnClickListener(v -> {
             ShoppingListsFragment fragment = (ShoppingListsFragment) mViewPagerAdapter.getRegisteredFragment(1);
-            fragment.createShoppingList();
+            // TODO
         });
     }
 
@@ -61,19 +50,12 @@ public class HomeActivity extends BaseActivity implements HomeView {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.log_out:
-                mHomePresenter.logOut();
+                // TODO: logout
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
-    @Override
-    public void openLoginActivity() {
-        startActivity(LoginActivity.newIntent(this));
-        finish();
-    }
-
 
     private void initTabs() {
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());

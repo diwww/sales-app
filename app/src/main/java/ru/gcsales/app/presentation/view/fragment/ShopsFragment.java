@@ -8,19 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
-import com.arellomobile.mvp.presenter.InjectPresenter;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
 import ru.gcsales.app.presentation.model.ShopViewModel;
-import ru.gcsales.app.presentation.presenter.ShopsPresenter;
-import ru.gcsales.app.presentation.view.ShopsView;
 import ru.gcsales.app.presentation.view.activity.ShopActivity;
 import ru.gcsales.app.presentation.view.adapter.ShopsAdapter;
 import ru.gcsales.app.presentation.view.adapter.ShopsAdapter.OnItemClickListener;
@@ -28,12 +22,9 @@ import ru.gcsales.app.presentation.view.adapter.ShopsAdapter.OnItemClickListener
 /**
  * Fragment for displaying available shops.
  */
-public class ShopsFragment extends MvpAppCompatFragment implements ShopsView, OnItemClickListener {
+public class ShopsFragment extends MvpAppCompatFragment implements OnItemClickListener {
 
     private static final int SPAN_COUNT = 2;
-
-    @InjectPresenter
-    ShopsPresenter mShopsPresenter;
 
     @BindView(R.id.recycler_view_shops) RecyclerView mRecyclerView;
     @BindView(R.id.progress_bar) ProgressBar mProgressBar;
@@ -55,27 +46,7 @@ public class ShopsFragment extends MvpAppCompatFragment implements ShopsView, On
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mShopsPresenter.loadShops();
-    }
-
-    @Override
-    public void showProgress() {
-        mProgressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgress() {
-        mProgressBar.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void setShops(List<ShopViewModel> shopViewModels) {
-        mShopsAdapter.setData(shopViewModels);
-    }
-
-    @Override
-    public void showError(String error) {
-        Toast.makeText(this.getContext(), error, Toast.LENGTH_SHORT).show();
+//        mShopsPresenter.loadShops();
     }
 
     @Override

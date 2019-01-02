@@ -21,38 +21,23 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
 import ru.gcsales.app.presentation.model.CategoryViewModel;
-import ru.gcsales.app.presentation.presenter.CategoriesPresenter;
-import ru.gcsales.app.presentation.view.CategoriesView;
-import ru.gcsales.app.presentation.view.ShowOrHideProgress;
 import ru.gcsales.app.presentation.view.adapter.CategoriesAdapter;
 import ru.gcsales.app.presentation.view.adapter.CategoriesAdapter.OnItemClickListener;
 
 /**
  * Categories fragment.
  */
-public class CategoriesFragment extends MvpAppCompatFragment implements CategoriesView, OnItemClickListener {
+public class CategoriesFragment extends MvpAppCompatFragment implements OnItemClickListener {
 
     private static final String EXTRA_SHOP_ID = "ru.gcsales.EXTRA_SHOP_ID";
 
-    @InjectPresenter
-    CategoriesPresenter mCategoriesPresenter;
 
-    @BindView(R.id.recycler_view_categories) RecyclerView mRecyclerView;
+    @BindView(R.id.recycler_view_categories)
+    RecyclerView mRecyclerView;
 
     private CategoriesAdapter mCategoriesAdapter;
     private LinearLayoutManager mLinearLayoutManager;
-    private ShowOrHideProgress mShowOrHideProgress;
 
-    @ProvidePresenter
-    CategoriesPresenter provideCategoriesPresenter() {
-        return new CategoriesPresenter(getArguments().getLong(EXTRA_SHOP_ID));
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mShowOrHideProgress = (ShowOrHideProgress) context;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,27 +51,6 @@ public class CategoriesFragment extends MvpAppCompatFragment implements Categori
         mRecyclerView.setAdapter(mCategoriesAdapter);
 
         return root;
-    }
-
-
-    @Override
-    public void showProgress() {
-        mShowOrHideProgress.showProgress();
-    }
-
-    @Override
-    public void hideProgress() {
-        mShowOrHideProgress.hideProgress();
-    }
-
-    @Override
-    public void setData(List<CategoryViewModel> data) {
-        mCategoriesAdapter.setData(data);
-    }
-
-    @Override
-    public void showError(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
