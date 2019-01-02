@@ -1,4 +1,4 @@
-package ru.gcsales.app.presentation.view.activity;
+package ru.gcsales.app.presentation.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,10 +14,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
 import ru.gcsales.app.presentation.ui.base.BaseActivity;
-import ru.gcsales.app.presentation.view.fragment.ShoppingListsFragment;
+import ru.gcsales.app.presentation.ui.shoppinglist.ShoppingListFragment;
 import ru.gcsales.app.presentation.view.fragment.ViewPagerAdapter;
 
-public class HomeActivity extends BaseActivity {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.view_pager) ViewPager mViewPager;
     @BindView(R.id.tab_layout) TabLayout mTabLayout;
@@ -28,13 +28,13 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        setToolbar(false);
+        setToolbar();
 
         initTabs();
         mFloatingActionButton.setOnClickListener(v -> {
-            ShoppingListsFragment fragment = (ShoppingListsFragment) mViewPagerAdapter.getRegisteredFragment(1);
+            ShoppingListFragment fragment = (ShoppingListFragment) mViewPagerAdapter.getRegisteredFragment(1);
             // TODO
         });
     }
@@ -90,6 +90,6 @@ public class HomeActivity extends BaseActivity {
     }
 
     public static Intent newIntent(Context context) {
-        return new Intent(context, HomeActivity.class);
+        return new Intent(context, MainActivity.class);
     }
 }

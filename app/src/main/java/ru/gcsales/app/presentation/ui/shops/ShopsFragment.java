@@ -1,4 +1,4 @@
-package ru.gcsales.app.presentation.view.fragment;
+package ru.gcsales.app.presentation.ui.shops;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

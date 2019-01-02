@@ -7,6 +7,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
+import ru.gcsales.app.presentation.ui.shoppinglist.ShoppingListFragment;
+import ru.gcsales.app.presentation.ui.shops.ShopsFragment;
+
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
@@ -41,7 +44,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return ShopsFragment.newInstance(null);
             case 1:
-                return ShoppingListsFragment.newInstance(null);
+                return ShoppingListFragment.newInstance(null);
             default:
                 return null;
         }

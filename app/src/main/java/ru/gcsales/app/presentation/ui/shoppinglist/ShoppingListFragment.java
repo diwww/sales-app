@@ -1,4 +1,4 @@
-package ru.gcsales.app.presentation.view.fragment;
+package ru.gcsales.app.presentation.ui.shoppinglist;
 
 
 import android.app.Activity;
@@ -25,7 +25,7 @@ import ru.gcsales.app.presentation.view.adapter.ShoppingListsAdapter.OnItemClick
 import ru.gcsales.app.presentation.view.adapter.ShoppingListsAdapter.OnItemLongClickListener;
 
 
-public class ShoppingListsFragment extends MvpAppCompatFragment
+public class ShoppingListFragment extends MvpAppCompatFragment
         implements  OnItemClickListener, OnItemLongClickListener {
 
     public static final int REQUEST_NAME = 1;
@@ -81,8 +81,8 @@ public class ShoppingListsFragment extends MvpAppCompatFragment
      * @param bundle args to pass to a fragment
      * @return new fragment instance
      */
-    public static ShoppingListsFragment newInstance(Bundle bundle) {
-        ShoppingListsFragment shoppingListPreviewFragment = new ShoppingListsFragment();
+    public static ShoppingListFragment newInstance(Bundle bundle) {
+        ShoppingListFragment shoppingListPreviewFragment = new ShoppingListFragment();
         shoppingListPreviewFragment.setArguments(bundle);
         return shoppingListPreviewFragment;
     }
