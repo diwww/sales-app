@@ -25,10 +25,12 @@ public class ShopRepositoryImpl implements ShopRepository {
      */
     @Override
     public Maybe<List<Shop>> getShops() {
-        Shop shop = new Shop();
-        shop.setName("Дикси");
-        shop.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Dixi.gif/151px-Dixi.gif");
-        List<Shop> shops = Arrays.asList(shop, shop, shop);
+        Shop shop1 = new Shop();
+        shop1.setName("Дикси");
+        shop1.setImageUrl("https://rosaski.com/upload/iblock/8d9/8d9d48d1b7314c34b65969c61a334169.jpg");
+        Shop shop2 = new Shop();
+        shop2.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Dixi.gif/151px-Dixi.gif");
+        List<Shop> shops = Arrays.asList(shop1, shop2, shop1, shop2);
         return Maybe.just(shops);
     }
 

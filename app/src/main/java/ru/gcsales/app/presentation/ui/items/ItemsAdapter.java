@@ -1,4 +1,4 @@
-package ru.gcsales.app.presentation.view.adapter;
+package ru.gcsales.app.presentation.ui.items;
 
 import android.content.Context;
 import android.graphics.Paint;

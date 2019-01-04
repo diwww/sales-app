@@ -1,7 +1,9 @@
 package ru.gcsales.app.presentation.model;
 
+import ru.gcsales.app.presentation.ui.items.ItemsAdapter;
+
 /**
- * Base item to store in {@link ru.gcsales.app.presentation.view.adapter.ItemsAdapter}
+ * Base item to store in {@link ItemsAdapter}
  *
  * @author Maxim Surovtsev
  * Created on 8/18/18

@@ -1,5 +1,6 @@
 package ru.gcsales.app.domain.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Objects;
  * @author Maxim Surovtsev
  * Created on 7/24/18
  */
-public class Shop {
+public class Shop implements Serializable {
 
     private long mId;
     private String mAlias;

@@ -1,29 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/Card.Shop">
+<android.support.v7.widget.CardView
+    style="@style/Card.Shop"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/shop_card_height"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/image_shop_logo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/image_shop_logo"
-            android:layout_width="match_parent"
-            android:layout_height="144dp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/text_shop_name"
-            style="@style/TextView.Shop.Name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
+        android:layout_height="match_parent"/>
 
 </android.support.v7.widget.CardView>

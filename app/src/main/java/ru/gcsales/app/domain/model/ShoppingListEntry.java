@@ -1,5 +1,6 @@
 package ru.gcsales.app.domain.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Objects;
  * @author Maxim Surovtsev
  * @since 01/01/2019
  */
-public class ShoppingListEntry {
+public class ShoppingListEntry implements Serializable {
 
     private long mId;
     private Item mItem;

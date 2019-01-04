@@ -14,6 +14,7 @@ def RX_ADAPTER_VERSION = '2.4.0'
 def DAGGER_VERSION = '2.16'
 def BUTTERKNIFE_VERSION = '8.8.1'
 def ROOM_VERSION = '1.1.1'
+def GENERIC_ADAPTER_VERSION = '1.0.1'
 //endregion
 
 //region Testing libs versions
@@ -84,7 +85,9 @@ ext {
             //endregion
 
             //region Testing libs
-            junit                : "junit:junit:${JUNIT_VERSION}"
+            junit                : "junit:junit:${JUNIT_VERSION}",
             //endregion
+
+            genericAdapter       : "com.leodroidcoder:generic-adapter:${GENERIC_ADAPTER_VERSION}"
     ]
 }

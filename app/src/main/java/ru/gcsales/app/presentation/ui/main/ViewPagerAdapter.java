@@ -1,4 +1,4 @@
-package ru.gcsales.app.presentation.view.fragment;
+package ru.gcsales.app.presentation.ui.main;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -11,12 +11,18 @@ import ru.gcsales.app.presentation.ui.shoppinglist.ShoppingListFragment;
 import ru.gcsales.app.presentation.ui.shops.ShopsFragment;
 
 
+/**
+ * Viewpager adapter
+ *
+ * @author Maxim Surovtsev
+ * @since 07/08/2018
+ */
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private static final int PAGE_COUNT = 2;
 
     // Sparse array to keep track of registered fragments in memory
-    private SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
+    private SparseArray<Fragment> registeredFragments = new SparseArray<>();
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -42,9 +48,9 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return ShopsFragment.newInstance(null);
+                return ShopsFragment.newInstance();
             case 1:
-                return ShoppingListFragment.newInstance(null);
+                return ShoppingListFragment.newInstance();
             default:
                 return null;
         }

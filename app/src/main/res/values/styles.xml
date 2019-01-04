@@ -41,7 +41,7 @@
         <item name="contentPadding">8dp</item>
     </style>
 
-    <style name="TextView.Item" />
+    <style name="TextView.Item"/>
 
     <style name="TextView.Item.Name">
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Subhead</item>
@@ -75,12 +75,10 @@
         <item name="android:layout_marginTop">4dp</item>
         <item name="android:layout_marginBottom">4dp</item>
         <item name="android:layout_marginEnd">4dp</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">200dp</item>
         <item name="contentPadding">16dp</item>
     </style>
 
-    <style name="TextView.Shop" />
+    <style name="TextView.Shop"/>
 
     <style name="TextView.Shop.Name">
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Subhead</item>
@@ -99,7 +97,7 @@
         <item name="contentPadding">16dp</item>
     </style>
 
-    <style name="TextView.Category" />
+    <style name="TextView.Category"/>
 
     <style name="TextView.Category.Name">
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
@@ -109,7 +107,7 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <!--Shopping list styles-->
+    <!--region Shopping list styles-->
 
     <style name="Card.ShoppingList">
         <item name="android:layout_marginStart">8dp</item>
@@ -121,7 +119,7 @@
         <item name="contentPadding">16dp</item>
     </style>
 
-    <style name="TextView.ShoppingList" />
+    <style name="TextView.ShoppingList"/>
 
     <style name="TextView.ShoppingList.Name">
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
@@ -143,4 +141,5 @@
         <item name="android:padding">8dp</item>
     </style>
 
+    <!--endregion-->
 </resources>

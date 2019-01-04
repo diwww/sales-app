@@ -1,23 +1,21 @@
 package ru.gcsales.app.presentation.ui.main;
 
-import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.arellomobile.mvp.MvpAppCompatActivity;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
-import ru.gcsales.app.presentation.ui.base.BaseActivity;
-import ru.gcsales.app.presentation.ui.shoppinglist.ShoppingListFragment;
-import ru.gcsales.app.presentation.view.fragment.ViewPagerAdapter;
+import ru.gcsales.app.presentation.ui.categories.CategoriesActivity;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends MvpAppCompatActivity {
 
     @BindView(R.id.view_pager) ViewPager mViewPager;
     @BindView(R.id.tab_layout) TabLayout mTabLayout;
@@ -30,13 +28,8 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        setToolbar();
-
         initTabs();
-        mFloatingActionButton.setOnClickListener(v -> {
-            ShoppingListFragment fragment = (ShoppingListFragment) mViewPagerAdapter.getRegisteredFragment(1);
-            // TODO
-        });
+        mFloatingActionButton.setOnClickListener(v -> startActivity(CategoriesActivity.newIntent(this,null)));
     }
 
     @Override
@@ -61,12 +54,8 @@ public class MainActivity extends BaseActivity {
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mViewPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
-        mTabLayout.getTabAt(0)
-                .setText(R.string.shops_tab_title)
-                .setIcon(R.drawable.ic_home_white_24dp);
-        mTabLayout.getTabAt(1)
-                .setText(R.string.shopping_lists_tab_title)
-                .setIcon(R.drawable.ic_shopping_basket_white_24dp);
+        mTabLayout.getTabAt(0).setIcon(R.drawable.ic_home_white_24dp);
+        mTabLayout.getTabAt(1).setIcon(R.drawable.ic_shopping_basket_white_24dp);
         mTabLayout.addOnTabSelectedListener(new OnTabSelectedListener());
     }
 
@@ -87,9 +76,5 @@ public class MainActivity extends BaseActivity {
         @Override
         public void onTabReselected(TabLayout.Tab tab) {
         }
-    }
-
-    public static Intent newIntent(Context context) {
-        return new Intent(context, MainActivity.class);
     }
 }

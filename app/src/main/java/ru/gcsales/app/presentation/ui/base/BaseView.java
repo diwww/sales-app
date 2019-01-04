@@ -21,4 +21,11 @@ public interface BaseView extends MvpView {
      * @param visible {@code true} to show or {@code false} to hide
      */
     void showStub(boolean visible);
+
+    /**
+     * Shows error message
+     *
+     * @param error {@link Throwable} object to show
+     */
+    void showError(Throwable error);
 }
