@@ -22,12 +22,20 @@ public class CategoriesActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Shop shop = (Shop) getIntent().getSerializableExtra(EXTRA_SHOP);
+        setToolbar(shop.getName());
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_container, CategoriesFragment.newInstance(shop), null)
                 .commit();
     }
 
+    /**
+     * Creates new intent
+     *
+     * @param context context
+     * @param shop    {@link Shop} instance
+     * @return new intent
+     */
     public static Intent newIntent(Context context, Shop shop) {
         Intent intent = new Intent(context, CategoriesActivity.class);
         intent.putExtra(EXTRA_SHOP, shop);

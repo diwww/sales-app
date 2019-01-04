@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/card_view"
-    style="@style/Card.Item">
+<android.support.v7.widget.CardView android:id="@+id/card_view"
+                                    style="@style/Card.Item"
+                                    xmlns:android="http://schemas.android.com/apk/res/android"
+                                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    xmlns:tools="http://schemas.android.com/tools">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
             android:layout_height="96dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/text_name"
@@ -27,7 +27,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/undefined_text" />
+            tools:text="@string/undefined_text"/>
 
         <TextView
             android:id="@+id/text_category"
@@ -39,7 +39,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toBottomOf="@+id/text_name"
-            tools:text="@string/undefined_text" />
+            tools:text="@string/undefined_text"/>
 
         <TextView
             android:id="@+id/text_old_price"
@@ -50,7 +50,7 @@
             app:layout_constraintBottom_toTopOf="@+id/text_new_price"
             app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toBottomOf="@+id/text_category"
-            tools:text="@string/undefined_text" />
+            tools:text="@string/undefined_text"/>
 
         <TextView
             android:id="@+id/text_new_price"
@@ -61,7 +61,7 @@
             app:layout_constraintBottom_toTopOf="@+id/text_date"
             app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toBottomOf="@+id/text_old_price"
-            tools:text="@string/undefined_text" />
+            tools:text="@string/undefined_text"/>
 
         <TextView
             android:id="@+id/text_date"
@@ -72,15 +72,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toBottomOf="@+id/text_new_price"
-            tools:text="@string/undefined_text" />
+            tools:text="@string/undefined_text"/>
 
         <ImageButton
             android:id="@+id/button_action"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:src="@drawable/ic_add_black_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </android.support.constraint.ConstraintLayout>
 

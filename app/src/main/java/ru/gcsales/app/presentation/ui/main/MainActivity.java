@@ -29,7 +29,7 @@ public class MainActivity extends MvpAppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initTabs();
-        mFloatingActionButton.setOnClickListener(v -> startActivity(CategoriesActivity.newIntent(this,null)));
+//        mFloatingActionButton.setOnClickListener(v -> startActivity(CategoriesActivity.newIntent(this,null)));
     }
 
     @Override

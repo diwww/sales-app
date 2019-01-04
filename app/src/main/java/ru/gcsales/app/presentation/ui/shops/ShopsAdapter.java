@@ -23,7 +23,7 @@ import ru.gcsales.app.domain.model.Shop;
  * @author Maxim Surovtsev
  * @since 04/01/2019
  */
-public class ShopsAdapter extends GenericRecyclerViewAdapter<Shop, OnEntityClickListener<Shop>, BaseViewHolder<Shop, OnEntityClickListener<Shop>>> {
+public class ShopsAdapter extends GenericRecyclerViewAdapter<Shop, OnEntityClickListener<Shop>, ShopsAdapter.ShopViewHolder> {
 
     public ShopsAdapter(Context context, OnEntityClickListener<Shop> listener) {
         super(context, listener);
@@ -31,7 +31,7 @@ public class ShopsAdapter extends GenericRecyclerViewAdapter<Shop, OnEntityClick
 
     @NonNull
     @Override
-    public BaseViewHolder<Shop, OnEntityClickListener<Shop>> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ShopViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ShopViewHolder(inflate(R.layout.item_shop, parent), getListener());
     }
 

@@ -15,12 +15,12 @@ import ru.gcsales.app.domain.repository.ShopRepository;
  * @author Maxim Surovtsev
  * @since 01/01/2019
  */
-public class CategoryInteractor {
+public class CategoriesInteractor {
 
     private ShopRepository mRepository;
 
     @Inject
-    public CategoryInteractor(ShopRepository repository) {
+    public CategoriesInteractor(ShopRepository repository) {
         mRepository = repository;
     }
 

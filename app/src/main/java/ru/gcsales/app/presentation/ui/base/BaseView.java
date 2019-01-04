@@ -3,6 +3,8 @@ package ru.gcsales.app.presentation.ui.base;
 import com.arellomobile.mvp.MvpView;
 
 /**
+ * Base view for {@link BaseActivity}
+ *
  * @author Maxim Surovtsev
  * @since 02/01/2019
  */

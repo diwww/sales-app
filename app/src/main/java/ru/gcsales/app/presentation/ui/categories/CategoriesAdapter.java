@@ -1,75 +1,56 @@
 package ru.gcsales.app.presentation.ui.categories;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.leodroidcoder.genericadapter.BaseViewHolder;
+import com.leodroidcoder.genericadapter.GenericRecyclerViewAdapter;
+import com.leodroidcoder.genericadapter.OnEntityClickListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
-import ru.gcsales.app.presentation.model.CategoryViewModel;
+import ru.gcsales.app.domain.model.Category;
 
 /**
+ * Categories recycler view adapter
+ *
  * @author Maxim Surovtsev
- * Created on 8/20/18
+ * @since 04/01/2019
  */
-public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder> {
+public class CategoriesAdapter extends GenericRecyclerViewAdapter<Category, OnEntityClickListener<Category>, CategoriesAdapter.CategoryViewHolder> {
 
-    private List<CategoryViewModel> mCategories = new ArrayList<>();
-    private OnItemClickListener mClickListener;
 
-    public CategoriesAdapter(OnItemClickListener clickListener) {
-        mClickListener = clickListener;
-    }
-
-    @NonNull
-    @Override
-    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_category, parent, false);
-        return new CategoryViewHolder(view);
+    public CategoriesAdapter(Context context, OnEntityClickListener<Category> listener) {
+        super(context, listener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
-        CategoryViewModel category = mCategories.get(position);
-        holder.bind(category, mClickListener);
+    public CategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new CategoryViewHolder(inflate(R.layout.item_category, parent, false), getListener());
     }
 
-    @Override
-    public int getItemCount() {
-        return mCategories.size();
-    }
+    /**
+     * Category view holder
+     */
+    public static class CategoryViewHolder extends BaseViewHolder<Category, OnEntityClickListener<Category>> {
 
-    public void setData(List<CategoryViewModel> data) {
-        mCategories.clear();
-        mCategories.addAll(data);
-        notifyDataSetChanged();
-    }
+        @BindView(R.id.text_name) TextView mNameTextView;
 
-    public static class CategoryViewHolder extends RecyclerView.ViewHolder {
-
-        @BindView(R.id.text_name)
-        TextView mNameTextView;
-
-        public CategoryViewHolder(View itemView) {
-            super(itemView);
+        public CategoryViewHolder(View itemView, OnEntityClickListener<Category> listener) {
+            super(itemView, listener);
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(CategoryViewModel category, OnItemClickListener listener) {
-            mNameTextView.setText(category.getName());
-            itemView.setOnClickListener(v -> listener.onClick(category));
+        @Override
+        public void onBind(Category item) {
+            mNameTextView.setText(item.getName());
+            if (getListener() != null) {
+                itemView.setOnClickListener(v -> getListener().onItemClicked(item));
+            }
         }
     }
 
-    public interface OnItemClickListener {
-        void onClick(CategoryViewModel category);
-    }
 }

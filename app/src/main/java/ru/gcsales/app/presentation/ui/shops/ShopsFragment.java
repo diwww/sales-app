@@ -17,7 +17,10 @@ import ru.gcsales.app.presentation.ui.base.BaseFragment;
 import ru.gcsales.app.presentation.ui.categories.CategoriesActivity;
 
 /**
- * Fragment for displaying available shops.
+ * Fragment for displaying available shops
+ *
+ * @author Maxim Surovtsev
+ * @since 03/01/2019
  */
 public class ShopsFragment extends BaseFragment implements ShopsView, OnEntityClickListener<Shop> {
 
@@ -29,7 +32,6 @@ public class ShopsFragment extends BaseFragment implements ShopsView, OnEntityCl
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         mShopsAdapter = new ShopsAdapter(getActivity(), this);
-        mShopsAdapter.setListener(this);
         mRecyclerView.setAdapter(mShopsAdapter);
     }
 
@@ -39,8 +41,13 @@ public class ShopsFragment extends BaseFragment implements ShopsView, OnEntityCl
     }
 
     @Override
+    public void showCategoriesScreen(Shop shop) {
+        startActivity(CategoriesActivity.newIntent(getActivity(), shop));
+    }
+
+    @Override
     public void onItemClicked(Shop item) {
-        startActivity(CategoriesActivity.newIntent(getActivity(), item));
+        showCategoriesScreen(item);
     }
 
     /**

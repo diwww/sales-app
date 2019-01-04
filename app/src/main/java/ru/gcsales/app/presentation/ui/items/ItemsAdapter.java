@@ -2,9 +2,7 @@ package ru.gcsales.app.presentation.ui.items;
 
 import android.content.Context;
 import android.graphics.Paint;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -13,111 +11,38 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.leodroidcoder.genericadapter.BaseViewHolder;
+import com.leodroidcoder.genericadapter.GenericRecyclerViewAdapter;
+import com.leodroidcoder.genericadapter.OnEntityClickListener;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
-import ru.gcsales.app.presentation.model.BaseItem;
-import ru.gcsales.app.presentation.model.ItemViewModel;
-import ru.gcsales.app.presentation.model.ProgressViewModel;
+import ru.gcsales.app.domain.model.Item;
 
-public class ItemsAdapter extends RecyclerView.Adapter {
+/**
+ * Items recycler view adapter
+ *
+ * @author Maxim Surovtsev
+ * @since 04/01/2019
+ */
+public class ItemsAdapter extends GenericRecyclerViewAdapter<Item, OnEntityClickListener<Item>, ItemsAdapter.ItemViewHolder> {
 
-    private List<BaseItem> mItems = new ArrayList<>();
-    private OnButtonClickListener mButtonClickListener;
-    private final ProgressViewModel mProgressViewModel = new ProgressViewModel();
-    private int mActionButtonIconId;
-
-    public ItemsAdapter(OnButtonClickListener buttonClickListener, int iconId) {
-        mButtonClickListener = buttonClickListener;
-        mActionButtonIconId = iconId;
-    }
-
-    @NonNull
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        switch (viewType) {
-            case ItemViewModel.TYPE:
-                return new ItemViewHolder(inflater.inflate(R.layout.item_item, parent, false));
-            case ProgressViewModel.TYPE:
-                return new ProgressViewHolder(inflater.inflate(R.layout.item_progress, parent, false));
-            default:
-                return null;
-        }
+    public ItemsAdapter(Context context, OnEntityClickListener<Item> listener) {
+        super(context, listener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        BaseItem item = mItems.get(position);
-        if (item.getType() == ItemViewModel.TYPE) {
-            ((ItemViewHolder) holder).bind((ItemViewModel) item, mActionButtonIconId, mButtonClickListener);
-        }
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return mItems.get(position).getType();
-    }
-
-    @Override
-    public int getItemCount() {
-        return mItems.size();
-    }
-
-    public void showProgress() {
-        mItems.add(mProgressViewModel);
-        notifyDataSetChanged();
-    }
-
-    public void hideProgress() {
-        int index = mItems.indexOf(mProgressViewModel);
-        mItems.remove(index);
-        notifyItemRemoved(index);
-    }
-
-    public void setData(List<? extends BaseItem> data) {
-        mItems.clear();
-        mItems.addAll(data);
-        notifyDataSetChanged();
-    }
-
-    public void addData(List<? extends BaseItem> data) {
-        int positionStart = mItems.size();
-        int itemCount = data.size();
-        mItems.addAll(data);
-        notifyItemRangeInserted(positionStart, itemCount);
-    }
-
-    public void removeItem(BaseItem item) {
-        int index = mItems.indexOf(item);
-        mItems.remove(index);
-        notifyItemRemoved(index);
-    }
-
-    public void clear() {
-        mItems.clear();
-        notifyDataSetChanged();
-    }
-
-    public double getTotalPrice() {
-        double totalPrice = 0;
-        for (BaseItem item : mItems) {
-            if (item.getType() == ItemViewModel.TYPE) {
-                totalPrice += ((ItemViewModel) item).getNewPrice();
-            }
-        }
-        return totalPrice;
+    public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new ItemViewHolder(inflate(R.layout.item_item, parent, false), getListener());
     }
 
     /**
-     * Item view holder.
+     * Item view holder
      */
-    public static class ItemViewHolder extends RecyclerView.ViewHolder {
+    public static class ItemViewHolder extends BaseViewHolder<Item, OnEntityClickListener<Item>> {
 
         @BindView(R.id.image) ImageView mImageView;
         @BindView(R.id.text_name) TextView mNameTextView;
@@ -127,41 +52,27 @@ public class ItemsAdapter extends RecyclerView.Adapter {
         @BindView(R.id.text_date) TextView mDateTextView;
         @BindView(R.id.button_action) ImageButton mActionButton;
 
-        public ItemViewHolder(View itemView) {
-            super(itemView);
+        public ItemViewHolder(View itemView, OnEntityClickListener<Item> listener) {
+            super(itemView, listener);
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(ItemViewModel item, int iconId, OnButtonClickListener buttonClickListener) {
-            final Context context = itemView.getContext();
+        @Override
+        public void onBind(Item item) {
             mNameTextView.setText(item.getName());
-            mCategoryTextView.setText(item.getCategory());
+            mCategoryTextView.setText(item.getCategory().getName());
             // Crossed out text
             mOldPriceTextView.setPaintFlags(mOldPriceTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             mOldPriceTextView.setText(String.format(Locale.getDefault(), "%.2f", item.getOldPrice()));
             mNewPriceTextView.setText(String.format(Locale.getDefault(), "%.2f", item.getNewPrice()));
-            mDateTextView.setText(context.getString(R.string.date_till, item.getDateOut()));
-            Glide.with(context)
+            mDateTextView.setText(itemView.getContext().getString(R.string.date_till, item.getDateOut()));
+            Glide.with(itemView.getContext())
                     .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_item_placeholder_24dp))
                     .load(item.getImageUrl())
                     .into(mImageView);
-
-            mActionButton.setImageResource(iconId);
-            mActionButton.setOnClickListener(v -> buttonClickListener.onButtonClicked(item));
+            if (getListener() != null) {
+                mActionButton.setOnClickListener(v -> getListener().onItemClicked(item));
+            }
         }
-    }
-
-    /**
-     * Progress bar view holder.
-     */
-    public class ProgressViewHolder extends RecyclerView.ViewHolder {
-
-        public ProgressViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
-
-    public interface OnButtonClickListener {
-        void onButtonClicked(ItemViewModel item);
     }
 }

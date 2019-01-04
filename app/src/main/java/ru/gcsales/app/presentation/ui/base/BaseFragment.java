@@ -49,7 +49,7 @@ public abstract class BaseFragment extends MvpAppCompatFragment implements BaseV
 
     @Override
     public void showStub(boolean visible) {
-        // TODO: add stub item to recycler view adapter
+        // TODO
     }
 
     @Override
