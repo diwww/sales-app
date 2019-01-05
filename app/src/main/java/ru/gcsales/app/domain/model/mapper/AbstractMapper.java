@@ -11,7 +11,7 @@ import java.util.List;
  * @param <O> output data type
  * @param <P> optional params type
  * @author Maxim Surovtsev
- * Created on 8/28/18
+ * @since  28/08/2019
  */
 public abstract class AbstractMapper<I, O, P> {
 

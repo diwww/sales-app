@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Maybe;
 import ru.gcsales.app.domain.model.Shop;
-import ru.gcsales.app.domain.repository.ShopRepository;
+import ru.gcsales.app.domain.repository.ShopsRepository;
 
 /**
  * Shop interactor
@@ -16,11 +16,11 @@ import ru.gcsales.app.domain.repository.ShopRepository;
  */
 public class ShopsInteractor {
 
-    private ShopRepository mRepository;
+    private ShopsRepository mRepository;
 
     @Inject
-    public ShopsInteractor(ShopRepository mShopRepository) {
-        this.mRepository = mShopRepository;
+    public ShopsInteractor(ShopsRepository mShopsRepository) {
+        this.mRepository = mShopsRepository;
     }
 
     /**

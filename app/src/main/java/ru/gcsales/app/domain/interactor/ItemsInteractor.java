@@ -3,11 +3,9 @@ package ru.gcsales.app.domain.interactor;
 import java.util.List;
 
 import io.reactivex.Maybe;
-import ru.gcsales.app.domain.model.Category;
 import ru.gcsales.app.domain.model.Item;
-import ru.gcsales.app.domain.model.Shop;
 import ru.gcsales.app.domain.model.ShoppingListEntry;
-import ru.gcsales.app.domain.repository.ShopRepository;
+import ru.gcsales.app.domain.repository.ItemsRepository;
 import ru.gcsales.app.domain.repository.ShoppingListRepository;
 
 /**
@@ -16,27 +14,24 @@ import ru.gcsales.app.domain.repository.ShoppingListRepository;
  * @author Maxim Surovtsev
  * @since 01/01/2019
  */
-public class ItemInteractor {
+public class ItemsInteractor {
 
-    private ShopRepository mShopRepository;
+    private ItemsRepository mItemsRepository;
     private ShoppingListRepository mShoppingListRepository;
-    private int mPage;
 
-    public ItemInteractor(ShopRepository shopRepository, ShoppingListRepository shoppingListRepository) {
-        mShopRepository = shopRepository;
+    public ItemsInteractor(ItemsRepository itemsRepository, ShoppingListRepository shoppingListRepository) {
+        mItemsRepository = itemsRepository;
         mShoppingListRepository = shoppingListRepository;
-        mPage = 1;
     }
 
     /**
-     * Gets items for given shop, category and page
+     * Downloads items for given shop
      *
-     * @param shop     shop
-     * @param category category
+     * @param id id of the shop
      * @return {@link Maybe} with list of items
      */
-    public Maybe<List<Item>> getItems(Shop shop, Category category) {
-        return mShopRepository.getItems(shop, category, mPage++);
+    public Maybe<List<Item>> loadItems(long id) {
+        return mItemsRepository.getItems(id);
     }
 
     /**
