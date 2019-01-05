@@ -2,7 +2,6 @@ package ru.gcsales.app.presentation.ui.items;
 
 import android.content.Context;
 import android.graphics.Paint;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -15,6 +14,7 @@ import com.leodroidcoder.genericadapter.BaseViewHolder;
 import com.leodroidcoder.genericadapter.GenericRecyclerViewAdapter;
 import com.leodroidcoder.genericadapter.OnEntityClickListener;
 
+import java.util.Date;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -46,7 +46,6 @@ public class ItemsAdapter extends GenericRecyclerViewAdapter<Item, OnEntityClick
 
         @BindView(R.id.image) ImageView mImageView;
         @BindView(R.id.text_name) TextView mNameTextView;
-        @BindView(R.id.text_category) TextView mCategoryTextView;
         @BindView(R.id.text_old_price) TextView mOldPriceTextView;
         @BindView(R.id.text_new_price) TextView mNewPriceTextView;
         @BindView(R.id.text_date) TextView mDateTextView;
@@ -60,12 +59,12 @@ public class ItemsAdapter extends GenericRecyclerViewAdapter<Item, OnEntityClick
         @Override
         public void onBind(Item item) {
             mNameTextView.setText(item.getName());
-            mCategoryTextView.setText(item.getCategory().getName());
             // Crossed out text
             mOldPriceTextView.setPaintFlags(mOldPriceTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             mOldPriceTextView.setText(String.format(Locale.getDefault(), "%.2f", item.getOldPrice()));
             mNewPriceTextView.setText(String.format(Locale.getDefault(), "%.2f", item.getNewPrice()));
-            mDateTextView.setText(itemView.getContext().getString(R.string.date_till, item.getDateOut()));
+            Date dateTill = item.getTill();
+            mDateTextView.setText(itemView.getContext().getString(R.string.date_till, dateTill, dateTill));
             Glide.with(itemView.getContext())
                     .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_item_placeholder_24dp))
                     .load(item.getImageUrl())

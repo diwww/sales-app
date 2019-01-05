@@ -4,9 +4,6 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import io.reactivex.disposables.Disposable;
-import ru.gcsales.app.data.repository.ShopRepositoryImpl;
-import ru.gcsales.app.domain.interactor.CategoriesInteractor;
-import ru.gcsales.app.domain.model.Shop;
 import ru.gcsales.app.presentation.ui.categories.CategoriesView;
 
 /**
@@ -18,11 +15,10 @@ import ru.gcsales.app.presentation.ui.categories.CategoriesView;
 @InjectViewState
 public class CategoriesPresenter extends MvpPresenter<CategoriesView> {
 
-    private Shop mShop;
-    private CategoriesInteractor mCategoriesInteractor = new CategoriesInteractor(new ShopRepositoryImpl());
+    private long mShopId;
 
-    public CategoriesPresenter(Shop shop) {
-        mShop = shop;
+    public CategoriesPresenter(Long shopId) {
+        mShopId = shopId;
     }
 
     @Override
@@ -31,9 +27,7 @@ public class CategoriesPresenter extends MvpPresenter<CategoriesView> {
     }
 
     private Disposable loadCategories() {
-        return mCategoriesInteractor.getCategories(mShop)
-                .doOnSubscribe(notUsed -> getViewState().showProgress(true))
-                .doAfterTerminate(() -> getViewState().showProgress(false))
-                .subscribe(getViewState()::showCategories, getViewState()::showError);
+        // TODO
+        return null;
     }
 }

@@ -19,7 +19,7 @@ public class Item implements Serializable {
     private double mNewPrice;
     private String mDiscount;
     private String mConditions;
-    private Date mDateTill;
+    private Date mTill;
     private String mImageUrl;
 
     public long getId() {
@@ -76,12 +76,12 @@ public class Item implements Serializable {
         return this;
     }
 
-    public Date getDateTill() {
-        return mDateTill;
+    public Date getTill() {
+        return mTill;
     }
 
-    public Item setDateTill(Date dateTill) {
-        mDateTill = dateTill;
+    public Item setTill(Date till) {
+        mTill = till;
         return this;
     }
 
@@ -120,7 +120,7 @@ public class Item implements Serializable {
                 ", mNewPrice=" + mNewPrice +
                 ", mDiscount='" + mDiscount + '\'' +
                 ", mConditions='" + mConditions + '\'' +
-                ", mDateTill=" + mDateTill +
+                ", mTill=" + mTill +
                 ", mImageUrl='" + mImageUrl + '\'' +
                 '}';
     }

@@ -14,7 +14,7 @@ import java.util.List;
 import ru.gcsales.app.domain.model.Shop;
 import ru.gcsales.app.presentation.presenter.ShopsPresenter;
 import ru.gcsales.app.presentation.ui.base.BaseFragment;
-import ru.gcsales.app.presentation.ui.categories.CategoriesActivity;
+import ru.gcsales.app.presentation.ui.items.ItemsActivity;
 
 /**
  * Fragment for displaying available shops
@@ -26,7 +26,6 @@ public class ShopsFragment extends BaseFragment implements ShopsView, OnEntityCl
 
     @InjectPresenter
     ShopsPresenter mShopsPresenter;
-
     private ShopsAdapter mShopsAdapter;
 
     @Override
@@ -41,13 +40,8 @@ public class ShopsFragment extends BaseFragment implements ShopsView, OnEntityCl
     }
 
     @Override
-    public void showCategoriesScreen(Shop shop) {
-        startActivity(CategoriesActivity.newIntent(getActivity(), shop));
-    }
-
-    @Override
     public void onItemClicked(Shop item) {
-        showCategoriesScreen(item);
+        startActivity(ItemsActivity.newIntent(getActivity(), item.getId(), item.getName()));
     }
 
     /**

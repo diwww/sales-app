@@ -1,36 +1,33 @@
 package ru.gcsales.app.data.model.mapper;
 
-import ru.gcsales.app.data.model.local.ItemEntity;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import ru.gcsales.app.data.model.remote.ItemResponse;
+import ru.gcsales.app.domain.model.Item;
 import ru.gcsales.app.domain.model.mapper.AbstractMapper;
 
 /**
- * Item response mapper.
+ * Item response mapper
  *
  * @author Maxim Surovtsev
- * Created on 8/28/18
+ * @since 06/01/2019
  */
-public class ItemResponseMapper extends AbstractMapper<ItemResponse, ItemEntity, Void> {
+public class ItemResponseMapper extends AbstractMapper<ItemResponse, Item, Void> {
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public ItemEntity transform(ItemResponse input, Void params) {
-        ItemEntity entity = null;
-
-        if (input != null) {
-            entity = new ItemEntity();
-            entity.setId(input.getId());
-            entity.setName(input.getName());
-            entity.setCategory(input.getCategory());
-            entity.setImageUrl(input.getImageUrl());
-            entity.setCondition(input.getCondition());
-            entity.setCrawlDate(input.getCrawlDate());
-            entity.setDateIn(input.getDateIn());
-            entity.setDateOut(input.getDateOut());
-            entity.setDiscount(input.getDiscount());
-            entity.setOldPrice(input.getOldPrice());
-            entity.setNewPrice(input.getNewPrice());
-            entity.setShopId(input.getShopResponse().getId());
-        }
-
-        return entity;
+    public Item transform(ItemResponse input, Void params) throws Exception {
+        return new Item()
+                .setImageUrl(input.getImageUrl())
+                .setNewPrice(input.getNewPrice())
+                .setOldPrice(input.getOldPrice())
+                .setName(input.getName())
+                .setConditions(input.getConditions())
+                .setDiscount(input.getDiscount())
+                .setId(input.getId())
+                .setTill(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(input.getTill()));
     }
 }

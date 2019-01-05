@@ -24,11 +24,11 @@ public class ShopsInteractor {
     }
 
     /**
-     * Gets all available shops
+     * Downloads all available shops
      *
      * @return list of shops
      */
-    public Maybe<List<Shop>> getShops() {
+    public Maybe<List<Shop>> loadShops() {
         return mRepository.getShops();
     }
 }

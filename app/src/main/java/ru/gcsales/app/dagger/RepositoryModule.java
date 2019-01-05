@@ -4,8 +4,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import ru.gcsales.app.data.repository.ShopRepositoryImpl;
-import ru.gcsales.app.domain.repository.ShopRepository;
+import ru.gcsales.app.data.repository.ShopsRepositoryImpl;
+import ru.gcsales.app.domain.repository.ShopsRepository;
 
 /**
  * Dagger module which provides repository implementations.
@@ -18,7 +18,7 @@ public class RepositoryModule {
 
     @Provides
     @Singleton
-    public ShopRepository provideShopRepository() {
-        return new ShopRepositoryImpl();
+    public ShopsRepository provideShopRepository() {
+        return new ShopsRepositoryImpl();
     }
 }

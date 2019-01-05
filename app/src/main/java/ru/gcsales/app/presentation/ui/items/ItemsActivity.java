@@ -5,12 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import ru.gcsales.app.R;
-import ru.gcsales.app.domain.model.Category;
-import ru.gcsales.app.domain.model.Shop;
 import ru.gcsales.app.presentation.ui.base.BaseActivity;
 
-import static ru.gcsales.app.presentation.Constants.EXTRA_CATEGORY;
-import static ru.gcsales.app.presentation.Constants.EXTRA_SHOP;
+import static ru.gcsales.app.presentation.Constants.EXTRA_SHOP_ID;
+import static ru.gcsales.app.presentation.Constants.EXTRA_SHOP_NAME;
 
 /**
  * Items activity
@@ -23,27 +21,26 @@ public class ItemsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Shop shop = (Shop) getIntent().getSerializableExtra(EXTRA_SHOP);
-        Category category = (Category) getIntent().getSerializableExtra(EXTRA_CATEGORY);
-        setToolbar(shop.getName());
+        String shopName = getIntent().getStringExtra(EXTRA_SHOP_NAME);
+        long shopId = getIntent().getLongExtra(EXTRA_SHOP_ID, 0);
+        setToolbar(shopName);
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.fragment_container, ItemsFragment.newInstance(shop, category), null)
+                .add(R.id.fragment_container, ItemsFragment.newInstance(shopId), null)
                 .commit();
     }
 
     /**
      * Creates the new intent
      *
-     * @param context  context
-     * @param shop     {@link Shop} model
-     * @param category {@link Category} model
+     * @param context context
+     * @param shopId  id of the shop
      * @return the new intent
      */
-    public static Intent newIntent(Context context, Shop shop, Category category) {
+    public static Intent newIntent(Context context, long shopId, String shopName) {
         Intent intent = new Intent(context, ItemsActivity.class);
-        intent.putExtra(EXTRA_SHOP, shop);
-        intent.putExtra(EXTRA_CATEGORY, category);
+        intent.putExtra(EXTRA_SHOP_ID, shopId);
+        intent.putExtra(EXTRA_SHOP_NAME, shopName);
         return intent;
     }
 }

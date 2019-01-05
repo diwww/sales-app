@@ -2,6 +2,8 @@ package ru.gcsales.app.domain.interactor;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Maybe;
 import ru.gcsales.app.domain.model.Item;
 import ru.gcsales.app.domain.model.ShoppingListEntry;
@@ -19,6 +21,7 @@ public class ItemsInteractor {
     private ItemsRepository mItemsRepository;
     private ShoppingListRepository mShoppingListRepository;
 
+    @Inject
     public ItemsInteractor(ItemsRepository itemsRepository, ShoppingListRepository shoppingListRepository) {
         mItemsRepository = itemsRepository;
         mShoppingListRepository = shoppingListRepository;

@@ -4,7 +4,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import io.reactivex.disposables.Disposable;
-import ru.gcsales.app.data.repository.ShopRepositoryImpl;
+import ru.gcsales.app.data.repository.ShopsRepositoryImpl;
 import ru.gcsales.app.domain.interactor.ShopsInteractor;
 import ru.gcsales.app.presentation.ui.shops.ShopsView;
 
@@ -17,7 +17,7 @@ import ru.gcsales.app.presentation.ui.shops.ShopsView;
 @InjectViewState
 public class ShopsPresenter extends MvpPresenter<ShopsView> {
 
-    private ShopsInteractor mShopsInteractor = new ShopsInteractor(new ShopRepositoryImpl());
+    private ShopsInteractor mShopsInteractor = new ShopsInteractor(new ShopsRepositoryImpl());
 
     @Override
     protected void onFirstViewAttach() {
@@ -25,7 +25,7 @@ public class ShopsPresenter extends MvpPresenter<ShopsView> {
     }
 
     private Disposable loadShops() {
-        return mShopsInteractor.getShops()
+        return mShopsInteractor.loadShops()
                 .doOnSubscribe(notUsed -> getViewState().showProgress(true))
                 .doAfterTerminate(() -> getViewState().showProgress(false))
                 .subscribe(getViewState()::showShops, getViewState()::showError);

@@ -13,7 +13,6 @@ import com.arellomobile.mvp.MvpAppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
-import ru.gcsales.app.presentation.ui.categories.CategoriesActivity;
 
 public class MainActivity extends MvpAppCompatActivity {
 

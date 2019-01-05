@@ -3,10 +3,10 @@ package ru.gcsales.app.data.model.remote;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Item JSON response.
+ * Item JSON response
  *
  * @author Maxim Surovtsev
- * Created on 8/12/18
+ * @since 05/01/2019
  */
 
 public class ItemResponse {
@@ -15,131 +15,89 @@ public class ItemResponse {
     private long mId;
     @SerializedName("name")
     private String mName;
-    @SerializedName("category")
-    private String mCategory;
-    @SerializedName("oldPrice")
+    @SerializedName("old_price")
     private double mOldPrice;
-    @SerializedName("newPrice")
+    @SerializedName("new_price")
     private double mNewPrice;
-    @SerializedName("dateIn")
-    private String mDateIn;
-    @SerializedName("dateOut")
-    private String mDateOut;
-    @SerializedName("crawlDate")
-    private String mCrawlDate;
-    @SerializedName("condition")
-    private String mCondition;
-    @SerializedName("image")
-    private Object mImage;
-    @SerializedName("imageUrl")
-    private String mImageUrl;
     @SerializedName("discount")
     private String mDiscount;
-    @SerializedName("shop")
-    private ShopResponse mShopResponse;
+    @SerializedName("conditions")
+    private String mConditions;
+    @SerializedName("till")
+    private String mTill;
+    @SerializedName("image_url")
+    private String mImageUrl;
 
     public long getId() {
         return mId;
     }
 
-    public void setId(long id) {
-        this.mId = id;
+    public ItemResponse setId(long id) {
+        mId = id;
+        return this;
     }
 
     public String getName() {
         return mName;
     }
 
-    public void setName(String name) {
-        this.mName = name;
-    }
-
-    public String getCategory() {
-        return mCategory;
-    }
-
-    public void setCategory(String category) {
-        this.mCategory = category;
+    public ItemResponse setName(String name) {
+        mName = name;
+        return this;
     }
 
     public double getOldPrice() {
         return mOldPrice;
     }
 
-    public void setOldPrice(double oldPrice) {
-        this.mOldPrice = oldPrice;
+    public ItemResponse setOldPrice(double oldPrice) {
+        mOldPrice = oldPrice;
+        return this;
     }
 
     public double getNewPrice() {
         return mNewPrice;
     }
 
-    public void setNewPrice(double newPrice) {
-        this.mNewPrice = newPrice;
-    }
-
-    public String getDateIn() {
-        return mDateIn;
-    }
-
-    public void setDateIn(String dateIn) {
-        this.mDateIn = dateIn;
-    }
-
-    public String getDateOut() {
-        return mDateOut;
-    }
-
-    public void setDateOut(String dateOut) {
-        this.mDateOut = dateOut;
-    }
-
-    public String getCrawlDate() {
-        return mCrawlDate;
-    }
-
-    public void setCrawlDate(String crawlDate) {
-        this.mCrawlDate = crawlDate;
-    }
-
-    public String getCondition() {
-        return mCondition;
-    }
-
-    public void setCondition(String condition) {
-        this.mCondition = condition;
-    }
-
-    public Object getImage() {
-        return mImage;
-    }
-
-    public void setImage(Object image) {
-        this.mImage = image;
-    }
-
-    public String getImageUrl() {
-        return mImageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.mImageUrl = imageUrl;
+    public ItemResponse setNewPrice(double newPrice) {
+        mNewPrice = newPrice;
+        return this;
     }
 
     public String getDiscount() {
         return mDiscount;
     }
 
-    public void setDiscount(String discount) {
-        this.mDiscount = discount;
+    public ItemResponse setDiscount(String discount) {
+        mDiscount = discount;
+        return this;
     }
 
-    public ShopResponse getShopResponse() {
-        return mShopResponse;
+    public String getConditions() {
+        return mConditions;
     }
 
-    public void setShopResponse(ShopResponse shopResponse) {
-        this.mShopResponse = shopResponse;
+    public ItemResponse setConditions(String conditions) {
+        mConditions = conditions;
+        return this;
+    }
+
+    public String getTill() {
+        return mTill;
+    }
+
+    public ItemResponse setTill(String till) {
+        mTill = till;
+        return this;
+    }
+
+    public String getImageUrl() {
+        return mImageUrl;
+    }
+
+    public ItemResponse setImageUrl(String imageUrl) {
+        mImageUrl = imageUrl;
+        return this;
     }
 }
 

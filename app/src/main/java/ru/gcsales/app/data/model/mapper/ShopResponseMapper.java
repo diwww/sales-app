@@ -1,28 +1,25 @@
 package ru.gcsales.app.data.model.mapper;
 
-import ru.gcsales.app.data.model.local.ShopEntity;
 import ru.gcsales.app.data.model.remote.ShopResponse;
+import ru.gcsales.app.domain.model.Shop;
 import ru.gcsales.app.domain.model.mapper.AbstractMapper;
 
 /**
- * Shop response mapper.
+ * Shop response mapper
  *
  * @author Maxim Surovtsev
- * Created on 8/28/18
+ * @since 05/01/2019
  */
-public class ShopResponseMapper extends AbstractMapper<ShopResponse, ShopEntity, Void> {
+public class ShopResponseMapper extends AbstractMapper<ShopResponse, Shop, Void> {
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public ShopEntity transform(ShopResponse input, Void params) {
-        ShopEntity entity = null;
-
-        if (input != null) {
-            entity = new ShopEntity();
-            entity.setId(input.getId());
-            entity.setName(input.getName());
-            entity.setAlias(input.getAlias());
-            entity.setImageUrl(input.getImageUrl());
-        }
-
-        return entity;
+    public Shop transform(ShopResponse input, Void params) throws Exception {
+        return new Shop()
+                .setId(input.getId())
+                .setName(input.getName())
+                .setImageUrl(input.getImageUrl());
     }
 }

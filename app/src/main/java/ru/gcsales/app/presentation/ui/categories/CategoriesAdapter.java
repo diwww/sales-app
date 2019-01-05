@@ -12,7 +12,6 @@ import com.leodroidcoder.genericadapter.OnEntityClickListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
-import ru.gcsales.app.domain.model.Category;
 
 /**
  * Categories recycler view adapter
@@ -20,10 +19,10 @@ import ru.gcsales.app.domain.model.Category;
  * @author Maxim Surovtsev
  * @since 04/01/2019
  */
-public class CategoriesAdapter extends GenericRecyclerViewAdapter<Category, OnEntityClickListener<Category>, CategoriesAdapter.CategoryViewHolder> {
+public class CategoriesAdapter extends GenericRecyclerViewAdapter<String, OnEntityClickListener<String>, CategoriesAdapter.CategoryViewHolder> {
 
 
-    public CategoriesAdapter(Context context, OnEntityClickListener<Category> listener) {
+    public CategoriesAdapter(Context context, OnEntityClickListener<String> listener) {
         super(context, listener);
     }
 
@@ -35,18 +34,18 @@ public class CategoriesAdapter extends GenericRecyclerViewAdapter<Category, OnEn
     /**
      * Category view holder
      */
-    public static class CategoryViewHolder extends BaseViewHolder<Category, OnEntityClickListener<Category>> {
+    public static class CategoryViewHolder extends BaseViewHolder<String, OnEntityClickListener<String>> {
 
         @BindView(R.id.text_name) TextView mNameTextView;
 
-        public CategoryViewHolder(View itemView, OnEntityClickListener<Category> listener) {
+        public CategoryViewHolder(View itemView, OnEntityClickListener<String> listener) {
             super(itemView, listener);
             ButterKnife.bind(this, itemView);
         }
 
         @Override
-        public void onBind(Category item) {
-            mNameTextView.setText(item.getName());
+        public void onBind(String item) {
+            mNameTextView.setText(item);
             if (getListener() != null) {
                 itemView.setOnClickListener(v -> getListener().onItemClicked(item));
             }

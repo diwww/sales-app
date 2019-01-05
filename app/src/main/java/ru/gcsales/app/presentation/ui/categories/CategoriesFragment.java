@@ -1,7 +1,6 @@
 package ru.gcsales.app.presentation.ui.categories;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,13 +12,11 @@ import com.leodroidcoder.genericadapter.OnEntityClickListener;
 
 import java.util.List;
 
-import ru.gcsales.app.domain.model.Category;
 import ru.gcsales.app.domain.model.Shop;
 import ru.gcsales.app.presentation.presenter.CategoriesPresenter;
 import ru.gcsales.app.presentation.ui.base.BaseFragment;
-import ru.gcsales.app.presentation.ui.items.ItemsActivity;
 
-import static ru.gcsales.app.presentation.Constants.EXTRA_SHOP;
+import static ru.gcsales.app.presentation.Constants.EXTRA_SHOP_ID;
 
 /**
  * Categories fragment
@@ -27,23 +24,16 @@ import static ru.gcsales.app.presentation.Constants.EXTRA_SHOP;
  * @author Maxim Surovtsev
  * @since 03/01/2019
  */
-public class CategoriesFragment extends BaseFragment implements CategoriesView, OnEntityClickListener<Category> {
+public class CategoriesFragment extends BaseFragment implements CategoriesView, OnEntityClickListener<String> {
 
     @InjectPresenter
     CategoriesPresenter mCategoriesPresenter;
 
-    private Shop mShop;
     private CategoriesAdapter mCategoriesAdapter;
 
     @ProvidePresenter
     CategoriesPresenter provideCategoriesPresenter() {
-        return new CategoriesPresenter(mShop);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mShop = (Shop) getArguments().getSerializable(EXTRA_SHOP);
+        return new CategoriesPresenter(getArguments().getLong(EXTRA_SHOP_ID));
     }
 
     @Override
@@ -53,29 +43,24 @@ public class CategoriesFragment extends BaseFragment implements CategoriesView, 
     }
 
     @Override
-    public void showCategories(List<Category> categories) {
+    public void showCategories(List<String> categories) {
         mCategoriesAdapter.setItems(categories);
     }
 
     @Override
-    public void showItemsScreen(Shop shop, Category category) {
-        startActivity(ItemsActivity.newIntent(getActivity(), shop, category));
-    }
-
-    @Override
-    public void onItemClicked(Category item) {
-        showItemsScreen(mShop, item);
+    public void onItemClicked(String item) {
+        // TODO
     }
 
     /**
      * Gets a new fragment instance
      *
-     * @param shop {@link Shop} model
+     * @param shopId {@link Shop} model
      * @return new fragment instance
      */
-    public static CategoriesFragment newInstance(Shop shop) {
+    public static CategoriesFragment newInstance(long shopId) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(EXTRA_SHOP, shop);
+        bundle.putLong(EXTRA_SHOP_ID, shopId);
         CategoriesFragment fragment = new CategoriesFragment();
         fragment.setArguments(bundle);
         return fragment;

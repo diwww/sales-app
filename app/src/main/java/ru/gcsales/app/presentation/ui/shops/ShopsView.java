@@ -19,11 +19,4 @@ public interface ShopsView extends BaseView {
      * @param shops shops data to be shown
      */
     void showShops(List<Shop> shops);
-
-    /**
-     * Shows {@link ru.gcsales.app.presentation.ui.categories.CategoriesActivity} screen
-     *
-     * @param shop {@link Shop} model
-     */
-    void showCategoriesScreen(Shop shop);
 }

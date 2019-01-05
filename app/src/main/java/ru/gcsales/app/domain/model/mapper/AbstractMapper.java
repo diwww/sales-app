@@ -11,7 +11,7 @@ import java.util.List;
  * @param <O> output data type
  * @param <P> optional params type
  * @author Maxim Surovtsev
- * @since  28/08/2019
+ * @since 28/08/2019
  */
 public abstract class AbstractMapper<I, O, P> {
 
@@ -22,7 +22,7 @@ public abstract class AbstractMapper<I, O, P> {
      * @param params optional params
      * @return transformed object
      */
-    public abstract O transform(I input, P params);
+    public abstract O transform(I input, P params) throws Exception;
 
     /**
      * Transforms a list of objects.
@@ -31,7 +31,7 @@ public abstract class AbstractMapper<I, O, P> {
      * @param params    optional params
      * @return transformed list
      */
-    public List<O> transform(List<I> inputList, P params) {
+    public List<O> transform(List<I> inputList, P params) throws Exception {
         List<O> outputList;
 
         if (inputList != null && !inputList.isEmpty()) {
