@@ -7,36 +7,69 @@ import java.util.Objects;
  * Shopping list entry
  *
  * @author Maxim Surovtsev
- * @since 01/01/2019
+ * @since 05/01/2019
  */
 public class ShoppingListEntry implements Serializable {
 
-    private long mId;
-    private Item mItem;
+    private String mShop;
+    private long mItemId;
+    private String mTitle;
+    private double mPrice;
+    private String mImageUrl;
     private int mQuantity;
 
-    public long getId() {
-        return mId;
+    public String getShop() {
+        return mShop;
     }
 
-    public void setId(long id) {
-        this.mId = id;
+    public ShoppingListEntry setShop(String shop) {
+        mShop = shop;
+        return this;
     }
 
-    public Item getItem() {
-        return mItem;
+    public long getItemId() {
+        return mItemId;
     }
 
-    public void setItem(Item item) {
-        mItem = item;
+    public ShoppingListEntry setItemId(long itemId) {
+        mItemId = itemId;
+        return this;
+    }
+
+    public String getTitle() {
+        return mTitle;
+    }
+
+    public ShoppingListEntry setTitle(String title) {
+        mTitle = title;
+        return this;
+    }
+
+    public double getPrice() {
+        return mPrice;
+    }
+
+    public ShoppingListEntry setPrice(double price) {
+        mPrice = price;
+        return this;
+    }
+
+    public String getImageUrl() {
+        return mImageUrl;
+    }
+
+    public ShoppingListEntry setImageUrl(String imageUrl) {
+        mImageUrl = imageUrl;
+        return this;
     }
 
     public int getQuantity() {
         return mQuantity;
     }
 
-    public void setQuantity(int quantity) {
+    public ShoppingListEntry setQuantity(int quantity) {
         mQuantity = quantity;
+        return this;
     }
 
     @Override
@@ -48,19 +81,23 @@ public class ShoppingListEntry implements Serializable {
             return false;
         }
         ShoppingListEntry that = (ShoppingListEntry) o;
-        return mId == that.mId;
+        return mItemId == that.mItemId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mId);
+
+        return Objects.hash(mItemId);
     }
 
     @Override
     public String toString() {
         return "ShoppingListEntry{" +
-                "mId=" + mId +
-                ", mItem=" + mItem +
+                "mShop='" + mShop + '\'' +
+                ", mItemId=" + mItemId +
+                ", mTitle='" + mTitle + '\'' +
+                ", mPrice=" + mPrice +
+                ", mImageUrl='" + mImageUrl + '\'' +
                 ", mQuantity=" + mQuantity +
                 '}';
     }

@@ -9,117 +9,89 @@ import java.util.Objects;
  * Item
  *
  * @author Maxim Surovtsev
- * Created on 7/26/18
+ * @since 05/01/2019
  */
 public class Item implements Serializable {
 
     private long mId;
     private String mName;
-    private Category mCategory;
     private double mOldPrice;
     private double mNewPrice;
-    private Date mDateIn;
-    private Date mDateOut;
-    private String mCrawlDate;
-    private String mCondition;
-    private String mImageUrl;
     private String mDiscount;
-    private Shop mShop;
+    private String mConditions;
+    private Date mDateTill;
+    private String mImageUrl;
 
     public long getId() {
         return mId;
     }
 
-    public void setId(long id) {
-        this.mId = id;
+    public Item setId(long id) {
+        mId = id;
+        return this;
     }
 
     public String getName() {
         return mName;
     }
 
-    public void setName(String name) {
-        this.mName = name;
-    }
-
-    public Category getCategory() {
-        return mCategory;
-    }
-
-    public void setCategory(Category category) {
-        this.mCategory = category;
+    public Item setName(String name) {
+        mName = name;
+        return this;
     }
 
     public double getOldPrice() {
         return mOldPrice;
     }
 
-    public void setOldPrice(double oldPrice) {
-        this.mOldPrice = oldPrice;
+    public Item setOldPrice(double oldPrice) {
+        mOldPrice = oldPrice;
+        return this;
     }
 
     public double getNewPrice() {
         return mNewPrice;
     }
 
-    public void setNewPrice(double newPrice) {
-        this.mNewPrice = newPrice;
-    }
-
-    public Date getDateIn() {
-        return mDateIn;
-    }
-
-    public void setDateIn(Date dateIn) {
-        this.mDateIn = dateIn;
-    }
-
-    public Date getDateOut() {
-        return mDateOut;
-    }
-
-    public void setDateOut(Date dateOut) {
-        this.mDateOut = dateOut;
-    }
-
-    public String getCrawlDate() {
-        return mCrawlDate;
-    }
-
-    public void setCrawlDate(String crawlDate) {
-        this.mCrawlDate = crawlDate;
-    }
-
-    public String getCondition() {
-        return mCondition;
-    }
-
-    public void setCondition(String condition) {
-        this.mCondition = condition;
-    }
-
-    public String getImageUrl() {
-        return mImageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.mImageUrl = imageUrl;
+    public Item setNewPrice(double newPrice) {
+        mNewPrice = newPrice;
+        return this;
     }
 
     public String getDiscount() {
         return mDiscount;
     }
 
-    public void setDiscount(String discount) {
-        this.mDiscount = discount;
+    public Item setDiscount(String discount) {
+        mDiscount = discount;
+        return this;
     }
 
-    public Shop getShop() {
-        return mShop;
+    public String getConditions() {
+        return mConditions;
     }
 
-    public void setShop(Shop shop) {
-        this.mShop = shop;
+    public Item setConditions(String conditions) {
+        mConditions = conditions;
+        return this;
+    }
+
+    public Date getDateTill() {
+        return mDateTill;
+    }
+
+    public Item setDateTill(Date dateTill) {
+        mDateTill = dateTill;
+        return this;
+    }
+
+    public String getImageUrl() {
+        return mImageUrl;
+    }
+
+    public Item setImageUrl(String imageUrl) {
+        mImageUrl = imageUrl;
+        return this;
     }
 
     @Override
@@ -144,16 +116,12 @@ public class Item implements Serializable {
         return "Item{" +
                 "mId=" + mId +
                 ", mName='" + mName + '\'' +
-                ", mCategory=" + mCategory +
                 ", mOldPrice=" + mOldPrice +
                 ", mNewPrice=" + mNewPrice +
-                ", mDateIn=" + mDateIn +
-                ", mDateOut=" + mDateOut +
-                ", mCrawlDate='" + mCrawlDate + '\'' +
-                ", mCondition='" + mCondition + '\'' +
-                ", mImageUrl='" + mImageUrl + '\'' +
                 ", mDiscount='" + mDiscount + '\'' +
-                ", mShop=" + mShop +
+                ", mConditions='" + mConditions + '\'' +
+                ", mDateTill=" + mDateTill +
+                ", mImageUrl='" + mImageUrl + '\'' +
                 '}';
     }
 }
