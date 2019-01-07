@@ -14,6 +14,8 @@ import ru.gcsales.app.domain.model.Item;
 import ru.gcsales.app.domain.repository.ItemsRepository;
 
 /**
+ * Implementation of {@link ItemsRepository}
+ *
  * @author Maxim Surovtsev
  * @since 06/01/2019
  */

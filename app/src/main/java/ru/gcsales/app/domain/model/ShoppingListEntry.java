@@ -17,6 +17,7 @@ public class ShoppingListEntry implements Serializable {
     private double mPrice;
     private String mImageUrl;
     private int mQuantity;
+    private boolean showShop;
 
     public String getShop() {
         return mShop;
@@ -72,6 +73,15 @@ public class ShoppingListEntry implements Serializable {
         return this;
     }
 
+    public boolean isShowShop() {
+        return showShop;
+    }
+
+    public ShoppingListEntry setShowShop(boolean showShop) {
+        this.showShop = showShop;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -99,6 +109,7 @@ public class ShoppingListEntry implements Serializable {
                 ", mPrice=" + mPrice +
                 ", mImageUrl='" + mImageUrl + '\'' +
                 ", mQuantity=" + mQuantity +
+                ", showShop=" + showShop +
                 '}';
     }
 }

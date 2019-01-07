@@ -29,7 +29,7 @@ public class ShoppingListInteractor {
      *
      * @return {@link Maybe} with shopping list entries
      */
-    public Maybe<List<ShoppingListEntry>> getEntries() {
+    public Maybe<List<ShoppingListEntry>> loadEntries() {
         return mRepository.getEntries();
     }
 

@@ -8,8 +8,7 @@ import dagger.Component;
  * Application dagger component.
  */
 @Singleton
-@Component(modules = {ApplicationModule.class, RepositoryModule.class,
-        NetworkModule.class, DatabaseModule.class})
+@Component(modules = {ApplicationModule.class, RepositoryModule.class, NetworkModule.class})
 public interface ApplicationComponent {
 
 }
