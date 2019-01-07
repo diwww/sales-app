@@ -21,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
 import ru.gcsales.app.domain.model.Item;
+import ru.gcsales.app.presentation.Utils;
 
 /**
  * Items recycler view adapter
@@ -58,17 +59,15 @@ public class ItemsAdapter extends GenericRecyclerViewAdapter<Item, OnEntityClick
 
         @Override
         public void onBind(Item item) {
+            final Context context = itemView.getContext();
             mNameTextView.setText(item.getName());
             // Crossed out text
             mOldPriceTextView.setPaintFlags(mOldPriceTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            mOldPriceTextView.setText(String.format(Locale.getDefault(), "%.2f", item.getOldPrice()));
-            mNewPriceTextView.setText(String.format(Locale.getDefault(), "%.2f", item.getNewPrice()));
+            mOldPriceTextView.setText(context.getString(R.string.price_placeholder, item.getOldPrice()));
+            mNewPriceTextView.setText(context.getString(R.string.price_placeholder, item.getNewPrice()));
             Date dateTill = item.getTill();
-            mDateTextView.setText(itemView.getContext().getString(R.string.date_till, dateTill, dateTill));
-            Glide.with(itemView.getContext())
-                    .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_item_placeholder_24dp))
-                    .load(item.getImageUrl())
-                    .into(mImageView);
+            mDateTextView.setText(context.getString(R.string.date_till, dateTill, dateTill));
+            Utils.setGlideImage(context, item.getImageUrl(), R.drawable.ic_item_placeholder_24dp, mImageView);
             if (getListener() != null) {
                 mActionButton.setOnClickListener(v -> getListener().onItemClicked(item));
             }

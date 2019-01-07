@@ -16,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
 import ru.gcsales.app.domain.model.Shop;
+import ru.gcsales.app.presentation.Utils;
 
 /**
  * Shops recycler view adapter
@@ -40,7 +41,7 @@ public class ShopsAdapter extends GenericRecyclerViewAdapter<Shop, OnEntityClick
      */
     public static class ShopViewHolder extends BaseViewHolder<Shop, OnEntityClickListener<Shop>> {
 
-        @BindView(R.id.image_shop_logo) ImageView mShopLogoImageView;
+        @BindView(R.id.image) ImageView mImageView;
 
         public ShopViewHolder(View itemView, OnEntityClickListener<Shop> listener) {
             super(itemView, listener);
@@ -49,10 +50,7 @@ public class ShopsAdapter extends GenericRecyclerViewAdapter<Shop, OnEntityClick
 
         @Override
         public void onBind(Shop item) {
-            Glide.with(itemView.getContext())
-                    .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_shop_placeholder_24dp))
-                    .load(item.getImageUrl())
-                    .into(mShopLogoImageView);
+            Utils.setGlideImage(itemView.getContext(), item.getImageUrl(), R.drawable.ic_shop_placeholder_24dp, mImageView);
             if (getListener() != null) {
                 itemView.setOnClickListener(v -> getListener().onItemClicked(item));
             }
