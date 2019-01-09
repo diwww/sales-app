@@ -2,10 +2,10 @@ package ru.gcsales.app.presentation.ui.items;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 
 import ru.gcsales.app.R;
 import ru.gcsales.app.presentation.ui.base.BaseActivity;
+import ru.gcsales.app.presentation.ui.base.BaseFragment;
 
 import static ru.gcsales.app.presentation.Constants.EXTRA_SHOP_ID;
 import static ru.gcsales.app.presentation.Constants.EXTRA_SHOP_NAME;
@@ -19,15 +19,17 @@ import static ru.gcsales.app.presentation.Constants.EXTRA_SHOP_NAME;
 public class ItemsActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        String shopName = getIntent().getStringExtra(EXTRA_SHOP_NAME);
+    protected BaseFragment provideFragment() {
         long shopId = getIntent().getLongExtra(EXTRA_SHOP_ID, 0);
-        setToolbar(shopName);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.fragment_container, ItemsFragment.newInstance(shopId), null)
-                .commit();
+        return ItemsFragment.newInstance(shopId);
+    }
+
+    @Override
+    protected void setToolbar() {
+        String shopName = getIntent().getStringExtra(EXTRA_SHOP_NAME);
+        mToolbar.setTitle(shopName);
+        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        mToolbar.setNavigationOnClickListener(v -> finish());
     }
 
     /**

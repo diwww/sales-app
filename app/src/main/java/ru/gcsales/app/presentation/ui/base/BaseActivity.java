@@ -1,7 +1,6 @@
 package ru.gcsales.app.presentation.ui.base;
 
 import android.os.Bundle;
-import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
@@ -25,14 +24,25 @@ public abstract class BaseActivity extends MvpAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         ButterKnife.bind(this);
+        setToolbar();
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.fragment_container, provideFragment(), null)
+                    .commit();
+        }
     }
+
+    /**
+     * Provides a fragment which will be attached to this activity
+     *
+     * @return {@link BaseFragment} descendant instance
+     */
+    protected abstract BaseFragment provideFragment();
 
     /**
      * Sets up a toolbar
      */
-    protected void setToolbar(String title) {
-        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-        mToolbar.setNavigationOnClickListener(v -> finish());
-        mToolbar.setTitle(title);
-    }
+    protected abstract void setToolbar();
 }
