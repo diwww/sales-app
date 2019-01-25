@@ -10,14 +10,15 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.arellomobile.mvp.MvpAppCompatActivity;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.functions.Consumer;
 import ru.gcsales.app.R;
-import ru.gcsales.app.presentation.ui.base.BaseActivity;
 
 
-public class RegisterActivity extends BaseActivity {
+public class RegisterActivity extends MvpAppCompatActivity {
 
     public static final int NUM_CHARACTERS_USERNAME = 6;
     public static final int NUM_CHARACTERS_PASSWORD = 6;

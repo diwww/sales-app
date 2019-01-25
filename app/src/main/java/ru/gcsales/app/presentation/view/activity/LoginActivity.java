@@ -7,12 +7,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.arellomobile.mvp.MvpAppCompatActivity;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.gcsales.app.R;
-import ru.gcsales.app.presentation.ui.base.BaseActivity;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends MvpAppCompatActivity {
 
     @BindView(R.id.button_login) Button mLoginButton;
     @BindView(R.id.button_register) Button mRegisterButton;
