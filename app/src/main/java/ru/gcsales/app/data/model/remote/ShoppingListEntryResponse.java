@@ -22,6 +22,10 @@ public class ShoppingListEntryResponse {
     private String mTitle;
     @SerializedName("quantity")
     private int mQuantity;
+    @SerializedName("created")
+    private long mCreated;
+    @SerializedName("show_shop")
+    private boolean mShowShop;
 
     public String getShop() {
         return mShop;
@@ -74,6 +78,24 @@ public class ShoppingListEntryResponse {
 
     public ShoppingListEntryResponse setQuantity(int quantity) {
         mQuantity = quantity;
+        return this;
+    }
+
+    public long getCreated() {
+        return mCreated;
+    }
+
+    public ShoppingListEntryResponse setCreated(long created) {
+        mCreated = created;
+        return this;
+    }
+
+    public boolean isShowShop() {
+        return mShowShop;
+    }
+
+    public ShoppingListEntryResponse setShowShop(boolean showShop) {
+        mShowShop = showShop;
         return this;
     }
 }

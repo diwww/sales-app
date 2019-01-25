@@ -1,6 +1,7 @@
 package ru.gcsales.app.domain.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -17,7 +18,8 @@ public class ShoppingListEntry implements Serializable {
     private double mPrice;
     private String mImageUrl;
     private int mQuantity;
-    private boolean showShop;
+    private Date mCreated;
+    private boolean mShowShop;
 
     public String getShop() {
         return mShop;
@@ -73,12 +75,21 @@ public class ShoppingListEntry implements Serializable {
         return this;
     }
 
+    public Date getCreated() {
+        return mCreated;
+    }
+
+    public ShoppingListEntry setCreated(Date created) {
+        mCreated = created;
+        return this;
+    }
+
     public boolean isShowShop() {
-        return showShop;
+        return mShowShop;
     }
 
     public ShoppingListEntry setShowShop(boolean showShop) {
-        this.showShop = showShop;
+        mShowShop = showShop;
         return this;
     }
 
@@ -96,7 +107,6 @@ public class ShoppingListEntry implements Serializable {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(mItemId);
     }
 
@@ -109,7 +119,8 @@ public class ShoppingListEntry implements Serializable {
                 ", mPrice=" + mPrice +
                 ", mImageUrl='" + mImageUrl + '\'' +
                 ", mQuantity=" + mQuantity +
-                ", showShop=" + showShop +
+                ", mCreated=" + mCreated +
+                ", mShowShop=" + mShowShop +
                 '}';
     }
 }

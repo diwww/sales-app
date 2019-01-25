@@ -5,7 +5,9 @@
     "image_url": "http://www.gayalliance.org/wp-content/uploads/2016/02/banana-png-image.jpg",
     "price": 56.33,
     "title": "Сок Добрый 1л",
-    "quantity": 2
+    "quantity": 2,
+    "created": 1547238106,
+    "show_shop": true
   },
   {
     "shop": "Дикси",
@@ -13,7 +15,9 @@
     "image_url": "http://www.gayalliance.org/wp-content/uploads/2016/02/banana-png-image.jpg",
     "price": 199.99,
     "title": "Колбаса докторская",
-    "quantity": 1
+    "quantity": 1,
+    "created": 1547238107,
+    "show_shop": false
   },
   {
     "shop": "Дикси",
@@ -21,7 +25,9 @@
     "image_url": "http://www.gayalliance.org/wp-content/uploads/2016/02/banana-png-image.jpg",
     "price": 199.99,
     "title": "Колбаса докторская",
-    "quantity": 1
+    "quantity": 1,
+    "created": 1547238108,
+    "show_shop": false
   },
   {
     "shop": "Перекресток",
@@ -29,6 +35,8 @@
     "image_url": "http://www.gayalliance.org/wp-content/uploads/2016/02/banana-png-image.jpg",
     "price": 250,
     "title": "Масло сливочное ГОСТ",
-    "quantity": 1
+    "quantity": 1,
+    "created": 1547238109,
+    "show_shop": true
   }
 ]

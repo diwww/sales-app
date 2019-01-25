@@ -40,14 +40,14 @@ public class ShoppingListAdapter extends GenericRecyclerViewAdapter<ShoppingList
     public void setItems(List<ShoppingListEntry> items) {
         super.setItems(items);
         // FIXME: prettify this code (or maybe this data should be sent from server)
-        List<ShoppingListEntry> entries = getItems();
-        String shop = entries.get(0).setShowShop(true).getShop();
-        for (ShoppingListEntry entry : entries) {
-            if (!shop.equals(entry.getShop())) {
-                shop = entry.getShop();
-                entry.setShowShop(true);
-            }
-        }
+//        List<ShoppingListEntry> entries = getItems();
+//        String shop = entries.get(0).setShowShop(true).getShop();
+//        for (ShoppingListEntry entry : entries) {
+//            if (!shop.equals(entry.getShop())) {
+//                shop = entry.getShop();
+//                entry.setShowShop(true);
+//            }
+//        }
     }
 
     public static class ShoppingListEntryViewHolder extends BaseViewHolder<ShoppingListEntry, OnEntityClickListener<ShoppingListEntry>> {

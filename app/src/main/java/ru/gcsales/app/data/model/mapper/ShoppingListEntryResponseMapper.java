@@ -1,5 +1,8 @@
 package ru.gcsales.app.data.model.mapper;
 
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 import ru.gcsales.app.data.model.remote.ShoppingListEntryResponse;
 import ru.gcsales.app.domain.model.ShoppingListEntry;
 import ru.gcsales.app.domain.model.mapper.AbstractMapper;
@@ -20,6 +23,8 @@ public class ShoppingListEntryResponseMapper extends AbstractMapper<ShoppingList
                 .setPrice(input.getPrice())
                 .setQuantity(input.getQuantity())
                 .setShop(input.getShop())
-                .setTitle(input.getTitle());
+                .setTitle(input.getTitle())
+                .setCreated(new Date(TimeUnit.SECONDS.toMillis(input.getCreated())))
+                .setShowShop(input.isShowShop());
     }
 }
