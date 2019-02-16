@@ -26,11 +26,11 @@ public class ItemsRepositoryImpl implements ItemsRepository {
     @Override
     public Maybe<List<Item>> getItems(long id) {
         try {
-            List<ItemResponse> entryResponses = Utils.parseJsonList(AppApplication
+            List<ItemResponse> itemResponses = Utils.parseJsonList(AppApplication
                     .getContext()
                     .getAssets()
-                    .open("shopping_list.json"), ItemResponse.class);
-            return Maybe.just(mMapper.transform(entryResponses, null));
+                    .open("items.json"), ItemResponse.class);
+            return Maybe.just(mMapper.transform(itemResponses, null));
         } catch (Exception e) {
             e.printStackTrace();
             return Maybe.error(e);

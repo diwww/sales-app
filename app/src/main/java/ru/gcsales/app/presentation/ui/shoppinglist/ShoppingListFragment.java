@@ -34,6 +34,11 @@ public class ShoppingListFragment extends BaseFragment implements ShoppingListVi
     }
 
     @Override
+    public void addEntry(ShoppingListEntry entry) {
+        mShoppingListAdapter.add(entry);
+    }
+
+    @Override
     public void onItemClicked(ShoppingListEntry item) {
 
     }

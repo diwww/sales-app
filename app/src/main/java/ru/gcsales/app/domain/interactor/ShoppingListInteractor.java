@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
+import ru.gcsales.app.domain.model.Item;
 import ru.gcsales.app.domain.model.ShoppingListEntry;
 import ru.gcsales.app.domain.repository.ShoppingListRepository;
 
@@ -31,6 +32,16 @@ public class ShoppingListInteractor {
      */
     public Maybe<List<ShoppingListEntry>> loadEntries() {
         return mRepository.getEntries();
+    }
+
+    /**
+     * Adds new shopping list entry
+     *
+     * @param item item from shop
+     * @return {@link Maybe} with new shopping list entry
+     */
+    public Maybe<ShoppingListEntry> addEntry(Item item) {
+        return mRepository.addEntry(item);
     }
 
     /**

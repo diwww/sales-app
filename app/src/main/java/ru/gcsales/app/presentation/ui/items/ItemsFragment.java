@@ -67,7 +67,7 @@ public class ItemsFragment extends BaseFragment implements ItemsView, OnEntityCl
 
     @Override
     public void onItemClicked(Item item) {
-
+        mItemsPresenter.addToShoppingList(item);
     }
 
     /**

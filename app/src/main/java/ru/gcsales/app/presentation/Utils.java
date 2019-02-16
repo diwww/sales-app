@@ -66,7 +66,7 @@ public class Utils {
      * @param <T>         type of object
      * @return parsed JSON object
      */
-    public static <T extends ItemResponse> T parseJson(InputStream inputStream, Class<T> clazz) throws IOException {
+    public static <T> T parseJson(InputStream inputStream, Class<T> clazz) throws IOException {
         String json = jsonFromStream(inputStream);
 
         Gson gson = new Gson();

@@ -29,7 +29,7 @@ public interface ShoppingListRepository extends TokenRepository {
      * @param item item to add to the shopping list
      * @return {@link Maybe} with new shopping list entry
      */
-    Maybe<ShoppingListEntry> newEntry(Item item);
+    Maybe<ShoppingListEntry> addEntry(Item item);
 
     /**
      * Increments the quantity of the entry

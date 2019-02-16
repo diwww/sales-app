@@ -32,14 +32,21 @@ public class ShoppingListRepositoryImpl implements ShoppingListRepository {
                     .open("shopping_list.json"), ShoppingListEntryResponse.class);
             return Maybe.just(mMapper.transform(entryResponses, null));
         } catch (Exception e) {
-            e.printStackTrace();
             return Maybe.error(e);
         }
     }
 
     @Override
-    public Maybe<ShoppingListEntry> newEntry(Item item) {
-        return null;
+    public Maybe<ShoppingListEntry> addEntry(Item item) {
+        try {
+            ShoppingListEntryResponse entryResponse = Utils.parseJson(AppApplication
+                    .getContext()
+                    .getAssets()
+                    .open("shopping_list_entry.json"), ShoppingListEntryResponse.class);
+            return Maybe.just(mMapper.transform(entryResponse, null));
+        } catch (Exception e) {
+            return Maybe.error(e);
+        }
     }
 
     @Override

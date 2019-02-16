@@ -19,4 +19,10 @@ public interface ShoppingListView extends BaseView {
      * @param entries shopping list entries data to be shown
      */
     void showEntries(List<ShoppingListEntry> entries);
+
+    /**
+     * Adds new shopping list entry
+     * @param entry shopping list entry
+     */
+    void addEntry(ShoppingListEntry entry);
 }

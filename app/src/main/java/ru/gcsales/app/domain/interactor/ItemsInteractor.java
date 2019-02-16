@@ -19,12 +19,10 @@ import ru.gcsales.app.domain.repository.ShoppingListRepository;
 public class ItemsInteractor {
 
     private ItemsRepository mItemsRepository;
-    private ShoppingListRepository mShoppingListRepository;
 
     @Inject
-    public ItemsInteractor(ItemsRepository itemsRepository, ShoppingListRepository shoppingListRepository) {
+    public ItemsInteractor(ItemsRepository itemsRepository) {
         mItemsRepository = itemsRepository;
-        mShoppingListRepository = shoppingListRepository;
     }
 
     /**
@@ -37,13 +35,4 @@ public class ItemsInteractor {
         return mItemsRepository.getItems(id);
     }
 
-    /**
-     * Adds an item to the shopping list
-     *
-     * @param item item to be added
-     * @return {@link Maybe} with new shopping list entry
-     */
-    public Maybe<ShoppingListEntry> addToShoppingList(Item item) {
-        return mShoppingListRepository.newEntry(item);
-    }
 }
