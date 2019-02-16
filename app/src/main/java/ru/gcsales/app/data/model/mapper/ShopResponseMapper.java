@@ -16,7 +16,7 @@ public class ShopResponseMapper extends AbstractMapper<ShopResponse, Shop, Void>
      * {@inheritDoc}
      */
     @Override
-    public Shop transform(ShopResponse input, Void params) throws Exception {
+    public Shop transform(ShopResponse input, Void params) {
         return new Shop()
                 .setId(input.getId())
                 .setName(input.getName())

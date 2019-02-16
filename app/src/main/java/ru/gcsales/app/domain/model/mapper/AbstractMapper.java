@@ -22,7 +22,7 @@ public abstract class AbstractMapper<I, O, P> {
      * @param params optional params
      * @return transformed object
      */
-    public abstract O transform(I input, P params) throws Exception;
+    public abstract O transform(I input, P params);
 
     /**
      * Transforms a list of objects.
@@ -31,7 +31,7 @@ public abstract class AbstractMapper<I, O, P> {
      * @param params    optional params
      * @return transformed list
      */
-    public List<O> transform(List<I> inputList, P params) throws Exception {
+    public List<O> transform(List<I> inputList, P params) {
         List<O> outputList;
 
         if (inputList != null && !inputList.isEmpty()) {

@@ -1,9 +1,5 @@
 package ru.gcsales.app.data.repository;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.util.List;
 
 import io.reactivex.Maybe;
@@ -12,6 +8,7 @@ import ru.gcsales.app.data.model.mapper.ShopResponseMapper;
 import ru.gcsales.app.data.model.remote.ShopResponse;
 import ru.gcsales.app.domain.model.Shop;
 import ru.gcsales.app.domain.repository.ShopsRepository;
+import ru.gcsales.app.presentation.Utils;
 
 /**
  * Implementation of {@link ShopsRepository}
@@ -21,21 +18,21 @@ import ru.gcsales.app.domain.repository.ShopsRepository;
  */
 public class ShopsRepositoryImpl implements ShopsRepository {
 
-    private ShopResponseMapper mShopResponseMapper = new ShopResponseMapper();
+    private ShopResponseMapper mMapper = new ShopResponseMapper();
 
     /**
      * {@inheritDoc}
      */
     @Override
     public Maybe<List<Shop>> getShops() {
-        Gson gson = new Gson();
-        Type listType = new TypeToken<List<ShopResponse>>() {
-        }.getType();
-
-        List<ShopResponse> shopResponses = gson.fromJson(AppApplication.loadJSONFromAsset("shops.json"), listType);
         try {
-            return Maybe.just(mShopResponseMapper.transform(shopResponses, null));
+            List<ShopResponse> entryResponses = Utils.parseJsonList(AppApplication
+                    .getContext()
+                    .getAssets()
+                    .open("shopping_list.json"), ShopResponse.class);
+            return Maybe.just(mMapper.transform(entryResponses, null));
         } catch (Exception e) {
+            e.printStackTrace();
             return Maybe.error(e);
         }
     }

@@ -1,5 +1,6 @@
 package ru.gcsales.app.data.model.mapper;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -19,15 +20,20 @@ public class ItemResponseMapper extends AbstractMapper<ItemResponse, Item, Void>
      * {@inheritDoc}
      */
     @Override
-    public Item transform(ItemResponse input, Void params) throws Exception {
-        return new Item()
+    public Item transform(ItemResponse input, Void params) {
+        Item item = new Item()
                 .setImageUrl(input.getImageUrl())
                 .setNewPrice(input.getNewPrice())
                 .setOldPrice(input.getOldPrice())
                 .setName(input.getName())
                 .setConditions(input.getConditions())
                 .setDiscount(input.getDiscount())
-                .setId(input.getId())
-                .setTill(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(input.getTill()));
+                .setId(input.getId());
+        try {
+            item.setTill(new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(input.getTill()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return item;
     }
 }

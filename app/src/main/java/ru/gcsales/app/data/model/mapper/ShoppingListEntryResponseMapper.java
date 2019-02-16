@@ -16,7 +16,7 @@ import ru.gcsales.app.domain.model.mapper.AbstractMapper;
 public class ShoppingListEntryResponseMapper extends AbstractMapper<ShoppingListEntryResponse, ShoppingListEntry, Void> {
 
     @Override
-    public ShoppingListEntry transform(ShoppingListEntryResponse input, Void params) throws Exception {
+    public ShoppingListEntry transform(ShoppingListEntryResponse input, Void params) {
         return new ShoppingListEntry()
                 .setImageUrl(input.getImageUrl())
                 .setItemId(input.getItemId())
