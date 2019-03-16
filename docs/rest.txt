@@ -1,0 +1,11 @@
+curl -X DELETE http://shopcart.imega.ru/cart/{cartUUID}/{productUUID}
+
+api/shops/ --> Список магазинов с именем, id, лого
+api/shops/1 --> Подробная информация о магазине: имя, id, лого (список категорий ?)
+api/shops/1/items --> Список товаров для магазина с id 1
+
+api/shops/1/items?category=123 --> Список товаров для магазина с id 1,
+фильтрация по категории с id 123
+
+api/cart/{id}/ --> Список покупок
+

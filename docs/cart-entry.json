@@ -1,0 +1,26 @@
+[
+  {
+  	"shop": "Дикси",
+    "item_id": 156,
+    "image_url": "http://example.com",
+    "price": 56.33,
+    "title": "Сок Добрый 1л",
+    "quantity": 2
+  },
+  {
+  	"shop": "Дикси",
+    "item_id": 74,
+    "image_url": "http://example.com",
+    "price": 199.99,
+    "title": "Колбаса докторская",
+    "quantity": 1
+  },
+  {
+  	"shop": "Перекресток",
+    "item_id": 68,
+    "image_url": "http://example.com",
+    "price": 250,
+    "title": "Масло сливочное ГОСТ",
+    "quantity": 1
+  }
+]
